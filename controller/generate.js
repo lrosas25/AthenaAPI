@@ -13,6 +13,8 @@ const generateController = {
                         "item": data[i].Item,
                         "material": data[i].Material,
                         "shortText": data[i]["Short Text"],
+                        "costCtr": data[i]["Cost Ctr"],
+                        "profitCtr": data[i]["Profit Ctr"],
                         "scheduledQty": data[i]["Scheduled Qty"],
                         "oun": data[i]["OUn"],
                         "qtyDelivered": data[i]["Qty Delivered"],

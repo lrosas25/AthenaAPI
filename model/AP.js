@@ -20,6 +20,12 @@ const APSchema = new Schema({
     shortText: {
         type: String,
     },
+    costCtr: {
+        type: String,
+    },
+    profitCtr: {
+        type: String,
+    },
     scheduledQty: {
         type: String,
     },
