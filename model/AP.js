@@ -64,6 +64,15 @@ const APSchema = new Schema({
     },
     tx: {
         type: String,
+    },
+    gl_acct: {
+        type: String,
+    },
+    dci: {
+        type: String,
+    },
+    FIn: {
+        type: String,
     }
 })
 

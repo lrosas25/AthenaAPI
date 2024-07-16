@@ -11,7 +11,7 @@ export const authController = {
         if (!match) return res.status(401).json({ message: "Incorrect Username or password." })
         const { userName, email } = user
         const accessToken = jwt.sign({ userName, email }, process.env.JWT_SECRET_KEY, {
-            expiresIn: '7d'
+            expiresIn: '1d'
         })
         res.cookie('accessToken', accessToken, {
             httpOnly: true, // This flag ensures that the cookie is not accessible via JavaScript

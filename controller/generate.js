@@ -3,7 +3,6 @@ import processCSV from "../helpers/processCSV.js";
 const generateController = {
     generateAP: async (req, res) => {
         const data = await processCSV()
-        console.log(data)
         if (data) {
             for (let i = 0; i < data.length; i++) {
                 try {
@@ -28,7 +27,10 @@ const generateController = {
                         "refDoc": data[i]["Ref. Doc."],
                         "Vendor": data[i]["Vendor"],
                         "Reference:": data[i]["Reference"],
-                        "tx": data[i]["Tx"]
+                        "tx": data[i]["Tx"],
+                        "gl_acct": data[i]["G/L Acct"],
+                        "dci": data[i]["DCI"],
+                        "FIn": data[i]["FIn"]
                     })
                 } catch (e) {
                     return res.status(500).json({ message: e.message })

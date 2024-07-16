@@ -9,6 +9,7 @@ import { triggerGenerateAPApi } from "./helpers/triggerApi.js"
 import authRoutes from "./routes/auth.js"
 import { verifyToken } from "./middleware/verifyToken.js"
 import cookieParser from "cookie-parser"
+
 dotenv.config()
 
 const app = express()
@@ -30,8 +31,8 @@ cron.schedule('0 8,20 * * *', () => {
 
 //Routes
 app.use("/v1/auth", authRoutes)
-app.use(verifyToken)
 app.use("/v1/ap/generate", generateRoutes)
+// app.use(verifyToken)
 app.use("/v1/ap/printDetails", printDetailRoutes)
 
 mongoose.connection.once("open", () => {
