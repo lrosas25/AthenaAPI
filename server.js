@@ -30,14 +30,14 @@ cron.schedule('0 8,20 * * *', () => {
 
 //Routes
 app.use("/v1/auth", authRoutes)
-// app.use(verifyToken)
-app.use("/v1/generate", generateRoutes)
-app.use("/v1/printDetails", printDetailRoutes)
+app.use(verifyToken)
+app.use("/v1/ap/generate", generateRoutes)
+app.use("/v1/ap/printDetails", printDetailRoutes)
 
 mongoose.connection.once("open", () => {
     console.log("Connected to MongoDB")
     app.listen(process.env.PORT, () => {
-        console.log(`Server is running on port ${process.env.PORT}`)
+        console.log(`Server is runnRing on port ${process.env.PORT}`)
     })
 })
 

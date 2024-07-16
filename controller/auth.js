@@ -11,8 +11,14 @@ export const authController = {
         if (!match) return res.status(401).json({ message: "Incorrect Username or password." })
         const { userName, email } = user
         const accessToken = jwt.sign({ userName, email }, process.env.JWT_SECRET_KEY, {
-            expiresIn: '1d'
+            expiresIn: '7d'
         })
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true, // This flag ensures that the cookie is not accessible via JavaScript
+            secure: process.env.NODE_ENV === 'production', // Send the cookie only over HTTPS in production
+            sameSite: 'strict', // CSRF protection
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
+        });
         res.json({ accessToken })
     },
     register: async (req, res) => {
@@ -25,7 +31,6 @@ export const authController = {
             if (existingUser) {
                 return res.status(409).json({ message: "Username or email already exists." });
             }
-
             const hashedPassword = await bcrypt.hash(passwrd, 10);
             const user = await User.create({
                 email: email,
@@ -33,11 +38,9 @@ export const authController = {
                 name: name,
                 userName: userName,
             });
-
             res.status(201).json({ message: "User created successfully." });
         } catch (e) {
             return res.status(500).json({ message: e.message });
         }
-
     }
 }
