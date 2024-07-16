@@ -4,7 +4,7 @@ const printDetails = {
     printDetailsAP: async (req, res) => {
         try {
             // Extract query parameters from req.params or req.query based on your setup
-            const { AmountInLC, quantity, purcDoc, shortText, costCtr, oun, refDoc } = req.query;
+            const { AmountInLC, quantity, purcDoc, shortText, costCtr, oun, Reference } = req.query;
             // Build query object based on provided parameters
             const query = {};
             if (oun) query.oun = oun;
@@ -13,7 +13,7 @@ const printDetails = {
             if (AmountInLC) query.AmountInLC = AmountInLC;
             if (shortText) query.shortText = shortText;
             if (costCtr) query.costCtr = costCtr;
-            if (refDoc) query.refDoc = refDoc;
+            if (Reference) query.Reference = Reference;
             // Fetch data based on the constructed query
             const list = await AP.find(query).lean();
             if (list.length === 0) return res.status(404).json({ message: "No Result Found." })
