@@ -1,10 +1,13 @@
 import AP from "../model/AP.js"
+import mongoose from "mongoose";
 import processCSV from "../helpers/processCSV.js";
 const generateController = {
     generateAP: async (req, res) => {
         const data = await processCSV()
         if (data) {
             for (let i = 0; i < data.length; i++) {
+                const cleanedAmountString = data[i]["Amount in LC"].replace(/[^0-9.]/g, '');  // Remove non-numeric characters
+                const amountInDecimal128 = mongoose.Types.Decimal128.fromString(cleanedAmountString);
                 try {
                     const result = await AP.create({
                         "orderData": data[i]["Order date"],
@@ -21,14 +24,14 @@ const generateController = {
                         "quantity": data[i]["Quantity"],
                         "QuantityinOPUn": data[i]["Quantity in OPUn"],
                         "OPU": data[i]["OPU"],
-                        "AmountInLC": data[i]["Amount in LC"],
+                        "AmountInLC": amountInDecimal128,
                         "Crcy": data[i]["Crcy"],
                         "HCt": data[i]["HCt"],
                         "MvT": data[i]["MvT"],
                         "D_C": data[i]["D/C"],
                         "refDoc": data[i]["Ref. Doc."],
                         "Vendor": data[i]["Vendor"],
-                        "Reference:": data[i]["Reference"],
+                        "Reference": data[i]["Reference"],
                         "tx": data[i]["Tx"],
                         "gl_acct": data[i]["G/L Acct"],
                         "dci": data[i]["DCI"],
