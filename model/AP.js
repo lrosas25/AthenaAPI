@@ -27,19 +27,19 @@ const APSchema = new Schema({
         type: String,
     },
     scheduledQty: {
-        type: String,
+        type: mongoose.Decimal128,
     },
     oun: {
         type: String,
     },
     qtyDelivered: {
-        type: String,
+        type: mongoose.Decimal128,
     },
     quantity: {
-        type: String,
+        type: mongoose.Decimal128,
     },
     QuantityinOPUn: {
-        type: String,
+        type: mongoose.Decimal128,
     },
     OPU: {
         type: String,

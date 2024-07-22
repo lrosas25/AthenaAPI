@@ -6,8 +6,16 @@ const generateController = {
         const data = await processCSV()
         if (data) {
             for (let i = 0; i < data.length; i++) {
-                const cleanedAmountString = data[i]["Amount in LC"].replace(/[^0-9.]/g, '');  // Remove non-numeric characters
+                const cleanedAmountString = data[i]["Amount in LC"].replace(/[^0-9.]/g, '');
+                const cleanedScheduledQty = data[i]["Scheduled Qty"].replace(/[^0-9.]/g, '');
+                const cleanedQtyDelivered = data[i]["Qty Delivered"].replace(/[^0-9.]/g, '');
+                const cleanedQuantityinOPUn = data[i]["Quantity in OPUn"].replace(/[^0-9.]/g, '');
+                const cleanedQuantity = data[i]["quantity"].replace(/[^0-9.]/g, '');
                 const amountInDecimal128 = mongoose.Types.Decimal128.fromString(cleanedAmountString);
+                const scheduledQt = mongoose.Types.Decimal128.fromString(cleanedScheduledQty);
+                const quantity = mongoose.Types.Decimal128.fromString(cleanedQuantity);
+                const qtyDelivered = mongoose.Types.Decimal128.fromString(cleanedQtyDelivered);
+                const quantityinOpu = mongoose.Types.Decimal128.fromString(cleanedQuantityinOPUn);
                 try {
                     const result = await AP.create({
                         "orderData": data[i]["Order date"],
@@ -18,11 +26,11 @@ const generateController = {
                         "shortText": data[i]["Short Text"],
                         "costCtr": data[i]["Cost Ctr"],
                         "profitCtr": data[i]["Profit Ctr"],
-                        "scheduledQty": data[i]["Scheduled Qty"],
+                        "scheduledQty": scheduledQt,
                         "oun": data[i]["OUn"],
-                        "qtyDelivered": data[i]["Qty Delivered"],
-                        "quantity": data[i]["Quantity"],
-                        "QuantityinOPUn": data[i]["Quantity in OPUn"],
+                        "qtyDelivered": qtyDelivered,
+                        "quantity": quantity,
+                        "QuantityinOPUn": quantityinOpu,
                         "OPU": data[i]["OPU"],
                         "AmountInLC": amountInDecimal128,
                         "Crcy": data[i]["Crcy"],

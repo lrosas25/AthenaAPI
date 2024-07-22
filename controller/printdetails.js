@@ -3,7 +3,8 @@ import AP from "../model/AP.js";
 const printDetails = {
     printDetailsAP: async (req, res) => {
         try {
-            const { amountinlc, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc, } = req.query;
+            const { amountinlc, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
+                profitctr } = req.query;
             const query = {};
             if (oun) query.oun = oun;
             if (purcdoc) query.purcDoc = purcdoc;
@@ -13,6 +14,7 @@ const printDetails = {
             if (amountinlc) query.AmountInLC = parseFloat(amountinlc);
             if (reference) query.Reference = reference;
             if (refdoc) query.refDoc = refdoc;
+            if (profitctr) query.profitCtr = profitctr
             let list;
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 // Fetch all data without pagination
