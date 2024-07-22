@@ -46,6 +46,9 @@ const generateController = {
             return res.status(400).json({ message: "No data found in the CSV folder." })
         }
 
+    },
+    generateAR: (req, res) => {
+
     }
 }
 export default generateController
