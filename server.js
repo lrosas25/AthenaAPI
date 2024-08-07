@@ -5,6 +5,7 @@ import mongoose, { mongo } from "mongoose"
 import { connectToDb } from "./config/dbconnection.js"
 import generateRoutes from "./routes/generate.js"
 import printDetailRoutes from "./routes/printDetails.js"
+import removeRoutes from "./routes/removeData.js"
 import { triggerGenerateAPApi } from "./helpers/triggerApi.js"
 import authRoutes from "./routes/auth.js"
 import { verifyToken } from "./middleware/verifyToken.js"
@@ -32,6 +33,7 @@ cron.schedule('0 8,20 * * *', () => {
 //Routes
 app.use("/v1/auth", authRoutes)
 app.use("/v1/ap/generate", generateRoutes)
+app.use("/v1/ap/remove", removeRoutes)
 // app.use(verifyToken)
 app.use("/v1/ap/printDetails", printDetailRoutes)
 

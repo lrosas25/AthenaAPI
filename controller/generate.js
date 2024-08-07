@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import processCSV from "../helpers/processCSV.js";
 const generateController = {
     generateAP: async (req, res) => {
+        await AP.deleteMany({})
         const data = await processCSV()
         if (data) {
             for (let i = 0; i < data.length; i++) {
@@ -57,6 +58,6 @@ const generateController = {
     },
     generateAR: (req, res) => {
 
-    }
+    },
 }
 export default generateController
