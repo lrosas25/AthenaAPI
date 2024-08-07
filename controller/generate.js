@@ -5,41 +5,38 @@ const generateController = {
     generateAP: async (req, res) => {
         await AP.deleteMany({});
         const data = await processCSV();
-
         if (data && Array.isArray(data)) {
             for (let i = 0; i < data.length; i++) {
                 const record = data[i];
-
                 // Check if the record is not empty or missing required properties
-                if (!record || Object.keys(record).length === 0 || !record["Amount in LC"] || !record["Scheduled Qty"] || !record["Qty Delivered"] || !record["Quantity in OPUn"] || !record["GR/IR clearing value in LC"] || !record["Quantity"]) {
+                if (!record || Object.keys(record).length === 0 || !record["Amount in LC"]) {
                     continue;
                 }
-
                 // Clean and validate the strings
                 const cleanedAmountString = record["Amount in LC"].replace(/[^0-9.]/g, '');
                 const cleanedScheduledQty = record["Scheduled Qty"].replace(/[^0-9.]/g, '');
                 const cleanedQtyDelivered = record["Qty Delivered"].replace(/[^0-9.]/g, '');
                 const cleanedQuantityinOPUn = record["Quantity in OPUn"].replace(/[^0-9.]/g, '');
-                const cleanedGRIRClearingValue = record["GR/IR clearing value in LC"].replace(/[^0-9.]/g, '');
+                const cleanedGRIRClearingValue = record["GR/IR clearing value in LC"]?.replace(/[^0-9.]/g, '');
                 const cleanedQuantity = record["Quantity"].replace(/[^0-9.]/g, '');
 
                 // Ensure the cleaned strings are valid Decimal128 values
                 const isValidDecimal128String = (str) => /^-?\d+(\.\d+)?$/.test(str);
 
-                if (!isValidDecimal128String(cleanedAmountString) ||
-                    !isValidDecimal128String(cleanedScheduledQty) ||
-                    !isValidDecimal128String(cleanedQtyDelivered) ||
-                    !isValidDecimal128String(cleanedQuantityinOPUn) ||
-                    !isValidDecimal128String(cleanedGRIRClearingValue) ||
-                    !isValidDecimal128String(cleanedQuantity)) {
-                    continue;
-                }
-
+                // if (!isValidDecimal128String(cleanedAmountString) ||
+                //     !isValidDecimal128String(cleanedScheduledQty) ||
+                //     !isValidDecimal128String(cleanedQtyDelivered) ||
+                //     !isValidDecimal128String(cleanedQuantityinOPUn) ||
+                //     !isValidDecimal128String(cleanedGRIRClearingValue) ||
+                //     !isValidDecimal128String(cleanedQuantity)) {
+                //     continue;
+                // }
                 const amountInDecimal128 = mongoose.Types.Decimal128.fromString(cleanedAmountString);
                 const scheduledQt = mongoose.Types.Decimal128.fromString(cleanedScheduledQty);
                 const quantity = mongoose.Types.Decimal128.fromString(cleanedQuantity);
                 const qtyDelivered = mongoose.Types.Decimal128.fromString(cleanedQtyDelivered);
                 const quantityinOpu = mongoose.Types.Decimal128.fromString(cleanedQuantityinOPUn);
+                const grIrClearingVal = cleanedGRIRClearingValue ? mongoose.Types.Decimal128.fromString(cleanedGRIRClearingValue) : null;
                 try {
                     const result = await AP.create({
                         "orderData": record["Order date"],
@@ -69,7 +66,7 @@ const generateController = {
                         "dci": record["DCI"],
                         "FIn": record["FIn"],
                         "documentNo": record["DocumentNo"],
-                        "GrIrClearingValueInLC": record["GR/IR clearing value in LC"],
+                        "GrIrClearingValueInLC": grIrClearingVal,
                         "a": record["A"],
                     });
                 } catch (e) {
