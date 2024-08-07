@@ -1,4 +1,4 @@
-import AP from "../model/AP"
+import AP from "../model/AP.js"
 
 const removeController = {
     removeDataInAp: async (req, res) => {

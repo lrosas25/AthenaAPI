@@ -1,5 +1,5 @@
 import express from 'express';
-import removeController from '../controller/removeData';
+import removeController from '../controller/removeData.js';
 
 const router = express.Router();
 

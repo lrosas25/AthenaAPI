@@ -79,7 +79,17 @@ const APSchema = new Schema({
     },
     FIn: {
         type: String,
+    },
+    documentNo: {
+        type: String,
+    },
+    GrIrClearingValueInLC: {
+        type: mongoose.Decimal128,
+    },
+    a: {
+        type: String
     }
+
 })
 
 export default mongoose.model('Ap', APSchema);

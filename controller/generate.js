@@ -11,7 +11,8 @@ const generateController = {
                 const cleanedScheduledQty = data[i]["Scheduled Qty"].replace(/[^0-9.]/g, '');
                 const cleanedQtyDelivered = data[i]["Qty Delivered"].replace(/[^0-9.]/g, '');
                 const cleanedQuantityinOPUn = data[i]["Quantity in OPUn"].replace(/[^0-9.]/g, '');
-                const cleanedQuantity = data[i]["quantity"].replace(/[^0-9.]/g, '');
+                const cleanedGRIRClearingValue = data[i]["GR/IR clearing value in LC"].replace(/[^0-9.]/g, '');
+                const cleanedQuantity = data[i]["Quantity"].replace(/[^0-9.]/g, '');
                 const amountInDecimal128 = mongoose.Types.Decimal128.fromString(cleanedAmountString);
                 const scheduledQt = mongoose.Types.Decimal128.fromString(cleanedScheduledQty);
                 const quantity = mongoose.Types.Decimal128.fromString(cleanedQuantity);
@@ -44,7 +45,9 @@ const generateController = {
                         "tx": data[i]["Tx"],
                         "gl_acct": data[i]["G/L Acct"],
                         "dci": data[i]["DCI"],
-                        "FIn": data[i]["FIn"]
+                        "FIn": data[i]["FIn"],
+                        "documentNo": data[i]["DocumentNo"],
+                        "a": data[i]["A"],
                     })
                 } catch (e) {
                     return res.status(500).json({ message: e.message })
@@ -54,7 +57,6 @@ const generateController = {
         } else {
             return res.status(400).json({ message: "No data found in the CSV folder." })
         }
-
     },
     generateAR: (req, res) => {
 
