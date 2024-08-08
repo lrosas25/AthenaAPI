@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import processCSV from "../helpers/processCSV.js";
 const generateController = {
     generateAP: async (req, res) => {
-        await AP.deleteMany({});
         const data = await processCSV();
         if (data && Array.isArray(data)) {
+            await AP.deleteMany({});
             for (let i = 0; i < data.length; i++) {
                 const record = data[i];
                 // Check if the record is not empty or missing required properties
