@@ -28,7 +28,7 @@ const printDetails = {
                 list = await AP.find(query).skip(skip).limit(pageSize).lean();
             }
 
-            if (list.length === 0) return res.status(404).json({ message: "No Result Found." });
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
             return res.status(200).json({ message: "Success.", data: list });
         } catch (err) {
             return res.status(500).json({ message: err.message });
