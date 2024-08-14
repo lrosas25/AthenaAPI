@@ -1,4 +1,6 @@
 import AP from "../model/AP.js";
+import APSAP from "../model/APSAP.js";
+import TreasuryClearing from "../model/TreasuryClearing.js";
 
 const printDetails = {
     printDetailsAP: async (req, res) => {
@@ -32,6 +34,59 @@ const printDetails = {
             return res.status(200).json({ message: "Success.", data: list });
         } catch (err) {
             return res.status(500).json({ message: err.message });
+        }
+    },
+    printDetailsQASPO: (req, res) => {
+
+    },
+    printDetailsTreasuryClrng: async (req, res) => {
+        try {
+            const { cocd, amountInLc, crcy, documentNo, allData, page, size } = req.query
+            const query = {}
+            if (cocd) query.cocd = cocd
+            if (amountInLc) query.amountInLc = parseFloat(amountInLc)
+            if (crcy) query.crcy = crcy
+            if (documentNo) query.documentNo = documentNo
+            let list
+            if (allData === "true" || allData === "True" || allData === "TRUE") {
+                list = await TreasuryClearing.find(query).lean()
+            } else {
+                const pageNumber = parseInt(page, 10) || 1
+                const pageSize = parseInt(size, 10) || 20
+                const skip = (pageNumber - 1) * pageSize
+                list = await TreasuryClearing.find(query).skip(skip).limit(pageSize).lean()
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list, length: list.length });
+        } catch (e) {
+            return res.status(500).json({ message: e.message })
+        }
+    },
+    printDetailsAPSAP: async (req, res) => {
+        try {
+            const { cocd, vendor, name1, name2, reference, documentNo, pstngDate, amountInLc, page, size, allData } = req.query
+            const query = {}
+            if (cocd) query.cocd = cocd
+            if (vendor) query.vendor = vendor
+            if (name1) query.name1 = name1
+            if (name2) query.name2 = name2
+            if (reference) query.reference = reference
+            if (documentNo) query.documentNo = documentNo
+            if (pstngDate) query.pstngDate = pstngDate
+            if (amountInLc) query.amountInLc = parseFloat(amountInLc)
+            let list
+            if (allData === "true" || allData === "True" || allData === "TRUE") {
+                list = await APSAP.find(query).lean()
+            } else {
+                const pageNumber = parseInt(page, 10) || 1
+                const pageSize = parseInt(size, 10) || 20
+                const skip = (pageNumber - 1) * pageSize
+                list = await APSAP.find(query).skip(skip).limit(pageSize).lean()
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list, length: list.length });
+        } catch (e) {
+            return res.status(500).json({ message: e.message })
         }
     }
 }

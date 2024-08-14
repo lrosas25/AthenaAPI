@@ -7,4 +7,5 @@ const router = express.Router()
 
 router.get("/", authenticateBearerToken, printDetailsController.printDetailsAP)
 
+
 export default router;

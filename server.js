@@ -10,6 +10,8 @@ import { triggerGenerateAPApi } from "./helpers/triggerApi.js"
 import authRoutes from "./routes/auth.js"
 import { verifyToken } from "./middleware/verifyToken.js"
 import cookieParser from "cookie-parser"
+import treasuryClearingRoutes from "./routes/treasuryClearing.js"
+import ApSapRoutes from "./routes/apSap.js"
 
 dotenv.config()
 
@@ -36,11 +38,13 @@ app.use("/v1/ap/generate", generateRoutes)
 app.use("/v1/ap/remove", removeRoutes)
 // app.use(verifyToken)
 app.use("/v1/ap/printDetails", printDetailRoutes)
+app.use("/v1/treasuryClearing/printDetails", treasuryClearingRoutes)
+app.use("/v1/apSap/printDetails", ApSapRoutes)
 
 mongoose.connection.once("open", () => {
     console.log("Connected to MongoDB")
     app.listen(process.env.PORT, () => {
-        console.log(`Server is runnRing on port ${process.env.PORT}`)
+        console.log(`Server is running on port ${process.env.PORT}`)
     })
 })
 

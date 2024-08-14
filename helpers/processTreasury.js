@@ -10,14 +10,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //directories for input and output CSV files
-const inputDir = path.join(__dirname, '../fileUploads/In/ap');
-const outputDir = path.join(__dirname, '../fileUploads/Out/ap');
+const inputDir = path.join(__dirname, '../fileUploads/In/treasury');
+const outputDir = path.join(__dirname, '../fileUploads/Out/treasury');
 
 // Function to remove lines from the beginning and end of a CSV file
 const removeLinesFromCSV = async (filePath) => {
     try {
         const data = fs.readFileSync(filePath, 'utf8').split('\n');
-        const trimmedData = data.slice(4, data.length - 0).join('\n');
+        const trimmedData = data.slice(6, data.length - 3).join('\n');
         return trimmedData;
     } catch (error) {
         console.error('Error trimming CSV:', error);
