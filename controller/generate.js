@@ -92,10 +92,10 @@ const generateController = {
                         valClValue = matchingRecord ? (matchingRecord.glAcct || "") : "";
                     }
                     const result = await AP.create({
-                        "orderdate": item["Order date"],               // Corrected to lowercase
-                        "delivdate": item["Deliv"][" Date"],           // Corrected to lowercase
+                        "orderdate": item["Order date"],
+                        "delivdate": item["Deliv"][" Date"],
                         "cocd": item["CoCd"],
-                        "purcdoc": item["Purch.Doc."],                 // Corrected to lowercase
+                        "purcdoc": item["Purch.Doc."],
                         "item": item.Item,
                         "material": item.Material,
                         "valcl": valClValue,
