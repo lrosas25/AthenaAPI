@@ -2,25 +2,25 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const POLineItemTotalSchema = new Schema({
-    PurchDoc: {
+    purchDoc: {
         type: String
     },
-    Item: {
+    item: {
         type: String
     },
-    Material: {
+    material: {
         type: String
     },
-    ShortText: {
+    shortText: {
         type: String
     },
-    CostCtr: {
+    costCtr: {
         type: String
     },
-    ProfitCtr: {
+    profitCtr: {
         type: String
     },
-    AmountInLC: {
+    amountInLC: {
         type: mongoose.Decimal128,
     }
 })

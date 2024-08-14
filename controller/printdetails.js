@@ -93,15 +93,14 @@ const printDetails = {
     },
     printDetailsPOLineItem: async (req, res) => {
         try {
-            const { PurchDoc, Item, Material, ShortText, CostCtr, ProfitCtr, allData, page, size } = req.query
+            const { purchDoc, item, material, shortText, costCtr, profitCtr, allData, page, size } = req.query
             const query = {}
-            if (
-                PurchDoc) query.PurchDoc = PurchDoc
-            if (Item) query.Item = Item
-            if (Material) query.Material = Material
-            if (ShortText) query.ShortText = ShortText
-            if (CostCtr) query.CostCtr = CostCtr
-            if (ProfitCtr) query.ProfitCtr = ProfitCtr
+            if (purchDoc) query.purchDoc = purchDoc
+            if (item) query.item = item
+            if (material) query.material = material
+            if (shortText) query.shortText = shortText
+            if (costCtr) query.costCtr = costCtr
+            if (profitCtr) query.profitCtr = profitCtr
             let list
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 list = await QASPOLineItemMatching.find(query).lean()
@@ -119,12 +118,11 @@ const printDetails = {
     },
     printDetailsQASPOTotal: async (req, res) => {
         try {
-            const { PurchDoc, TotalAmountInLC, allData, page, size } = req.query
+            const { purchDoc, totalAmountInLC, allData, page, size } = req.query
             const query = {}
-            if (PurchDoc) query.PurchDoc = PurchDoc
-            if (TotalAmountInLC) query.TotalAmountInLC = parseFloat(TotalAmountInLC)
+            if (purchDoc) query.purchDoc = purchDoc
+            if (totalAmountInLC) query.totalAmountInLC = parseFloat(totalAmountInLC)
             let list
-            console.log(query)
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 list = await QASPOTotal.find(query).lean()
             } else {

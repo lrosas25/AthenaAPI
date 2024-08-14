@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const POTotal = new Schema({
-    PurchDoc: {
+    purchDoc: {
         type: String
     },
-    TotalAmountInLC: {
+    totalAmountInLC: {
         type: mongoose.Decimal128,
     }
 })

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', generateController.generateAP)
 router.post('/generateTreasuryClearing', generateController.generateTreasuryClearing)
-router.post('/generateTreasuryClearing', generateController.generateAPSAP)
+router.post('/generateAPSAP', generateController.generateAPSAP)
 
 
 export default router

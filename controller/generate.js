@@ -125,13 +125,13 @@ const generateController = {
             POLineItemTotalData.forEach(async (item) => {
                 try {
                     await QASPOLineItemMatching.create({
-                        "PurchDoc": item.purcDoc,
-                        "Item": item.item,
-                        "Material": item.material,
-                        "ShortText": item.shortText,
-                        "CostCtr": item.costCtr,
-                        "ProfitCtr": item.profitCtr,
-                        "AmountInLC": mongoose.Types.Decimal128.fromString(item.amountInLC.toString())
+                        "purchDoc": item.purcDoc,
+                        "item": item.item,
+                        "material": item.material,
+                        "shortText": item.shortText,
+                        "costCtr": item.costCtr,
+                        "profitCtr": item.profitCtr,
+                        "amountInLC": mongoose.Types.Decimal128.fromString(item.amountInLC.toString())
                     });
                 } catch (e) {
                     console.log(e);
@@ -140,8 +140,8 @@ const generateController = {
             POTotalData.forEach(async (item) => {
                 try {
                     await QASPOTotal.create({
-                        "PurchDoc": item.purcDoc,
-                        "TotalAmountInLC": mongoose.Types.Decimal128.fromString(item.totalAmountInLC.toString())
+                        "purchDoc": item.purcDoc,
+                        "totalAmountInLC": mongoose.Types.Decimal128.fromString(item.totalAmountInLC.toString())
                     });
                 } catch (e) {
                     console.log(e);
