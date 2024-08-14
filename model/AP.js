@@ -8,6 +8,9 @@ const APSchema = new Schema({
     delivDate: {
         type: String,
     },
+    cocd: {
+        type: String
+    },
     purcDoc: {
         type: String,
     },
@@ -58,6 +61,9 @@ const APSchema = new Schema({
     },
     D_C: {
         type: String,
+    },
+    matDoc: {
+        type: String
     },
     refDoc: {
         type: String,

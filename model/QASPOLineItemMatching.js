@@ -6,7 +6,7 @@ const POLineItemTotalSchema = new Schema({
         type: String
     },
     Item: {
-        type: mongoose.Decimal128,
+        type: String
     },
     Material: {
         type: String

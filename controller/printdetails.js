@@ -1,6 +1,8 @@
 import AP from "../model/AP.js";
 import APSAP from "../model/APSAP.js";
 import TreasuryClearing from "../model/TreasuryClearing.js";
+import QASPOLineItemMatching from "../model/QASPOLineItemMatching.js";
+import QASPOTotal from "../model/QASPOTotal.js";
 
 const printDetails = {
     printDetailsAP: async (req, res) => {
@@ -57,7 +59,7 @@ const printDetails = {
                 list = await TreasuryClearing.find(query).skip(skip).limit(pageSize).lean()
             }
             if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
-            return res.status(200).json({ message: "Success.", data: list, length: list.length });
+            return res.status(200).json({ message: "Success.", data: list });
         } catch (e) {
             return res.status(500).json({ message: e.message })
         }
@@ -84,7 +86,53 @@ const printDetails = {
                 list = await APSAP.find(query).skip(skip).limit(pageSize).lean()
             }
             if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
-            return res.status(200).json({ message: "Success.", data: list, length: list.length });
+            return res.status(200).json({ message: "Success.", data: list });
+        } catch (e) {
+            return res.status(500).json({ message: e.message })
+        }
+    },
+    printDetailsPOLineItem: async (req, res) => {
+        try {
+            const { purcDoc, item, material, shortText, costCtr, profitCtr, allData, page, size } = req.query
+            const query = {}
+            if (purcDoc) query.purcDoc = purcDoc
+            if (item) query.item = item
+            if (material) query.material = material
+            if (shortText) query.shortText = shortText
+            if (costCtr) query.costCtr = costCtr
+            if (profitCtr) query.profitCtr = profitCtr
+            let list
+            if (allData === "true" || allData === "True" || allData === "TRUE") {
+                list = await QASPOLineItemMatching.find(query).lean()
+            } else {
+                const pageNumber = parseInt(page, 10) || 1
+                const pageSize = parseInt(size, 10) || 20
+                const skip = (pageNumber - 1) * pageSize
+                list = await QASPOLineItemMatching.find(query).skip(skip).limit(pageSize).lean()
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list });
+        } catch (e) {
+            return res.status(500).json({ message: e.message })
+        }
+    },
+    printDetailsQASPOTotal: async (req, res) => {
+        try {
+            const { purcDoc, totalAmountInLc, allData, page, size } = req.query
+            const query = {}
+            if (purcDoc) query.purcDoc = purcDoc
+            if (totalAmountInLc) query.totalAmountInLc = parseFloat(totalAmountInLc)
+            let list
+            if (allData === "true" || allData === "True" || allData === "TRUE") {
+                list = await QASPOTotal.find(query).lean()
+            } else {
+                const pageNumber = parseInt(page, 10) || 1
+                const pageSize = parseInt(size, 10) || 20
+                const skip = (pageNumber - 1) * pageSize
+                list = await QASPOTotal.find(query).skip(skip).limit(pageSize).lean()
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list });
         } catch (e) {
             return res.status(500).json({ message: e.message })
         }
