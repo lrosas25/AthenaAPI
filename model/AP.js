@@ -2,16 +2,16 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const APSchema = new Schema({
-    orderDate: {
+    orderdate: {
         type: String,
     },
-    delivDate: {
+    delivdate: {
         type: String,
     },
     cocd: {
         type: String
     },
-    purcDoc: {
+    purcdoc: {
         type: String,
     },
     item: {
@@ -20,58 +20,61 @@ const APSchema = new Schema({
     material: {
         type: String,
     },
-    shortText: {
+    valcl: {
+        type: String
+    },
+    shorttext: {
         type: String,
     },
-    costCtr: {
+    costctr: {
         type: String,
     },
-    profitCtr: {
+    profitctr: {
         type: String,
     },
-    scheduledQty: {
+    scheduledqty: {
         type: mongoose.Decimal128,
     },
     oun: {
         type: String,
     },
-    qtyDelivered: {
+    qtydelivered: {
         type: mongoose.Decimal128,
     },
     quantity: {
         type: mongoose.Decimal128,
     },
-    QuantityinOPUn: {
+    quantityinopun: {
         type: mongoose.Decimal128,
     },
-    OPU: {
+    opu: {
         type: String,
     },
-    AmountInLC: {
+    amountinlc: {
         type: mongoose.Decimal128,
     },
-    Crcy: {
+    crcy: {
         type: String,
     },
-    HCt: {
+    hct: {
         type: String,
     },
-    MvT: {
+    mvt: {
         type: String,
     },
-    D_C: {
+    d_c: {
         type: String,
     },
-    matDoc: {
+    matdoc: {
         type: String
     },
-    refDoc: {
+    refdoc: {
         type: String,
     },
-    Vendor: {
+    vendor: {
         type: String,
     },
-    Reference: {
+    reference: {
         type: String,
     },
     tx: {
@@ -83,20 +86,33 @@ const APSchema = new Schema({
     dci: {
         type: String,
     },
-    FIn: {
+    fin: {
         type: String,
     },
-    documentNo: {
+    documentno: {
         type: String,
     },
-    GrIrClearingValueInLC: {
+    grirclearingvalueinlc: {
         type: mongoose.Decimal128,
     },
     a: {
         type: String
+    },
+    name1: {
+        type: String
+    },
+    name2: {
+        type: String
+    },
+    salesperson: {
+        type: String
+    },
+    telephone: {
+        type: String
+    },
+    taxnumber1: {
+        type: String
     }
-
-})
+});
 
 export default mongoose.model('Ap', APSchema);
-

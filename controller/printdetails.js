@@ -8,7 +8,7 @@ const printDetails = {
     printDetailsAP: async (req, res) => {
         try {
             const { amountinlc, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
-                profitctr } = req.query;
+                profitctr, valcl } = req.query;
             const query = {};
             if (oun) query.oun = oun;
             if (purcdoc) query.purcDoc = purcdoc;
@@ -19,6 +19,7 @@ const printDetails = {
             if (reference) query.Reference = reference;
             if (refdoc) query.refDoc = refdoc;
             if (profitctr) query.profitCtr = profitctr
+            if (valcl) query.valcl = valcl;
             let list;
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 // Fetch all data without pagination
@@ -43,14 +44,14 @@ const printDetails = {
     },
     printDetailsTreasuryClrng: async (req, res) => {
         try {
-            const { cocd, amountInLc, crcy, documentNo, allData, page, size } = req.query
+            const { cocd, amountInLc, crcy, documentNo, alldata, page, size } = req.query
             const query = {}
             if (cocd) query.cocd = cocd
             if (amountInLc) query.amountInLc = parseFloat(amountInLc)
             if (crcy) query.crcy = crcy
             if (documentNo) query.documentNo = documentNo
             let list
-            if (allData === "true" || allData === "True" || allData === "TRUE") {
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await TreasuryClearing.find(query).lean()
             } else {
                 const pageNumber = parseInt(page, 10) || 1
@@ -66,18 +67,18 @@ const printDetails = {
     },
     printDetailsAPSAP: async (req, res) => {
         try {
-            const { cocd, vendor, name1, name2, reference, documentNo, pstngDate, amountInLc, page, size, allData } = req.query
+            const { cocd, vendor, name1, name2, reference, documentno, pstngdate, amountinlc, page, size, alldata } = req.query
             const query = {}
             if (cocd) query.cocd = cocd
             if (vendor) query.vendor = vendor
             if (name1) query.name1 = name1
             if (name2) query.name2 = name2
             if (reference) query.reference = reference
-            if (documentNo) query.documentNo = documentNo
-            if (pstngDate) query.pstngDate = pstngDate
-            if (amountInLc) query.amountInLc = parseFloat(amountInLc)
+            if (documentno) query.documentno = documentno
+            if (pstngdate) query.pstngdate = pstngdate
+            if (amountinlc) query.amountinlc = parseFloat(amountinlc)
             let list
-            if (allData === "true" || allData === "True" || allData === "TRUE") {
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await APSAP.find(query).lean()
             } else {
                 const pageNumber = parseInt(page, 10) || 1
@@ -93,16 +94,16 @@ const printDetails = {
     },
     printDetailsPOLineItem: async (req, res) => {
         try {
-            const { purchDoc, item, material, shortText, costCtr, profitCtr, allData, page, size } = req.query
+            const { purchDoc, item, material, shorttext, costctr, profitctr, alldata, page, size } = req.query
             const query = {}
             if (purchDoc) query.purchDoc = purchDoc
             if (item) query.item = item
             if (material) query.material = material
-            if (shortText) query.shortText = shortText
-            if (costCtr) query.costCtr = costCtr
-            if (profitCtr) query.profitCtr = profitCtr
+            if (shorttext) query.shorttext = shorttext
+            if (costctr) query.costctr = costctr
+            if (profitctr) query.profitctr = profitctr
             let list
-            if (allData === "true" || allData === "True" || allData === "TRUE") {
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await QASPOLineItemMatching.find(query).lean()
             } else {
                 const pageNumber = parseInt(page, 10) || 1
@@ -118,12 +119,12 @@ const printDetails = {
     },
     printDetailsQASPOTotal: async (req, res) => {
         try {
-            const { purchDoc, totalAmountInLC, allData, page, size } = req.query
+            const { purchdoc, totalamountinlc, alldata, page, size } = req.query
             const query = {}
-            if (purchDoc) query.purchDoc = purchDoc
-            if (totalAmountInLC) query.totalAmountInLC = parseFloat(totalAmountInLC)
+            if (purchdoc) query.purchdoc = purchdoc
+            if (totalamountinlc) query.totalamountinlc = parseFloat(totalamountinlc)
             let list
-            if (allData === "true" || allData === "True" || allData === "TRUE") {
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await QASPOTotal.find(query).lean()
             } else {
                 const pageNumber = parseInt(page, 10) || 1

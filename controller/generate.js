@@ -3,6 +3,7 @@ import TreasuryClearing from "../model/TreasuryClearing.js";
 import APSAP from "../model/APSAP.js";
 import QASPOLineItemMatching from "../model/QASPOLineItemMatching.js";
 import QASPOTotal from "../model/QASPOTotal.js";
+import MaintenanceValCl from "../model/MaintenanceValCl.js";
 import mongoose from "mongoose";
 import processCSV from "../helpers/processCSV.js";
 import processTreasury from "../helpers/processTreasury.js";
@@ -15,10 +16,10 @@ const generateController = {
         const POTotalData = [];
         try {
             // Process all CSV files in the input directory
+            const data = await processAllCSVFiles(inputDir, outputDir, 4, 6);
             await AP.deleteMany({})
             await QASPOLineItemMatching.deleteMany({})
             await QASPOTotal.deleteMany({})
-            const data = await processAllCSVFiles(inputDir, outputDir, 4, 6);
             data.forEach(async (item) => {
                 if (item["Purch.Doc."] && item["Item"]) {
                     // Convert the amount to a number
@@ -85,38 +86,49 @@ const generateController = {
                     const qtyDelivered = mongoose.Types.Decimal128.fromString(cleanedQtyDelivered);
                     const quantityinOpu = mongoose.Types.Decimal128.fromString(cleanedQuantityinOPUn);
                     const grIrClearingVal = cleanedGRIRClearingValue ? mongoose.Types.Decimal128.fromString(cleanedGRIRClearingValue) : null;
+                    let valClValue = "";
+                    if (item["ValCl"]) {
+                        const matchingRecord = await MaintenanceValCl.findOne({ valCl: { $regex: new RegExp("^" + item["ValCl"] + "$", "i") } });
+                        valClValue = matchingRecord ? (matchingRecord.glAcct || "") : "";
+                    }
                     const result = await AP.create({
-                        "orderData": item["Order date"],
-                        "delivDate": item["Deliv"][" Date"],
+                        "orderdate": item["Order date"],               // Corrected to lowercase
+                        "delivdate": item["Deliv"][" Date"],           // Corrected to lowercase
                         "cocd": item["CoCd"],
-                        "purcDoc": item["Purch.Doc."],
+                        "purcdoc": item["Purch.Doc."],                 // Corrected to lowercase
                         "item": item.Item,
                         "material": item.Material,
-                        "shortText": item["Short Text"],
-                        "costCtr": item["Cost Ctr"],
-                        "profitCtr": item["Profit Ctr"],
-                        "scheduledQty": scheduledQt,
+                        "valcl": valClValue,
+                        "shorttext": item["Short Text"],
+                        "costctr": item["Cost Ctr"],
+                        "profitctr": item["Profit Ctr"],
+                        "scheduledqty": scheduledQt,
                         "oun": item["OUn"],
-                        "qtyDelivered": qtyDelivered,
+                        "qtydelivered": qtyDelivered,
                         "quantity": quantity,
-                        "QuantityinOPUn": quantityinOpu,
-                        "OPU": item["OPU"],
-                        "AmountInLC": amountInDecimal128,
-                        "Crcy": item["Crcy"],
-                        "HCt": item["HCt"],
-                        "MvT": item["MvT"],
-                        "D_C": item["D/C"],
-                        "matDoc": item["Mat. Doc."],
-                        "refDoc": item["Ref. Doc."],
-                        "Vendor": item["Vendor"],
-                        "Reference": item["Reference"],
+                        "quantityinopun": quantityinOpu,
+                        "opu": item["OPU"],
+                        "amountinlc": amountInDecimal128,
+                        "crcy": item["Crcy"],
+                        "hct": item["HCt"],
+                        "mvt": item["MvT"],
+                        "d_c": item["D/C"],
+                        "matdoc": item["Mat. Doc."],
+                        "refdoc": item["Ref. Doc."],
+                        "vendor": item["Vendor"],
+                        "reference": item["Reference"],
                         "tx": item["Tx"],
                         "gl_acct": item["G/L Acct"],
                         "dci": item["DCI"],
-                        "FIn": item["FIn"],
-                        "documentNo": item["DocumentNo"],
-                        "GrIrClearingValueInLC": grIrClearingVal,
+                        "fin": item["FIn"],
+                        "documentno": item["DocumentNo"],
+                        "grirclearingvalueinlc": grIrClearingVal,
                         "a": item["A"],
+                        "name1": item["Name 1"],
+                        "name2": item["Name 2"],
+                        "taxnumber1": item["Tax Number 1"],
+                        "salesperson": item["Salesperson"],
+                        "telephone": item["Telephone"]
                     });
                 } catch (e) {
                     console.log(e.message);
@@ -125,13 +137,13 @@ const generateController = {
             POLineItemTotalData.forEach(async (item) => {
                 try {
                     await QASPOLineItemMatching.create({
-                        "purchDoc": item.purcDoc,
+                        "purchdoc": item.purcDoc,
                         "item": item.item,
                         "material": item.material,
-                        "shortText": item.shortText,
-                        "costCtr": item.costCtr,
-                        "profitCtr": item.profitCtr,
-                        "amountInLC": mongoose.Types.Decimal128.fromString(item.amountInLC.toString())
+                        "shorttext": item.shortText,
+                        "costctr": item.costCtr,
+                        "profitctr": item.profitCtr,
+                        "amountinlc": mongoose.Types.Decimal128.fromString(item.amountInLC.toString())
                     });
                 } catch (e) {
                     console.log(e);
@@ -140,8 +152,8 @@ const generateController = {
             POTotalData.forEach(async (item) => {
                 try {
                     await QASPOTotal.create({
-                        "purchDoc": item.purcDoc,
-                        "totalAmountInLC": mongoose.Types.Decimal128.fromString(item.totalAmountInLC.toString())
+                        "purchdoc": item.purcDoc,
+                        "totalamountinlc": mongoose.Types.Decimal128.fromString(item.totalAmountInLC.toString())
                     });
                 } catch (e) {
                     console.log(e);
@@ -159,6 +171,7 @@ const generateController = {
     generateTreasuryClearing: async (req, res) => {
         const data = await processTreasury();
         if (data) {
+            await TreasuryClearing.deleteMany({})
             for (let i = 0; i < data.length; i++) {
                 const record = data[i];
                 try {
@@ -167,12 +180,12 @@ const generateController = {
                     const result = await TreasuryClearing.create({
                         pk: record["PK"],
                         cocd: record["CoCd"],
-                        documentNo: record["DocumentNo"],
-                        clringDoc: record["Clrng Doc."],
-                        AmountInLC: mongoose.Types.Decimal128.fromString(amountInLC),  // Convert to Decimal128
+                        documentno: record["DocumentNo"],
+                        clringdoc: record["Clrng Doc."],
+                        amountinlc: mongoose.Types.Decimal128.fromString(amountInLC),  // Convert to Decimal128
                         crcy: record["Crcy"],
                         clearing: record["Clearing"],
-                        HouseBk: record["House Bk"] ? record["House Bk"] : ""
+                        Housebk: record["House Bk"] ? record["House Bk"] : ""
                     });
                 } catch (e) {
                     console.log(e);  // Log the full error object
@@ -188,6 +201,7 @@ const generateController = {
         const outputDir = "./fileUploads/out/apSap"
         try {
             const data = await processAllCSVFiles(inputDir, outputDir, 4, 6)
+            await APSAP.deleteMany({})
             console.log(data)
             for (let i = 0; i < data.length; i++) {
                 const record = data[i]
@@ -199,12 +213,11 @@ const generateController = {
                         "name1": record["Name 1"],
                         "name2": record["Name 2"],
                         "reference": record["Reference"],
-                        "documentNo": record["DocumentNo"],
-                        "pstngDate": record["Pstng Date"],
-                        "AmountInLC": mongoose.Types.Decimal128.fromString(amountInLC),
+                        "documentno": record["DocumentNo"],
+                        "pstngdate": record["Pstng Date"],
+                        "amountinlc": mongoose.Types.Decimal128.fromString(amountInLC),
                         "crcy": record["Crcy"] ? record["Crcy"] : ""
                     })
-                    return res.status(200).json({ message: "Data created successfully." })
                 } catch (e) {
                     console.log(e.message)
                 }

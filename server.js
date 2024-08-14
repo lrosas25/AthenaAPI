@@ -12,6 +12,7 @@ import { verifyToken } from "./middleware/verifyToken.js"
 import cookieParser from "cookie-parser"
 import treasuryClearingRoutes from "./routes/treasuryClearing.js"
 import ApSapRoutes from "./routes/apSap.js"
+import maintenanceValClRoutes from "./routes/maintenanceValCl.js"
 
 dotenv.config()
 
@@ -40,6 +41,7 @@ app.use("/v1/ap/remove", removeRoutes)
 app.use("/v1/ap/printDetails", printDetailRoutes)
 app.use("/v1/treasuryClearing/printDetails", treasuryClearingRoutes)
 app.use("/v1/apSap/printDetails", ApSapRoutes)
+app.use("/ValCl", maintenanceValClRoutes)
 
 mongoose.connection.once("open", () => {
     console.log("Connected to MongoDB")

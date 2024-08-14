@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const POLineItemTotalSchema = new Schema({
-    purchDoc: {
+const polineitemtotalschema = new Schema({
+    purchdoc: {
         type: String
     },
     item: {
@@ -11,18 +11,18 @@ const POLineItemTotalSchema = new Schema({
     material: {
         type: String
     },
-    shortText: {
+    shorttext: {
         type: String
     },
-    costCtr: {
+    costctr: {
         type: String
     },
-    profitCtr: {
+    profitctr: {
         type: String
     },
-    amountInLC: {
+    amountinlc: {
         type: mongoose.Decimal128,
     }
-})
+});
 
-export default mongoose.model("QASPOLineItemTotal", POLineItemTotalSchema)
+export default mongoose.model("Qaspolineitemtotal", polineitemtotalschema);

@@ -8,13 +8,13 @@ const TreasuryClearingSchema = new Schema({
     cocd: {
         type: String
     },
-    clringDoc: {
+    clringdoc: {
         type: String
     },
-    documentNo: {
+    documentno: {
         type: String
     },
-    AmountInLC: {
+    amountinlc: {
         type: mongoose.Decimal128,
     },
     crcy: {
@@ -23,7 +23,7 @@ const TreasuryClearingSchema = new Schema({
     clearing: {
         type: String
     },
-    HouseBk: {
+    Housebk: {
         type: String
     }
 

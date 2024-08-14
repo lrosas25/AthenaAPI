@@ -20,10 +20,10 @@ const AP_SAPSchema = new Schema({
     documentNo: {
         type: String
     },
-    pstngDate: {
+    pstngdate: {
         type: String
     },
-    AmountInLC: {
+    amountinlc: {
         type: mongoose.Decimal128,
     },
     crcy: {
