@@ -17,7 +17,7 @@ const outputDir = path.join(__dirname, '../fileUploads/Out/treasury');
 const removeLinesFromCSV = async (filePath) => {
     try {
         const data = fs.readFileSync(filePath, 'utf8').split('\n');
-        const trimmedData = data.slice(6, data.length - 3).join('\n');
+        const trimmedData = data.slice(4, data.length - 3).join('\n');
         return trimmedData;
     } catch (error) {
         console.error('Error trimming CSV:', error);

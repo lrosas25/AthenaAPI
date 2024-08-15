@@ -8,6 +8,15 @@ const TreasuryClearingSchema = new Schema({
     cocd: {
         type: String
     },
+    vendor: {
+        type: String
+    },
+    name1: {
+        type: String
+    },
+    name2: {
+        type: String
+    },
     clringdoc: {
         type: String
     },
@@ -23,7 +32,7 @@ const TreasuryClearingSchema = new Schema({
     clearing: {
         type: String
     },
-    Housebk: {
+    housebk: {
         type: String
     }
 

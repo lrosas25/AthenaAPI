@@ -124,8 +124,8 @@ const generateController = {
                         "documentno": item["DocumentNo"],
                         "grirclearingvalueinlc": grIrClearingVal,
                         "a": item["A"],
-                        "name1": item["Name 1"],
-                        "name2": item["Name 2"],
+                        "name1": item["Name 1"] + " " + item["Name 2"],
+                        "name2": "",
                         "taxnumber1": item["Tax Number 1"],
                         "salesperson": item["Salesperson"],
                         "telephone": item["Telephone"]
@@ -170,6 +170,7 @@ const generateController = {
     },
     generateTreasuryClearing: async (req, res) => {
         const data = await processTreasury();
+        console.log(data)
         if (data) {
             await TreasuryClearing.deleteMany({})
             for (let i = 0; i < data.length; i++) {
@@ -179,6 +180,9 @@ const generateController = {
                     const result = await TreasuryClearing.create({
                         pk: record["PK"],
                         cocd: record["CoCd"],
+                        vendor: record["Vendor"],
+                        name1: record["Name 1"] + " " + record["Name 2"],
+                        name2: "",
                         documentno: record["DocumentNo"],
                         clringdoc: record["Clrng doc."],
                         amountinlc: mongoose.Types.Decimal128.fromString(amountInLC),
@@ -209,8 +213,8 @@ const generateController = {
                     const result = await APSAP.create({
                         "cocd": record["CoCd"],
                         "vendor": record["Vendor"],
-                        "name1": record["Name 1"],
-                        "name2": record["Name 2"],
+                        "name1": record["Name 1"] + " " + record["Name 2"],
+                        "name2": "",
                         "reference": record["Reference"],
                         "documentno": record["DocumentNo"],
                         "pstngdate": record["Pstng Date"],
