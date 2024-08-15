@@ -17,7 +17,7 @@ const AP_SAPSchema = new Schema({
     reference: {
         type: String
     },
-    documentNo: {
+    documentno: {
         type: String
     },
     pstngdate: {

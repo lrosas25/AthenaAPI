@@ -175,20 +175,19 @@ const generateController = {
             for (let i = 0; i < data.length; i++) {
                 const record = data[i];
                 try {
-                    const amountInLC = record["Amount in LC"].replace(/,/g, '');  // Remove commas from the string
-
+                    const amountInLC = record["Amount in LC"].replace(/,/g, '');
                     const result = await TreasuryClearing.create({
                         pk: record["PK"],
                         cocd: record["CoCd"],
                         documentno: record["DocumentNo"],
-                        clringdoc: record["Clrng Doc."],
-                        amountinlc: mongoose.Types.Decimal128.fromString(amountInLC),  // Convert to Decimal128
+                        clringdoc: record["Clrng doc."],
+                        amountinlc: mongoose.Types.Decimal128.fromString(amountInLC),
                         crcy: record["Crcy"],
                         clearing: record["Clearing"],
                         Housebk: record["House Bk"] ? record["House Bk"] : ""
                     });
                 } catch (e) {
-                    console.log(e);  // Log the full error object
+                    console.log(e);
                 }
             }
             return res.status(200).json({ message: "Successfully Inserted the data" });
