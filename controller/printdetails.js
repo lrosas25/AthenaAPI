@@ -8,7 +8,7 @@ const printDetails = {
     printDetailsAP: async (req, res) => {
         try {
             const { amountinlc, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
-                profitctr, gl_acct, valcl } = req.query;
+                profitctr, gl_acct, valcl, name1 } = req.query;
             const query = {};
             if (oun) query.oun = oun;
             if (purcdoc) query.purcDoc = purcdoc;
@@ -21,6 +21,7 @@ const printDetails = {
             if (profitctr) query.profitCtr = profitctr
             if (gl_acct) query.gl_acct = gl_acct;
             if (valcl) query.valcl = valcl;
+            if (name1) query.name1 = name1;
             let list;
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 // Fetch all data without pagination
@@ -69,12 +70,11 @@ const printDetails = {
     },
     printDetailsAPSAP: async (req, res) => {
         try {
-            const { cocd, vendor, name1, name2, reference, documentno, pstngdate, amountinlc, page, size, alldata } = req.query
+            const { cocd, vendor, name1, reference, documentno, pstngdate, amountinlc, page, size, alldata } = req.query
             const query = {}
             if (cocd) query.cocd = cocd
             if (vendor) query.vendor = vendor
             if (name1) query.name1 = name1
-            if (name2) query.name2 = name2
             if (reference) query.reference = reference
             if (documentno) query.documentno = documentno
             if (pstngdate) query.pstngdate = pstngdate
