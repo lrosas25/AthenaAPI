@@ -8,7 +8,7 @@ const printDetails = {
     printDetailsAP: async (req, res) => {
         try {
             const { amountinlc, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
-                profitctr, valcl } = req.query;
+                profitctr, gl_acct, valcl } = req.query;
             const query = {};
             if (oun) query.oun = oun;
             if (purcdoc) query.purcDoc = purcdoc;
@@ -19,6 +19,7 @@ const printDetails = {
             if (reference) query.Reference = reference;
             if (refdoc) query.refDoc = refdoc;
             if (profitctr) query.profitCtr = profitctr
+            if (gl_acct) query.gl_acct = gl_acct;
             if (valcl) query.valcl = valcl;
             let list;
             if (allData === "true" || allData === "True" || allData === "TRUE") {
@@ -32,7 +33,6 @@ const printDetails = {
                 // Fetch data based on the constructed query, limited to the page size
                 list = await AP.find(query).skip(skip).limit(pageSize).lean();
             }
-
             if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
             return res.status(200).json({ message: "Success.", data: list });
         } catch (err) {

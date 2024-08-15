@@ -86,10 +86,10 @@ const generateController = {
                     const qtyDelivered = mongoose.Types.Decimal128.fromString(cleanedQtyDelivered);
                     const quantityinOpu = mongoose.Types.Decimal128.fromString(cleanedQuantityinOPUn);
                     const grIrClearingVal = cleanedGRIRClearingValue ? mongoose.Types.Decimal128.fromString(cleanedGRIRClearingValue) : null;
-                    let valClValue = "";
+                    let glAcct = "";
                     if (item["ValCl"]) {
                         const matchingRecord = await MaintenanceValCl.findOne({ valCl: { $regex: new RegExp("^" + item["ValCl"] + "$", "i") } });
-                        valClValue = matchingRecord ? (matchingRecord.glAcct || "") : "";
+                        glAcct = matchingRecord ? (matchingRecord.glAcct || "") : "";
                     }
                     const result = await AP.create({
                         "orderdate": item["Order date"],
@@ -98,7 +98,7 @@ const generateController = {
                         "purcdoc": item["Purch.Doc."],
                         "item": item.Item,
                         "material": item.Material,
-                        "valcl": valClValue,
+                        "valcl": item["ValCl"] ? item["ValCl"] : "",
                         "shorttext": item["Short Text"],
                         "costctr": item["Cost Ctr"],
                         "profitctr": item["Profit Ctr"],
@@ -118,7 +118,7 @@ const generateController = {
                         "vendor": item["Vendor"],
                         "reference": item["Reference"],
                         "tx": item["Tx"],
-                        "gl_acct": item["G/L Acct"],
+                        "gl_acct": item["ValCl"] ? glAcct : item["G/L Acct"],
                         "dci": item["DCI"],
                         "fin": item["FIn"],
                         "documentno": item["DocumentNo"],
