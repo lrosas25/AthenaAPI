@@ -14,6 +14,7 @@ import treasuryClearingRoutes from "./routes/treasuryClearing.js"
 import ApSapRoutes from "./routes/apSap.js"
 import maintenanceValClRoutes from "./routes/maintenanceValCl.js"
 import glDocTypeRoutes from "./routes/glDocType.js"
+import ArchimedesRoutes from "./routes/archimedes.js"
 
 dotenv.config()
 
@@ -42,6 +43,7 @@ app.use("/v1/ap/remove", removeRoutes)
 app.use("/v1/ap/printDetails", printDetailRoutes)
 app.use("/v1/treasuryClearing/printDetails", treasuryClearingRoutes)
 app.use("/v1/apSap/printDetails", ApSapRoutes)
+app.use("/v1/archimedes/printDetails", ArchimedesRoutes)
 app.use("/ValCl", maintenanceValClRoutes)
 app.use("/glDocType", glDocTypeRoutes)
 

@@ -14,7 +14,7 @@ const removeLinesFromCSV = (data, startLines, endLines) => {
 };
 
 // Function to process all CSV files in the input directory
-const processCSVFiles = async (inputDir, outputDir, startLines, endLines) => {
+const processCSVFiles = async (inputDir, outputDir, startLines, endLines, csv) => {
     const dataToSave = [];
     try {
         const files = fs.readdirSync(inputDir);
@@ -36,7 +36,7 @@ const processCSVFiles = async (inputDir, outputDir, startLines, endLines) => {
                 const jsonArray = await csvtojson({
                     noheader: false,
                     trim: true,
-                    delimiter: "\t"
+                    delimiter: csv ? "," : "\t"
                 }).fromFile(tempFilePath);
                 dataToSave.push(...jsonArray);
 

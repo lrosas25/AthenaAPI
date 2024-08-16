@@ -9,6 +9,7 @@ import processCSV from "../helpers/processCSV.js";
 import processTreasury from "../helpers/processTreasury.js";
 import processAllCSVFiles from "../helpers/processCSVFiles.js";
 import glDocType from "../model/glDocType.js";
+import Archimedes from "../model/Archimedes.js";
 const generateController = {
     generateAP: async (req, res) => {
         const inputDir = "./fileUploads/In/ap";
@@ -154,7 +155,7 @@ const generateController = {
                         "amountinlc": mongoose.Types.Decimal128.fromString(item.amountInLC.toString())
                     });
                 } catch (e) {
-                    console.log(e);
+                    console.log(e.message);
                 }
             })
             POTotalData.forEach(async (item) => {
@@ -239,5 +240,42 @@ const generateController = {
             return res.status(500).json({ message: e.message });
         }
     },
+    generateArchimedes: async (req, res) => {
+        const inputDir = "./fileUploads/In/archimedes";
+        const outputDir = "./fileUploads/out/archimedes";
+        try {
+            const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true);
+            if (!data) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
+            await Archimedes.deleteMany({})
+            for (let i = 0; i < data.length; i++) {
+                const record = data[i];
+                let amount = record["Amount"].replace(/,/g, '');
+                if (amount.startsWith('(') && amount.endsWith(')')) {
+                    amount = `-${amount.slice(1, -1)}`;
+                }
+                const result = await Archimedes.create({
+                    "company": record["Company"],
+                    "itemno": record["Item No."],
+                    "location": record["Location"],
+                    "vendor": record["Vendor"],
+                    "documenttype": record["Document Type"],
+                    "documentno": record["Document No."],
+                    "documentdate": record["Document Date"],
+                    "pono": record["PO No."],
+                    "amount": mongoose.Types.Decimal128.fromString(amount),
+                    "currency": record["Currency"],
+                    "status": record["Status"],
+                    "inbox": record["Inbox"],
+                    "statusdate": record["Status Date"]
+                });
+            }
+            return res.status(200).json({ message: "Successfully inserted the data." });
+        } catch (e) {
+            console.log(e.message);
+            return res.status(500).json({ message: e.message });
+        }
+    }
 }
 export default generateController

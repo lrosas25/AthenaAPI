@@ -3,6 +3,7 @@ import APSAP from "../model/APSAP.js";
 import TreasuryClearing from "../model/TreasuryClearing.js";
 import QASPOLineItemMatching from "../model/QASPOLineItemMatching.js";
 import QASPOTotal from "../model/QASPOTotal.js";
+import Archimedes from "../model/Archimedes.js";
 
 const printDetails = {
     printDetailsAP: async (req, res) => {
@@ -138,6 +139,35 @@ const printDetails = {
             return res.status(200).json({ message: "Success.", data: list });
         } catch (e) {
             return res.status(500).json({ message: e.message })
+        }
+    },
+    printDetailsArchimedes: async (req, res) => {
+        try {
+            const { company, location, vendor, itemno, doctype, documentno, documentdate, pono, status, date, alldata, page, size } = req.query
+            const query = {}
+            if (company) query.company = company
+            if (location) query.location = location
+            if (vendor) query.vendor = vendor
+            if (itemno) query.itemno = itemno
+            if (doctype) query.doctype = doctype
+            if (documentno) query.documentno = documentno
+            if (documentdate) query.documentdate = documentdate
+            if (pono) query.pono = pono
+            if (status) query.status = status
+            if (date) query.date = date
+            let list
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
+                list = await Archimedes.find(query).lean()
+            } else {
+                const pageNumber = parseInt(page, 10) || 1
+                const pageSize = parseInt(size, 10) || 20
+                const skip = (pageNumber - 1) * pageSize
+                list = await Archimedes.find(query).skip(skip).limit(pageSize).lean()
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list });
+        } catch (e) {
+            return res.status(500).json({ message: e.message });
         }
     }
 }
