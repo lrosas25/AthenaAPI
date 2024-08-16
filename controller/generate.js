@@ -88,7 +88,11 @@ const generateController = {
                     const grIrClearingVal = cleanedGRIRClearingValue ? mongoose.Types.Decimal128.fromString(cleanedGRIRClearingValue) : null;
                     let glAcct = "";
                     let glDocuType = ""
-                    if (item["ValCl"]) {
+                    if (item["ValCl"] === "") {
+                        glAcct = item["G/L Acct"]
+                        const matchingGlDocType = await glDocType.findOne({ glcode: { $regex: new RegExp("^" + glAcct + "$", "i") } })
+                        glDocuType = matchingGlDocType ? (matchingGlDocType.documentType || "") : ""
+                    } else {
                         const matchingRecord = await MaintenanceValCl.findOne({ valCl: { $regex: new RegExp("^" + item["ValCl"] + "$", "i") } });
                         glAcct = matchingRecord ? (matchingRecord.glAcct || "") : "";
                         const matchingGlDocType = await glDocType.findOne({ glcode: { $regex: new RegExp("^" + glAcct + "$", "i") } })
@@ -132,7 +136,7 @@ const generateController = {
                         "taxnumber1": item["Tax Number 1"],
                         "salesperson": item["Salesperson"],
                         "telephone": item["Telephone"],
-                        "doctype": item["ValCl"] ? glDocuType : ""
+                        "doctype": glDocuType
                     });
                 } catch (e) {
                     console.log(e.message);
