@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import processCSV from "../helpers/processCSV.js";
 import processTreasury from "../helpers/processTreasury.js";
 import processAllCSVFiles from "../helpers/processCSVFiles.js";
+import glDocType from "../model/glDocType.js";
 const generateController = {
     generateAP: async (req, res) => {
         const inputDir = "./fileUploads/In/ap";
@@ -17,6 +18,9 @@ const generateController = {
         try {
             // Process all CSV files in the input directory
             const data = await processAllCSVFiles(inputDir, outputDir, 4, 6);
+            if (!data) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
             await AP.deleteMany({})
             await QASPOLineItemMatching.deleteMany({})
             await QASPOTotal.deleteMany({})
@@ -33,7 +37,6 @@ const generateController = {
                     } else {
                         adjustedAmount = 0; // Handle other MvT values if needed
                     }
-
                     // Handle POLineItemTotalData
                     const existingEntry = POLineItemTotalData.find(entry =>
                         entry.purcDoc === item["Purch.Doc."] &&
@@ -56,7 +59,6 @@ const generateController = {
                             amountInLC: mongoose.Types.Decimal128.fromString(adjustedAmount.toFixed(2))
                         });
                     }
-
                     // Handle POTotalData
                     let existingTotal = POTotalData.find(record => record.purcDoc === item["Purch.Doc."]);
                     if (existingTotal) {
@@ -70,7 +72,6 @@ const generateController = {
                         });
                     }
                 }
-
                 try {
                     const cleanedAmountString = item["Amount in LC"].replace(/[^0-9.]/g, '');
                     const cleanedScheduledQty = item["Scheduled Qty"].replace(/[^0-9.]/g, '');
@@ -78,7 +79,6 @@ const generateController = {
                     const cleanedQuantityinOPUn = item["Quantity in OPUn"].replace(/[^0-9.]/g, '');
                     const cleanedGRIRClearingValue = item["GR/IR clearing value in LC"]?.replace(/[^0-9.]/g, '');
                     const cleanedQuantity = item["Quantity"].replace(/[^0-9.]/g, '');
-
                     // Ensure the cleaned strings are valid Decimal128 values
                     const amountInDecimal128 = mongoose.Types.Decimal128.fromString(cleanedAmountString);
                     const scheduledQt = mongoose.Types.Decimal128.fromString(cleanedScheduledQty);
@@ -87,9 +87,12 @@ const generateController = {
                     const quantityinOpu = mongoose.Types.Decimal128.fromString(cleanedQuantityinOPUn);
                     const grIrClearingVal = cleanedGRIRClearingValue ? mongoose.Types.Decimal128.fromString(cleanedGRIRClearingValue) : null;
                     let glAcct = "";
+                    let glDocuType = ""
                     if (item["ValCl"]) {
                         const matchingRecord = await MaintenanceValCl.findOne({ valCl: { $regex: new RegExp("^" + item["ValCl"] + "$", "i") } });
                         glAcct = matchingRecord ? (matchingRecord.glAcct || "") : "";
+                        const matchingGlDocType = await glDocType.findOne({ glcode: { $regex: new RegExp("^" + glAcct + "$", "i") } })
+                        glDocuType = matchingGlDocType ? (matchingGlDocType.documentType || "") : ""
                     }
                     const result = await AP.create({
                         "orderdate": item["Order date"],
@@ -128,7 +131,8 @@ const generateController = {
                         "name2": "",
                         "taxnumber1": item["Tax Number 1"],
                         "salesperson": item["Salesperson"],
-                        "telephone": item["Telephone"]
+                        "telephone": item["Telephone"],
+                        "doctype": item["ValCl"] ? glDocuType : ""
                     });
                 } catch (e) {
                     console.log(e.message);
@@ -170,7 +174,6 @@ const generateController = {
     },
     generateTreasuryClearing: async (req, res) => {
         const data = await processTreasury();
-        console.log(data)
         if (data) {
             await TreasuryClearing.deleteMany({})
             for (let i = 0; i < data.length; i++) {
@@ -204,8 +207,10 @@ const generateController = {
         const outputDir = "./fileUploads/out/apSap"
         try {
             const data = await processAllCSVFiles(inputDir, outputDir, 4, 6)
+            if (!data) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
             await APSAP.deleteMany({})
-            console.log(data)
             for (let i = 0; i < data.length; i++) {
                 const record = data[i]
                 try {
@@ -229,6 +234,6 @@ const generateController = {
         } catch (e) {
             return res.status(500).json({ message: e.message });
         }
-    }
+    },
 }
 export default generateController

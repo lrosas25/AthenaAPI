@@ -112,6 +112,9 @@ const APSchema = new Schema({
     },
     taxnumber1: {
         type: String
+    },
+    doctype: {
+        type: String
     }
 });
 
