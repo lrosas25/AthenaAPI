@@ -12,6 +12,7 @@ const printDetails = {
                 profitctr, gl_acct, valcl, name1 } = req.query;
             const query = {};
             if (oun) query.oun = oun;
+            //asdasdsa
             if (purcdoc) query.purcdoc = purcdoc;
             if (quantity) query.quantity = quantity;
             if (shorttext) query.shortText = shorttext;
