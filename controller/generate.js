@@ -211,7 +211,7 @@ const generateController = {
         const outputDir = "./fileUploads/out/apSap"
         try {
             const data = await processAllCSVFiles(inputDir, outputDir, 4, 6)
-            if (!data) {
+            if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
             await APSAP.deleteMany({})
