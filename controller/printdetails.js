@@ -98,9 +98,9 @@ const printDetails = {
     },
     printDetailsPOLineItem: async (req, res) => {
         try {
-            const { purchDoc, item, material, shorttext, costctr, profitctr, alldata, page, size } = req.query
+            const { purchdoc, item, material, shorttext, costctr, profitctr, alldata, page, size } = req.query
             const query = {}
-            if (purchDoc) query.purchDoc = purchDoc
+            if (purchdoc) query.purchdoc = purchdoc
             if (item) query.item = item
             if (material) query.material = material
             if (shorttext) query.shorttext = shorttext
