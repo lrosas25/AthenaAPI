@@ -18,7 +18,7 @@ const generateController = {
         try {
             // Process all CSV files in the input directory
             const data = await processAllCSVFiles(inputDir, outputDir, 4, 6);
-            if (!data) {
+            if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
             await AP.deleteMany({})
