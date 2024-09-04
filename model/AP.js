@@ -115,6 +115,9 @@ const APSchema = new Schema({
     },
     doctype: {
         type: String
+    },
+    companyname: {
+        type: String
     }
 });
 

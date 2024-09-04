@@ -8,7 +8,7 @@ import Archimedes from "../model/Archimedes.js";
 const printDetails = {
     printDetailsAP: async (req, res) => {
         try {
-            const { amountinlc, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
+            const { amountinlc, companyname, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
                 profitctr, gl_acct, valcl, name1 } = req.query;
             const query = {};
             if (oun) query.oun = oun;
@@ -24,6 +24,7 @@ const printDetails = {
             if (gl_acct) query.gl_acct = gl_acct;
             if (valcl) query.valcl = valcl;
             if (name1) query.name1 = name1;
+            if (companyname) query.companyname = companyname;
             let list;
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 // Fetch all data without pagination
@@ -128,6 +129,7 @@ const printDetails = {
             if (purchdoc) query.purchdoc = purchdoc
             if (totalamountinlc) query.totalamountinlc = parseFloat(totalamountinlc)
             let list
+
             if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await QASPOTotal.find(query).lean()
             } else {

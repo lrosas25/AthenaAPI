@@ -102,6 +102,7 @@ const generateController = {
                         "orderdate": item["Order date"],
                         "delivdate": item["Deliv"][" Date"],
                         "cocd": item["CoCd"],
+                        "companyname": item["Company Name"],
                         "purcdoc": item["Purch.Doc."],
                         "item": item.Item,
                         "material": item.Material,
