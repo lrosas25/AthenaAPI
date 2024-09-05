@@ -30,11 +30,10 @@ app.use(express.json())
 //3rd '*' is to set the week field
 // '*' '*' '*' means to run every day
 
-cron.schedule('0,12,24 * * * *', () => {
+cron.schedule('0 0,12 * * *', () => {
     console.log('Running triggerGenerateAPApi');
     triggerGenerateAPApi();
 });
-
 //Routes
 app.use("/v1/auth", authRoutes)
 app.use("/v1/ap/generate", generateRoutes)

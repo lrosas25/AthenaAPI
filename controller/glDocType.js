@@ -11,7 +11,7 @@ const glDocTypeController = {
                 const result = await glDocType.create({
                     "glcode": record["GL Code"],
                     "transactiondetails": record["Transaction Details"],
-                    "documentType": record["Transaction Details"]
+                    "documentType": record["Document Type"]
                 })
             }
             return res.status(200).json({ message: "Successfully inserted the data." })
