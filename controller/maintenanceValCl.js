@@ -21,7 +21,7 @@ const maintenanceVAlcl = {
                 }
             })
         } catch (e) {
-            console.log(e.message)
+            res.status(400).json({ message: e.message })
         }
         return res.status(200).json({ message: "Data saved successfully." })
     }
