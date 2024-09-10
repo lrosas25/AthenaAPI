@@ -102,7 +102,8 @@ const generateController = {
                         "orderdate": item["Order date"],
                         "delivdate": item["Deliv"][" Date"],
                         "cocd": item["CoCd"],
-                        "companyname": item["Company Name"],
+                        "name": item["Name"],
+                        "vatregistrationno": item["VAT Registration No."],
                         "purcdoc": item["Purch.Doc."],
                         "item": item.Item,
                         "material": item.Material,
@@ -186,7 +187,7 @@ const generateController = {
                 try {
                     const amountInLC = record["Amount in LC"].replace(/,/g, '');
                     const result = await TreasuryClearing.create({
-                        pk: record["PK"],
+                        // pk: record["PK"],
                         cocd: record["CoCd"],
                         vendor: record["Vendor"],
                         name1: record["Name 1"] + " " + record["Name 2"],
@@ -196,7 +197,7 @@ const generateController = {
                         amountinlc: mongoose.Types.Decimal128.fromString(amountInLC),
                         crcy: record["Crcy"],
                         clearing: record["Clearing"],
-                        Housebk: record["House Bk"] ? record["House Bk"] : ""
+                        housebk: record["House Bk"] ? record["House Bk"] : ""
                     });
                 } catch (e) {
                     console.log(e);
@@ -219,7 +220,7 @@ const generateController = {
             for (let i = 0; i < data.length; i++) {
                 const record = data[i]
                 try {
-                    const amountInLC = record["Amount in LC"].replace(/,/g, '');
+                    const grossamt = record["Gross amnt"].replace(/,/g, '');
                     const result = await APSAP.create({
                         "cocd": record["CoCd"],
                         "vendor": record["Vendor"],
@@ -228,7 +229,7 @@ const generateController = {
                         "reference": record["Reference"],
                         "documentno": record["DocumentNo"],
                         "pstngdate": record["Pstng Date"],
-                        "amountinlc": mongoose.Types.Decimal128.fromString(amountInLC),
+                        "grossamt": mongoose.Types.Decimal128.fromString(grossamt),
                         "crcy": record["Crcy"] ? record["Crcy"] : ""
                     })
                 } catch (e) {

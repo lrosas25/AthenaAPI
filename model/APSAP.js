@@ -23,7 +23,7 @@ const AP_SAPSchema = new Schema({
     pstngdate: {
         type: String
     },
-    amountinlc: {
+    grossamt: {
         type: mongoose.Decimal128,
     },
     crcy: {

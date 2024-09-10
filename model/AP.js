@@ -11,6 +11,12 @@ const APSchema = new Schema({
     cocd: {
         type: String
     },
+    name: {
+        type: String
+    },
+    vatregistrationno: {
+        type: String
+    },
     purcdoc: {
         type: String,
     },
@@ -116,9 +122,6 @@ const APSchema = new Schema({
     doctype: {
         type: String
     },
-    companyname: {
-        type: String
-    }
 });
 
 export default mongoose.model('Ap', APSchema);

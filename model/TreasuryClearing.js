@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const TreasuryClearingSchema = new Schema({
-    pk: {
-        type: String
-    },
+    // pk: {
+    //     type: String
+    // },
     cocd: {
         type: String
     },

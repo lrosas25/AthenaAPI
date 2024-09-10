@@ -8,8 +8,10 @@ import Archimedes from "../model/Archimedes.js";
 const printDetails = {
     printDetailsAP: async (req, res) => {
         try {
-            const { amountinlc, companyname, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
-                profitctr, gl_acct, valcl, name1 } = req.query;
+            const { amountinlc,
+                name, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
+                profitctr, gl_acct, valcl, name1,
+                vatregistrationno } = req.query;
             const query = {};
             if (oun) query.oun = oun;
             //asdasdsa
@@ -24,7 +26,8 @@ const printDetails = {
             if (gl_acct) query.gl_acct = gl_acct;
             if (valcl) query.valcl = valcl;
             if (name1) query.name1 = name1;
-            if (companyname) query.companyname = companyname;
+            if (name) query.name = name;
+            if (vatregistrationno) query.vatregistrationno = vatregistrationno
             let list;
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 // Fetch all data without pagination
@@ -48,10 +51,10 @@ const printDetails = {
     },
     printDetailsTreasuryClrng: async (req, res) => {
         try {
-            const { cocd, amountInLc, crcy, documentNo, alldata, page, size, vendor, name1 } = req.query
+            const { cocd, amountinlc, crcy, documentNo, alldata, page, size, vendor, name1 } = req.query
             const query = {}
             if (cocd) query.cocd = cocd
-            if (amountInLc) query.amountInLc = parseFloat(amountInLc)
+            if (amountinlc) query.amountinlc = parseFloat(amountinlc)
             if (crcy) query.crcy = crcy
             if (documentNo) query.documentNo = documentNo
             if (vendor) query.vendor = vendor
@@ -73,7 +76,8 @@ const printDetails = {
     },
     printDetailsAPSAP: async (req, res) => {
         try {
-            const { cocd, vendor, name1, reference, documentno, pstngdate, amountinlc, page, size, alldata } = req.query
+            const { cocd, vendor, name1, reference, documentno, pstngdate,
+                grossamt, page, size, alldata } = req.query
             const query = {}
             if (cocd) query.cocd = cocd
             if (vendor) query.vendor = vendor
@@ -81,7 +85,7 @@ const printDetails = {
             if (reference) query.reference = reference
             if (documentno) query.documentno = documentno
             if (pstngdate) query.pstngdate = pstngdate
-            if (amountinlc) query.amountinlc = parseFloat(amountinlc)
+            if (grossamt) query.grossamt = parseFloat(grossamt)
             let list
             if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await APSAP.find(query).lean()
