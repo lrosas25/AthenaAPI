@@ -162,7 +162,6 @@ const printDetails = {
             if (pono) query.pono = pono;
             if (status) query.status = status;
             if (date) query.date = date;
-            // Add wildcard search if `wildCard` parameter is provided
             if (wildCard) {
                 const regex = new RegExp(wildCard, 'i'); // 'i' makes it case-insensitive
                 query.$or = [
@@ -170,11 +169,10 @@ const printDetails = {
                     { location: regex },
                     { vendor: regex },
                     { itemno: regex },
-                    { doctype: regex } // includes searching for partial terms like "petty"
+                    { doctype: regex }
                 ];
             }
             let list;
-            // Fetch all data if alldata is true
             if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await Archimedes.find(query).lean();
             } else {
