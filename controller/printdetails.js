@@ -149,9 +149,10 @@ const printDetails = {
             const {
                 company, location, vendor, itemno, doctype,
                 documentno, documentdate, pono, status,
-                date, alldata, page, size, wildCard
+                date, alldata, page, size, wildcard
             } = req.query;
             const query = {};
+            // Apply exact matches for specific fields
             if (company) query.company = company;
             if (location) query.location = location;
             if (vendor) query.vendor = vendor;
@@ -162,8 +163,8 @@ const printDetails = {
             if (pono) query.pono = pono;
             if (status) query.status = status;
             if (date) query.date = date;
-            if (wildCard) {
-                const regex = new RegExp(wildCard, 'i'); // 'i' makes it case-insensitive
+            if (wildcard) {
+                const regex = new RegExp(wildcard, 'i'); // 'i' makes it case-insensitive
                 query.$or = [
                     { company: regex },
                     { location: regex },
@@ -181,6 +182,7 @@ const printDetails = {
                 const skip = (pageNumber - 1) * pageSize;
                 list = await Archimedes.find(query).skip(skip).limit(pageSize).lean();
             }
+
             if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
             return res.status(200).json({ message: "Success.", data: list });
         } catch (e) {
