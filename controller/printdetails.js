@@ -170,7 +170,8 @@ const printDetails = {
                     { location: regex },
                     { vendor: regex },
                     { itemno: regex },
-                    { doctype: regex }
+                    { doctype: regex },
+                    { documentno: regex },
                 ];
             }
             let list;
