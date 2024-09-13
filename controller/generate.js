@@ -212,7 +212,7 @@ const generateController = {
         const inputDir = "./fileUploads/In/apSap"
         const outputDir = "./fileUploads/out/apSap"
         try {
-            const data = await processAllCSVFiles(inputDir, outputDir, 4, 6)
+            const data = await processAllCSVFiles(inputDir, outputDir, 4, 3)
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
