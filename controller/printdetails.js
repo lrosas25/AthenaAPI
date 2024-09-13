@@ -106,7 +106,7 @@ const printDetails = {
     },
     printDetailsPOLineItem: async (req, res) => {
         try {
-            const { purchdoc, item, material, shorttext, costctr, profitctr, alldata, page, size } = req.query
+            const { purchdoc, item, material, shorttext, costctr, profitctr, alldata, page, size, amountinlc } = req.query
             const query = {}
             if (purchdoc) query.purchdoc = purchdoc
             if (item) query.item = item
@@ -114,6 +114,7 @@ const printDetails = {
             if (shorttext) query.shorttext = shorttext
             if (costctr) query.costctr = costctr
             if (profitctr) query.profitctr = profitctr
+            if (amountinlc) query.amountinlc = amountinlc
             let list
             if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await QASPOLineItemMatching.find(query).lean()
