@@ -11,7 +11,8 @@ const printDetails = {
             const { amountinlc,
                 name, quantity, purcdoc, shorttext, costctr, oun, reference, page, size, allData, refdoc,
                 profitctr, gl_acct, valcl, name1,
-                vatregistrationno } = req.query;
+                vatregistrationno,
+                matdoc } = req.query;
             const query = {};
             if (oun) query.oun = oun;
             //asdasdsa
@@ -28,6 +29,7 @@ const printDetails = {
             if (name1) query.name1 = name1;
             if (name) query.name = name;
             if (vatregistrationno) query.vatregistrationno = vatregistrationno
+            if (matdoc) query.matdoc = matdoc
             let list;
             if (allData === "true" || allData === "True" || allData === "TRUE") {
                 // Fetch all data without pagination
