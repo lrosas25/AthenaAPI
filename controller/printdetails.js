@@ -51,7 +51,7 @@ const printDetails = {
     },
     printDetailsTreasuryClrng: async (req, res) => {
         try {
-            const { cocd, amountinlc, crcy, documentNo, alldata, page, size, vendor, name1 } = req.query
+            const { cocd, amountinlc, crcy, clringdoc, documentNo, alldata, page, size, vendor, name1 } = req.query
             const query = {}
             if (cocd) query.cocd = cocd
             if (amountinlc) query.amountinlc = parseFloat(amountinlc)
@@ -59,6 +59,7 @@ const printDetails = {
             if (documentNo) query.documentNo = documentNo
             if (vendor) query.vendor = vendor
             if (name1) query.name1 = name1
+            if (clringdoc) query.clringdoc = clringdoc
             let list
             if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
                 list = await TreasuryClearing.find(query).lean()
