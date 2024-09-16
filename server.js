@@ -1,12 +1,13 @@
 import express from "express"
 import dotenv from "dotenv"
 import cron from "node-cron"
+import { dirCheckFiles } from "./helpers/dirFilesChecker.js"
 import mongoose, { mongo } from "mongoose"
 import { connectToDb } from "./config/dbconnection.js"
 import generateRoutes from "./routes/generate.js"
 import printDetailRoutes from "./routes/printDetails.js"
 import removeRoutes from "./routes/removeData.js"
-import { triggerGenerateAPApi } from "./helpers/triggerApi.js"
+import { triggerGenerateAPApi, triggerGenerateTreasuryApi, triggerGenerateAPSAPApi } from "./helpers/triggerApi.js"
 import authRoutes from "./routes/auth.js"
 import { verifyToken } from "./middleware/verifyToken.js"
 import cookieParser from "cookie-parser"
@@ -15,6 +16,7 @@ import ApSapRoutes from "./routes/apSap.js"
 import maintenanceValClRoutes from "./routes/maintenanceValCl.js"
 import glDocTypeRoutes from "./routes/glDocType.js"
 import ArchimedesRoutes from "./routes/archimedes.js"
+import processCSVFiles from "./helpers/processCSVFiles.js"
 
 dotenv.config()
 
@@ -31,8 +33,19 @@ app.use(express.json())
 // '*' '*' '*' means to run every day
 
 cron.schedule('0 0,12 * * *', () => {
-    console.log('Running triggerGenerateAPApi');
-    triggerGenerateAPApi();
+    const apDir = dirCheckFiles("./fileUploads/In/ap")
+    const treasuryDir = dirCheckFiles("./fileUploads/In/treasury")
+    const apSapDir = dirCheckFiles("./fileUploads/In/apSap")
+    if (apDir > 0) {
+        triggerGenerateAPApi();
+    }
+    if (treasuryDir > 0) {
+        triggerGenerateTreasuryApi()
+    }
+    if (apSapDir > 0) {
+        triggerGenerateAPSAPApi()
+    }
+
 });
 //Routes
 app.use("/v1/auth", authRoutes)

@@ -6,9 +6,9 @@ import authenticateBearerToken from '../middleware/bearerTokenAuth.js';
 
 const router = express.Router();
 
-router.post('/', authenticateBearerToken, generateController.generateAP)
-router.post('/generateTreasuryClearing', authenticateBearerToken, generateController.generateTreasuryClearing)
-router.post('/generateAPSAP', authenticateBearerToken, generateController.generateAPSAP)
+router.post('/', generateController.generateAP)
+router.post('/generateTreasuryClearing', generateController.generateTreasuryClearing)
+router.post('/generateAPSAP', generateController.generateAPSAP)
 router.post('/archimedes', authenticateBearerToken, generateController.generateArchimedes)
 
 
