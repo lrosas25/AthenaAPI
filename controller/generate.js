@@ -9,6 +9,9 @@ import processTreasury from "../helpers/processTreasury.js";
 import processAllCSVFiles from "../helpers/processCSVFiles.js";
 import glDocType from "../model/glDocType.js";
 import Archimedes from "../model/Archimedes.js";
+import { bkpf } from "../model/rpa/BKPF.js";
+import { bseg } from "../model/rpa/BSEG.js";
+import { fb03 } from "../model/rpa/FB03.js";
 const generateController = {
     generateAP: async (req, res) => {
         const inputDir = "./fileUploads/In/ap";
@@ -275,6 +278,88 @@ const generateController = {
             return res.status(200).json({ message: "Successfully inserted the data." });
         } catch (e) {
             console.log(e.message);
+            return res.status(500).json({ message: e.message });
+        }
+    },
+    generateSAPBKPF: async (req, res) => {
+        const inputDir = "./fileUploads/rpa/in/SAP/BKPF";
+        const outputDir = "./fileUploads/rpa/out/SAP/BKPF";
+        try {
+            const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true)
+            if (!data) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
+            data.forEach(async (item) => {
+                const result = await bkpf.create({
+                    "companycode": item["Company Code"],
+                    "documentnumber": item["Document Number"],
+                    "documenttype": item["Document Type"],
+                    "reference": item["Reversed with"],
+                    "reversedwith": item["Reversed with"],
+                    "docstatus": item["Doc"]["status"]
+                })
+            })
+            return res.status(200).json({ message: "Successfully generated data." })
+        } catch (e) {
+            console.error(e)
+            return res.status(500).json({ message: e.message });
+        }
+    },
+    genereateSAPBSEG: async (req, res) => {
+        const inputDir = "./fileUploads/rpa/in/SAP/BSEG";
+        const outputDir = "./fileUploads/rpa/out/SAP/BSEG";
+        try {
+            const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true)
+            if (!data || data.length === 0) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
+            data.forEach(async (item) => {
+                const result = await bseg.create({
+                    "companycode": item["Company Code"],
+                    "documentnumber": item["Document Number"],
+                    "lineitem": item["Line item"],
+                    "postingkey": item["Posting Key"],
+                    "taxcode": item["Tax code"],
+                    "withholdingtaxcode": item["Withholding Tax Code"],
+                    "amountinlc": item["Amount in LC"],
+                    "profitcenter": item["Profit Center"],
+                    "glaccount": item["G/L Account"]
+                })
+            })
+            return res.status(200).json({ message: "Successfully generated data." })
+        } catch (e) {
+            console.error(e)
+            return res.status(500).json({ message: e.message });
+        }
+    },
+    generateSAPFB03: async (req, res) => {
+        const inputDir = "./fileUploads/rpa/in/SAP/FB03";
+        const outputDir = "./fileUploads/rpa/out/SAP/FB03";
+        try {
+            const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true)
+            if (!data || data.length === 0) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
+            console.log(data)
+            data.forEach(async (item) => {
+                const result = await fb03.create({
+                    "companycode": item["Company Code"],
+                    "documentnumber": item["Document Number"],
+                    "fiscalyear": item["Fiscal Year"],
+                    "documenttype": item["Document Type"],
+                    "documentdate": item["Document Date"],
+                    "postingdate": item["Posting Date"],
+                    "reference": item["Reference"],
+                    "parkedby": item["Parked by"],
+                    "doctype": item["Doc"]["Type"],
+                    "reversedwith": item["Reversed with"],
+                    "enterydate": item["Entry Date"],
+                    "timeofentry": item["Time of Entry"]
+                })
+            })
+            return res.status(200).json({ message: "Successfully generated data." })
+        } catch (e) {
+            console.error(e)
             return res.status(500).json({ message: e.message });
         }
     }

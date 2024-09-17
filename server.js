@@ -9,14 +9,13 @@ import printDetailRoutes from "./routes/printDetails.js"
 import removeRoutes from "./routes/removeData.js"
 import { triggerGenerateAPApi, triggerGenerateTreasuryApi, triggerGenerateAPSAPApi } from "./helpers/triggerApi.js"
 import authRoutes from "./routes/auth.js"
-import { verifyToken } from "./middleware/verifyToken.js"
 import cookieParser from "cookie-parser"
 import treasuryClearingRoutes from "./routes/treasuryClearing.js"
 import ApSapRoutes from "./routes/apSap.js"
 import maintenanceValClRoutes from "./routes/maintenanceValCl.js"
 import glDocTypeRoutes from "./routes/glDocType.js"
 import ArchimedesRoutes from "./routes/archimedes.js"
-import processCSVFiles from "./helpers/processCSVFiles.js"
+import rpaRoutes from "./routes/rpa.js"
 
 dotenv.config()
 
@@ -58,6 +57,7 @@ app.use("/v1/apSap/printDetails", ApSapRoutes)
 app.use("/v1/archimedes/printDetails", ArchimedesRoutes)
 app.use("/ValCl", maintenanceValClRoutes)
 app.use("/glDocType", glDocTypeRoutes)
+app.use('/v1/rpa', rpaRoutes)
 
 mongoose.connection.once("open", () => {
     console.log("Connected to MongoDB")

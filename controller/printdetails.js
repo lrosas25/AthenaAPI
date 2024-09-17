@@ -18,12 +18,15 @@ const printDetails = {
             //asdasdsa
             if (purcdoc) query.purcdoc = purcdoc;
             if (quantity) query.quantity = quantity;
-            if (shorttext) query.shortText = shorttext;
-            if (costctr) query.costCtr = costctr;
-            if (amountinlc) query.AmountInLC = parseFloat(amountinlc);
-            if (reference) query.Reference = reference;
+            if (shorttext) query.shorttext = shorttext;
+            if (costctr) query.costctr = costctr;
+            if (amountinlc) query.amountinlc = parseFloat(amountinlc);
+            if (reference) {
+                // to search the reference if the user entered 2100373981 it will find reference = SI# 2100373981
+                query.reference = { $regex: new RegExp(reference, 'i') };
+            }
             if (refdoc) query.refDoc = refdoc;
-            if (profitctr) query.profitCtr = profitctr
+            if (profitctr) query.profitctr = profitctr
             if (gl_acct) query.gl_acct = gl_acct;
             if (valcl) query.valcl = valcl;
             if (name1) query.name1 = name1;
