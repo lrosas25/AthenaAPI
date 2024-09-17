@@ -32,7 +32,7 @@ const fb03Schema = new Schema({
     reversedwith: {
         type: String
     },
-    enterydate: {
+    entrydate: {
         type: String
     },
     timeofentry: {

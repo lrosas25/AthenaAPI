@@ -352,7 +352,7 @@ const generateController = {
                     "parkedby": item["Parked by"],
                     "doctype": item["Doc"]["Type"],
                     "reversedwith": item["Reversed with"],
-                    "enterydate": item["Entry Date"],
+                    "entrydate": item["Entry Date"],
                     "timeofentry": item["Time of Entry"]
                 })
             })
