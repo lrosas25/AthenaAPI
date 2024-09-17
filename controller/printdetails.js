@@ -4,6 +4,9 @@ import TreasuryClearing from "../model/TreasuryClearing.js";
 import QASPOLineItemMatching from "../model/QASPOLineItemMatching.js";
 import QASPOTotal from "../model/QASPOTotal.js";
 import Archimedes from "../model/Archimedes.js";
+import { bkpf } from "../model/rpa/BKPF.js";
+import { bseg } from "../model/rpa/BSEG.js";
+import { fb03 } from "../model/rpa/FB03.js";
 
 const printDetails = {
     printDetailsAP: async (req, res) => {
@@ -199,6 +202,95 @@ const printDetails = {
             return res.status(200).json({ message: "Success.", data: list });
         } catch (e) {
             return res.status(500).json({ message: e.message });
+        }
+    },
+    printDetailsSAPBKPF: async (req, res) => {
+        try {
+            const { companycode, documentnumber, reference, reversedwith, docstatus, page, size, alldata } = req.query
+            const query = {}
+            if (companycode) query.companycode = companycode
+            if (documentnumber) query.documentnumber = documentnumber
+            if (reference) {
+                // to search the reference if the user entered 2100373981 it will find reference = SI# 2100373981
+                query.reference = { $regex: new RegExp(reference, 'i') };
+            }
+            if (reversedwith) query.reversedwith = reversedwith
+            if (docstatus) query.docstatus = docstatus
+            let list
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
+                list = await bkpf.find(query).lean();
+            } else {
+                const pageNumber = parseInt(page, 10) || 1;
+                const pageSize = parseInt(size, 10) || 20;
+                const skip = (pageNumber - 1) * pageSize;
+                list = await bkpf.find(query).skip(skip).limit(pageSize).lean();
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list });
+        } catch (e) {
+            return res.status(500).json({ message: e.message })
+        }
+    },
+    printDetailsSAPBSEG: async (req, res) => {
+        try {
+            const { companycode, documentnumber, lineitem, postingkey, taxcode, withholdingtaxcode, amountinlc, glaccount, profitcenter, page, size, alldata } = req.query
+            const query = {}
+            if (companycode) query.companycode = companycode
+            if (documentnumber) query.documentnumber = documentnumber
+            if (taxcode) query.taxcode = taxcode
+            if (lineitem) {
+                query.lineitem = { $regex: new RegExp(reference, 'i') };
+            }
+            if (postingkey) query.postingkey = postingkey
+            if (withholdingtaxcode) query.withholdingtaxcode = withholdingtaxcode
+            if (amountinlc) query.amountinlc = amountinlc
+            if (glaccount) query.glaccount = glaccount
+            if (profitcenter) query.profitcenter = profitcenter
+            let list
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
+                list = await bseg.find(query).lean();
+            } else {
+                const pageNumber = parseInt(page, 10) || 1;
+                const pageSize = parseInt(size, 10) || 20;
+                const skip = (pageNumber - 1) * pageSize;
+                list = await bseg.find(query).skip(skip).limit(pageSize).lean();
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list });
+        } catch (e) {
+            return res.status(500).json({ message: e.message })
+        }
+    },
+    printDetailsSAPFB03: async (req, res) => {
+        try {
+            const { companycode, documentnumber, fiscalyear, documenttype, documentdate, postingdate, reference, parkedby, doctype, reversedwith, entrydate, timeofentry, page, size, alldata } = req.query
+            const query = {}
+            if (companycode) query.companycode = companycode
+            if (documentnumber) query.documentnumber = documentnumber
+            if (fiscalyear) query.fiscalyear = fiscalyear
+            if (documentdate) query.documentdate = documentdate
+            if (documenttype) query.documenttype = documenttype
+            if (postingdate) query.postingdate = postingdate
+            if (reference) query.reference = reference
+            if (parkedby) query.parkedby = parkedby
+            if (doctype) query.doctype = doctype
+            if (reversedwith) query.reversedwith = reversedwith
+            if (entrydate) query.entrydate = entrydate
+            if (timeofentry) query.timeofentry = timeofentry
+
+            let list
+            if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
+                list = await fb03.find(query).lean();
+            } else {
+                const pageNumber = parseInt(page, 10) || 1;
+                const pageSize = parseInt(size, 10) || 20;
+                const skip = (pageNumber - 1) * pageSize;
+                list = await fb03.find(query).skip(skip).limit(pageSize).lean();
+            }
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", data: list });
+        } catch (e) {
+            return res.status(500).json({ message: e.message })
         }
     }
 }

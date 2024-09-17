@@ -340,7 +340,6 @@ const generateController = {
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
-            console.log(data)
             data.forEach(async (item) => {
                 const result = await fb03.create({
                     "companycode": item["Company Code"],
