@@ -37,7 +37,11 @@ const fb03Schema = new Schema({
     },
     timeofentry: {
         type: String
-    }
+    },
+    bseg: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'bsegs'
+    } 
 })
 
 export const fb03 = mongoose.model('fb03', fb03Schema)

@@ -1008,3 +1008,35 @@ Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInter
 2024-11-12 11:45:27 - Finished athenaapi.exe
 2024-11-14 19:05:45 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Code\AthenaAPI\node_modules\node-windows\lib\wrapper.js --file C:\Code\AthenaAPI\server.js --scriptoptions= --log "Athena API wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
 2024-11-14 19:05:46 - Started 6460
+2024-11-19 18:24:48 - Stopping athenaapi.exe
+2024-11-19 18:24:48 - ProcessKill 6460
+2024-11-19 18:24:48 - Found child process: 5960 Name: conhost.exe
+2024-11-19 18:24:48 - Found child process: 6416 Name: node.exe
+2024-11-19 18:24:48 - Stopping process 5960
+2024-11-19 18:24:48 - Send SIGINT 5960
+2024-11-19 18:24:48 - SIGINT to 5960 failed - Killing as fallback
+2024-11-19 18:24:48 - Stopping process 6416
+2024-11-19 18:24:48 - Send SIGINT 6416
+2024-11-19 18:24:48 - SIGINT to 6416 failed - Killing as fallback
+2024-11-19 18:24:48 - Stopping process 6460
+2024-11-19 18:24:48 - Send SIGINT 6460
+2024-11-19 18:24:48 - SIGINT to 6460 failed - Killing as fallback
+2024-11-19 18:24:48 - Finished athenaapi.exe
+2024-11-19 18:24:50 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Code\AthenaAPI\node_modules\node-windows\lib\wrapper.js --file C:\Code\AthenaAPI\server.js --scriptoptions= --log "Athena API wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-11-19 18:24:53 - Started 6508
+2024-11-19 18:25:58 - Stopping athenaapi.exe
+2024-11-19 18:25:58 - ProcessKill 6508
+2024-11-19 18:25:58 - Found child process: 6716 Name: conhost.exe
+2024-11-19 18:25:58 - Found child process: 4080 Name: node.exe
+2024-11-19 18:25:58 - Stopping process 6716
+2024-11-19 18:25:58 - Send SIGINT 6716
+2024-11-19 18:25:58 - SIGINT to 6716 failed - Killing as fallback
+2024-11-19 18:25:58 - Stopping process 4080
+2024-11-19 18:25:58 - Send SIGINT 4080
+2024-11-19 18:25:58 - SIGINT to 4080 failed - Killing as fallback
+2024-11-19 18:25:58 - Stopping process 6508
+2024-11-19 18:25:58 - Send SIGINT 6508
+2024-11-19 18:25:58 - SIGINT to 6508 failed - Killing as fallback
+2024-11-19 18:25:58 - Finished athenaapi.exe
+2024-11-19 18:26:28 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Code\AthenaAPI\node_modules\node-windows\lib\wrapper.js --file C:\Code\AthenaAPI\server.js --scriptoptions= --log "Athena API wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2024-11-19 18:26:29 - Started 5440

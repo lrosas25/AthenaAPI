@@ -455,22 +455,44 @@ const generateController = {
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
+
+            
+
+
+            
             data.forEach(async (item) => {
-                const result = await fb03.create({
-                    "companycode": item["Company Code"],
-                    "documentnumber": item["Document Number"],
-                    "fiscalyear": item["Fiscal Year"],
-                    "documenttype": item["Document Type"],
-                    "documentdate": item["Document Date"],
-                    "postingdate": item["Posting Date"],
-                    "reference": item["Reference"],
-                    "parkedby": item["Parked by"],
-                    "doctype": item["Doc"]["Type"],
-                    "reversedwith": item["Reversed with"],
-                    "entrydate": item["Entry Date"],
-                    "timeofentry": item["Time of Entry"]
-                })
+            //Find BSEGS
+                let BSEGS
+                try {
+                    BSEGS = await bseg.find({documentnumber: item["Document Number"]})
+                } catch (error) {
+                    console.log(error);
+                }
+
+                if (historyid === null){
+
+                }else{
+                    const result = await fb03.create({
+                        "companycode": item["Company Code"],
+                        "documentnumber": item["Document Number"],
+                        "fiscalyear": item["Fiscal Year"],
+                        "documenttype": item["Document Type"],
+                        "documentdate": item["Document Date"],
+                        "postingdate": item["Posting Date"],
+                        "reference": item["Reference"],
+                        "parkedby": item["Parked by"],
+                        "doctype": item["Doc"]["Type"],
+                        "reversedwith": item["Reversed with"],
+                        "entrydate": item["Entry Date"],
+                        "timeofentry": item["Time of Entry"],
+                        "bseg" : BSEGS._id
+                    })
+                }
             })
+            
+            
+
+
             return res.status(200).json({ message: "Successfully generated data." })
         } catch (e) {
             console.error(e)

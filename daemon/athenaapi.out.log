@@ -6217,3 +6217,111 @@ Server is running on port 3000
 Empty directory.
 All CSV files processed successfully.
 All CSV files processed successfully.
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+TypeError: Cannot read properties of undefined (reading 'replace')
+    at generateTreasuryClearing (file:///C:/Code/AthenaAPI/controller/generate.js:197:53)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+TypeError: Cannot read properties of undefined (reading 'replace')
+    at generateTreasuryClearing (file:///C:/Code/AthenaAPI/controller/generate.js:197:53)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+TypeError: Cannot read properties of undefined (reading 'replace')
+    at generateTreasuryClearing (file:///C:/Code/AthenaAPI/controller/generate.js:197:53)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+Cannot read properties of undefined (reading 'replace')
+All CSV files processed successfully.
+All CSV files processed successfully.
+Connected to MongoDB
+Server is running on port 3000
+All CSV files processed successfully.
+ReferenceError: record is not defined
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:462:58)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Connected to MongoDB
+Server is running on port 3000

@@ -62,7 +62,7 @@ const ArchimedesSechema = new Schema({
     history: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'archimedes_histories'
-    }
+    } 
 })
 
 export default mongoose.model("Archimedes", ArchimedesSechema);

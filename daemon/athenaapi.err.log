@@ -1760,3 +1760,99 @@ Error processing all CSV files: Error: EPERM: operation not permitted, rename 'C
   path: 'C:\\Code\\AthenaAPI\\fileUploads\\In\\treasury\\AP TREASURY CLEARING 10172024.CSV',
   dest: 'C:\\Code\\AthenaAPI\\fileUploads\\Out\\treasury\\AP TREASURY CLEARING 10172024.CSV'
 }
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:427:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:427:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:454:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:427:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:427:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+file:///C:/Code/AthenaAPI/controller/generate.js:485
+                        "bseg" : [BSEGS._id]
+                                        ^
+
+TypeError: Cannot read properties of undefined (reading '_id')
+    at file:///C:/Code/AthenaAPI/controller/generate.js:485:41
+    at Array.forEach (<anonymous>)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:471:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+Node.js v20.15.1
