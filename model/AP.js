@@ -59,6 +59,12 @@ const APSchema = new Schema({
     amountinlc: {
         type: mongoose.Decimal128,
     },
+    crcyinlc: {
+        type: String,
+    },
+    amount: {
+        type: mongoose.Decimal128,
+    },
     crcy: {
         type: String,
     },

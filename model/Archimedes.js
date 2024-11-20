@@ -40,6 +40,28 @@ const ArchimedesSechema = new Schema({
     },
     statusdate: {
         type: String
+    },
+    voucherno: {
+        type: String
+    },
+    file: {
+        type: String
+    },
+    documenttype1: {
+        type: String
+    },
+    category: {
+        type: String
+    },
+    priority: {
+        type: String
+    },
+    duedate: {
+        type: String
+    },
+    history: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'archimedes_histories'
     }
 })
 

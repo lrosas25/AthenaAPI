@@ -5,8 +5,9 @@ const POTotal = new Schema({
     purchdoc: {
         type: String
     },
-    totalamountinlc: {
+    totalamount: {
         type: mongoose.Decimal128,
-    }
+    },
+
 })
 export default mongoose.model("QASPOTotal", POTotal)

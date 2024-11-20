@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const AP_SAPSchema = new Schema({
+    docdate: {
+        type: String
+    },
     cocd: {
         type: String
     },
@@ -23,7 +26,7 @@ const AP_SAPSchema = new Schema({
     pstngdate: {
         type: String
     },
-    grossamt: {
+    amt: {
         type: mongoose.Decimal128,
     },
     crcy: {

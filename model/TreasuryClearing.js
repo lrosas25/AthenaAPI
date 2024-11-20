@@ -23,7 +23,7 @@ const TreasuryClearingSchema = new Schema({
     documentno: {
         type: String
     },
-    amountinlc: {
+    amount: {
         type: mongoose.Decimal128,
     },
     crcy: {

@@ -9,9 +9,11 @@ import processTreasury from "../helpers/processTreasury.js";
 import processAllCSVFiles from "../helpers/processCSVFiles.js";
 import glDocType from "../model/glDocType.js";
 import Archimedes from "../model/Archimedes.js";
+import ArchimedesHistory from "../model/ArchimedesHistory.js";
 import { bkpf } from "../model/rpa/BKPF.js";
 import { bseg } from "../model/rpa/BSEG.js";
 import { fb03 } from "../model/rpa/FB03.js";
+import { json } from "express";
 const generateController = {
     generateAP: async (req, res) => {
         const inputDir = "./fileUploads/In/ap";
@@ -47,8 +49,8 @@ const generateController = {
                     );
                     if (existingEntry) {
                         // Update the existing entry's amount
-                        const existingAmount = parseFloat(existingEntry.amountInLC.toString());
-                        existingEntry.amountInLC = mongoose.Types.Decimal128.fromString(
+                        const existingAmount = parseFloat(existingEntry.amountinlc.toString());
+                        existingEntry.amountinlc = mongoose.Types.Decimal128.fromString(
                             (existingAmount + adjustedAmount).toFixed(2)
                         );
                     } else {
@@ -59,30 +61,32 @@ const generateController = {
                             shortText: item["Short Text"],
                             costCtr: item["Cost Ctr"],
                             profitCtr: item["Profit Ctr"],
-                            amountInLC: mongoose.Types.Decimal128.fromString(adjustedAmount.toFixed(2))
+                            amountinlc: mongoose.Types.Decimal128.fromString(adjustedAmount.toFixed(2))
                         });
                     }
                     // Handle POTotalData
                     let existingTotal = POTotalData.find(record => record.purcDoc === item["Purch.Doc."]);
                     if (existingTotal) {
-                        const existingTotalAmount = parseFloat(existingTotal.totalAmountInLC.toString());
+                        const existingTotalAmount = parseFloat(existingTotal.totalamount.toString());
                         const newTotalAmount = existingTotalAmount + amount;
-                        existingTotal.totalAmountInLC = mongoose.Types.Decimal128.fromString(newTotalAmount.toFixed(2));
+                        existingTotal.totalamount = mongoose.Types.Decimal128.fromString(newTotalAmount.toFixed(2));
                     } else {
                         POTotalData.push({
                             purcDoc: item["Purch.Doc."],
-                            totalAmountInLC: mongoose.Types.Decimal128.fromString(amount.toFixed(2))
+                            totalamount: mongoose.Types.Decimal128.fromString(amount.toFixed(2))
                         });
                     }
                 }
                 try {
-                    const cleanedAmountString = item["Amount in LC"].replace(/[^0-9.]/g, '');
+                    const cleanedAmountStringInLC = item["Amount in LC"].replace(/[^0-9.]/g, '');
+                    const cleanedAmountString = item["Amount"].replace(/[^0-9.]/g, '');
                     const cleanedScheduledQty = item["Scheduled Qty"].replace(/[^0-9.]/g, '');
                     const cleanedQtyDelivered = item["Qty Delivered"].replace(/[^0-9.]/g, '');
                     const cleanedQuantityinOPUn = item["Quantity in OPUn"].replace(/[^0-9.]/g, '');
                     const cleanedGRIRClearingValue = item["GR/IR clearing value in LC"]?.replace(/[^0-9.]/g, '');
                     const cleanedQuantity = item["Quantity"].replace(/[^0-9.]/g, '');
                     // Ensure the cleaned strings are valid Decimal128 values
+                    const amountInLCInDecimal128 = mongoose.Types.Decimal128.fromString(cleanedAmountStringInLC);
                     const amountInDecimal128 = mongoose.Types.Decimal128.fromString(cleanedAmountString);
                     const scheduledQt = mongoose.Types.Decimal128.fromString(cleanedScheduledQty);
                     const quantity = mongoose.Types.Decimal128.fromString(cleanedQuantity);
@@ -112,7 +116,7 @@ const generateController = {
                         "material": item.Material,
                         "valcl": item["ValCl"] ? item["ValCl"] : "",
                         "shorttext": item["Short Text"],
-                        "costctr": item["Cost Ctr"],
+                        "costctr": item["Cost Ctr"] + item["Profit Ctr"],
                         "profitctr": item["Profit Ctr"],
                         "scheduledqty": scheduledQt,
                         "oun": item["OUn"],
@@ -120,7 +124,9 @@ const generateController = {
                         "quantity": quantity,
                         "quantityinopun": quantityinOpu,
                         "opu": item["OPU"],
-                        "amountinlc": amountInDecimal128,
+                        "amountinlc": amountInLCInDecimal128,
+                        "crcyinlc": "PHP",
+                        "amount": amountInDecimal128,
                         "crcy": item["Crcy"],
                         "hct": item["HCt"],
                         "mvt": item["MvT"],
@@ -156,7 +162,7 @@ const generateController = {
                         "shorttext": item.shortText,
                         "costctr": item.costCtr,
                         "profitctr": item.profitCtr,
-                        "amountinlc": mongoose.Types.Decimal128.fromString(item.amountInLC.toString())
+                        "amountinlc": mongoose.Types.Decimal128.fromString(item.amountinlc.toString())
                     });
                 } catch (e) {
                     console.log(e.message);
@@ -166,7 +172,7 @@ const generateController = {
                 try {
                     await QASPOTotal.create({
                         "purchdoc": item.purcDoc,
-                        "totalamountinlc": mongoose.Types.Decimal128.fromString(item.totalAmountInLC.toString())
+                        "totalamount": mongoose.Types.Decimal128.fromString(item.totalamount.toString())
                     });
                 } catch (e) {
                     console.log(e);
@@ -188,7 +194,7 @@ const generateController = {
             for (let i = 0; i < data.length; i++) {
                 const record = data[i];
                 try {
-                    const amountInLC = record["Amount in LC"].replace(/,/g, '');
+                    const amount = record["Amount"].replace(/,/g, '');
                     const result = await TreasuryClearing.create({
                         // pk: record["PK"],
                         cocd: record["CoCd"],
@@ -197,7 +203,7 @@ const generateController = {
                         name2: "",
                         documentno: record["DocumentNo"],
                         clringdoc: record["Clrng doc."],
-                        amountinlc: mongoose.Types.Decimal128.fromString(amountInLC),
+                        amount: mongoose.Types.Decimal128.fromString(amount),
                         crcy: record["Crcy"],
                         clearing: record["Clearing"],
                         housebk: record["House Bk"] ? record["House Bk"] : ""
@@ -223,8 +229,9 @@ const generateController = {
             for (let i = 0; i < data.length; i++) {
                 const record = data[i]
                 try {
-                    const grossamt = record["Gross amnt"].replace(/,/g, '');
+                    const amt = record["Amount"].replace(/,/g, '');
                     const result = await APSAP.create({
+                        "docdate": record["Doc"][" Date"],
                         "cocd": record["CoCd"],
                         "vendor": record["Vendor"],
                         "name1": record["Name 1"] + " " + record["Name 2"],
@@ -232,7 +239,7 @@ const generateController = {
                         "reference": record["Reference"],
                         "documentno": record["DocumentNo"],
                         "pstngdate": record["Pstng Date"],
-                        "grossamt": mongoose.Types.Decimal128.fromString(grossamt),
+                        "amt": mongoose.Types.Decimal128.fromString(amt),
                         "crcy": record["Crcy"] ? record["Crcy"] : ""
                     })
                 } catch (e) {
@@ -259,21 +266,70 @@ const generateController = {
                 if (amount.startsWith('(') && amount.endsWith(')')) {
                     amount = `-${amount.slice(1, -1)}`;
                 }
-                const result = await Archimedes.create({
-                    "company": record["Company"],
-                    "itemno": record["Item No."],
-                    "location": record["Location"],
-                    "vendor": record["Vendor"],
-                    "documenttype": record["Document Type"],
-                    "documentno": record["Document No."],
-                    "documentdate": record["Document Date"],
-                    "pono": record["PO No."],
-                    "amount": mongoose.Types.Decimal128.fromString(amount),
-                    "currency": record["Currency"],
-                    "status": record["Status"],
-                    "inbox": record["Inbox"],
-                    "statusdate": record["Status Date"]
-                });
+                //record["Document Date"]
+                //const documentdate = Date.parse(record["Document Date"]);
+                //const duedate = new Date(documentdate);
+                //duedate.setDate(documentdate.getDate + 30)
+
+
+                let historyid
+                try {
+                    historyid = await ArchimedesHistory.findOne({imageid: record["Item No."]})
+                } catch (error) {
+                    console.log(error);
+                } 
+                
+                if (historyid === null){
+                    const result = await Archimedes.create({
+                        "company": record["Company"],
+                        "itemno": record["Item No."],
+                        "location": record["Location"],
+                        "vendor": record["Vendor"],
+                        "documenttype": record["Document Type"],
+                        "documentno": record["Document No."],
+                        "documentdate": record["Document Date"],
+                        "pono": record["PO No."],
+                        "amount": mongoose.Types.Decimal128.fromString(amount),
+                        "currency": record["Currency"],
+                        "status": record["Status"],
+                        "inbox": record["Inbox"],
+                        "statusdate": record["Status Date"],
+                        "voucherno": record["Voucher No."],
+                        "documenttype1": record["Document Type1"],
+                        "category": record["Category"],
+                        "priority": record["Priority"],
+                        "duedate": record["Due Date"],
+                        "file" : "https://athena.ftsfood.com.ph/view/view.aspx?id=" + record["Item No."]
+    
+                    });
+                }else{
+                    //console.log(archimedesid._id);
+                    const result = await Archimedes.create({
+                        "company": record["Company"],
+                        "itemno": record["Item No."],
+                        "location": record["Location"],
+                        "vendor": record["Vendor"],
+                        "documenttype": record["Document Type"],
+                        "documentno": record["Document No."],
+                        "documentdate": record["Document Date"],
+                        "pono": record["PO No."],
+                        "amount": mongoose.Types.Decimal128.fromString(amount),
+                        "currency": record["Currency"],
+                        "status": record["Status"],
+                        "inbox": record["Inbox"],
+                        "statusdate": record["Status Date"],
+                        "voucherno": record["Voucher No."],
+                        "documenttype1": record["Document Type1"],
+                        "category": record["Category"],
+                        "priority": record["Priority"],
+                        "duedate": record["Due Date"],
+                        "file" : "https://athena.ftsfood.com.ph/view/view.aspx?id=" + record["Item No."],
+                        "history" : historyid._id
+    
+                    });
+                }
+
+                
             }
             return res.status(200).json({ message: "Successfully inserted the data." });
         } catch (e) {
@@ -281,6 +337,65 @@ const generateController = {
             return res.status(500).json({ message: e.message });
         }
     },
+    generateArchimedesHistory: async (req, res) => {
+        const inputDir = "./fileUploads/In/archimedes_history";
+        const outputDir = "./fileUploads/out/archimedes_history";
+        try {
+            const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true);
+            if (!data) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
+            await ArchimedesHistory.deleteMany({})
+            for (let i = 0; i < data.length; i++) {
+                const record = data[i];
+                let amount = record["total"].replace(/,/g, '');
+                if (amount.startsWith('(') && amount.endsWith(')')) {
+                    amount = `-${amount.slice(1, -1)}`;
+                }
+                /* //get object id
+                let archimedesid
+                try {
+                    archimedesid = await Archimedes.findOne({itemno: record["imageid"]})
+                } catch (error) {
+                    console.log(error);
+                } 
+                
+                if (archimedesid === null){
+                    
+                }else{
+                    //console.log(archimedesid._id);
+                    
+                }*/
+
+                const result = await ArchimedesHistory.create({
+                    "imageid": record["imageid"],
+                    "location": record["location"],
+                    "vendorname": record["vendorname"],
+                    "document_type": record["document_type"],
+                    "invoiceid": record["invoiceid"],
+                    "invoicedate": record["invoicedate"],
+                    "total": mongoose.Types.Decimal128.fromString(amount),
+                    "scan_date": record["scan_date"],
+                    "completedate": record["completedate"],
+                    "stepname": record["stepname"],
+                    "stepuser": record["stepuser"],
+                    "begin_datetime": record["begin_datetime"],
+                    "end_datetime": record["end_datetime"],
+                    "durationdays": record["duration-days"]
+                });
+
+                
+            }
+            return res.status(200).json({ message: "Successfully inserted the data."});
+        } catch (e) {
+            console.log(e.message);
+            return res.status(500).json({ message: e.message });
+        }
+    },
+
+
+
+
     generateSAPBKPF: async (req, res) => {
         const inputDir = "./fileUploads/rpa/in/SAP/BKPF";
         const outputDir = "./fileUploads/rpa/out/SAP/BKPF";

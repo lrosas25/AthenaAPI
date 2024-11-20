@@ -10,6 +10,8 @@ router.post('/', generateController.generateAP)
 router.post('/generateTreasuryClearing', generateController.generateTreasuryClearing)
 router.post('/generateAPSAP', generateController.generateAPSAP)
 router.post('/archimedes', authenticateBearerToken, generateController.generateArchimedes)
+router.post('/archimedeshistory', authenticateBearerToken, generateController.generateArchimedesHistory)
 
+//generateArchimedesHistory
 
 export default router
