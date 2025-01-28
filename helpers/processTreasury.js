@@ -50,6 +50,7 @@ const processCSVFile = async (filePath) => {
     }
 };
 
+
 // Function to process all CSV files in the input directory
 const processAllCSVFiles = async () => {
     const dataToSave = [];

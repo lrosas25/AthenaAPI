@@ -293,16 +293,24 @@ const printDetails = {
 
             let list
             if (alldata === "true" || alldata === "True" || alldata === "TRUE") {
-                list = await fb03.find(query).lean();
+                list = await fb03.find(query)
+                .populate('bseg')
+                .lean();
             } else {
                 const pageNumber = parseInt(page, 10) || 1;
                 const pageSize = parseInt(size, 10) || 20;
                 const skip = (pageNumber - 1) * pageSize;
-                list = await fb03.find(query).skip(skip).limit(pageSize).lean();
+                list = await fb03.find(query)
+                .populate('bseg')
+                .skip(skip)
+                .limit(pageSize)
+                .lean();
             }
             if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            console.log("Success." + list.length)
             return res.status(200).json({ message: "Success.", data: list });
         } catch (e) {
+            console.log("Error." + e.message)
             return res.status(500).json({ message: e.message })
         }
     }

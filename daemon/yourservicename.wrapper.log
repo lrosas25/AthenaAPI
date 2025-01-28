@@ -18,3 +18,5 @@
 2024-09-24 10:56:03 - Started 6596
 2024-11-04 08:54:01 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Code\AthenaAPI\node_modules\node-windows\lib\wrapper.js --file C:\Code\AthenaAPI\your-app.js --scriptoptions= --log "YourServiceName wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
 2024-11-04 08:54:01 - Started 7080
+2025-01-22 08:58:27 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Code\AthenaAPI\node_modules\node-windows\lib\wrapper.js --file C:\Code\AthenaAPI\your-app.js --scriptoptions= --log "YourServiceName wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2025-01-22 08:58:28 - Started 7008
