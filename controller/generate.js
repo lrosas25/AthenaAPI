@@ -5,6 +5,8 @@ import QASPOLineItemMatching from "../model/QASPOLineItemMatching.js";
 import QASPOTotal from "../model/QASPOTotal.js";
 import MaintenanceValCl from "../model/MaintenanceValCl.js";
 import mongoose from "mongoose";
+import moment from "moment-timezone";
+import dateFormat from "dateformat";
 import processTreasury from "../helpers/processTreasury.js";
 import processAllCSVFiles from "../helpers/processCSVFiles.js";
 import glDocType from "../model/glDocType.js";
@@ -13,7 +15,7 @@ import ArchimedesHistory from "../model/ArchimedesHistory.js";
 import { bkpf } from "../model/rpa/BKPF.js";
 import { bseg } from "../model/rpa/BSEG.js";
 import { fb03 } from "../model/rpa/FB03.js";
-import { bankstatement } from "../model/BankStatement.js";
+import bankstatement from "../model/BankStatement.js";
 import { json } from "express";
 const generateController = {
     generateAP: async (req, res) => {
@@ -786,15 +788,27 @@ const generateController = {
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
+            await bankstatement.deleteMany({})
             data.forEach(async (item) => {
-                const result = await bankstatement.create({
-                    "companycode": item["CoCd"],
-                    "valuedate": item["Value Date"],
-                    "glaccount": item["GL"],
-                    "amount": item["Amount"],
-                    "crcy": item["Crcy"],
-                    "costctr": item["Cost Ctr"]
-                })
+                
+                
+                if(item["Pstng Date"] !== undefined){
+                    const postingdate = dateFormat(item["Pstng Date"], "mm/dd/yyyy")
+                    //console.log(postingdate)
+                    const result = await bankstatement.create({
+                        "companycode": item["CoCd"],
+                        "valuedate": moment.tz(postingdate,'Asia/Taipei').utc().toDate(),
+                        "glaccount": item["G/L"],
+                        "amount": item["Amount in LC"].trim().replace(/,/g,""),
+                        "crcy": item["Crcy"],
+                        "costctr": item["Profit Ctr"],
+                        "documentnumber": item["DocumentNo"],
+                        "reference": item["Reference"],
+                        "text": item["Text"]
+                    })
+                }
+                
+
             })
 
             return res.status(200).json({message: "Successfully generated data."})

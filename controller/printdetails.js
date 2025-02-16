@@ -8,6 +8,7 @@ import ArchimedesHistory from "../model/ArchimedesHistory.js";
 import { bkpf } from "../model/rpa/BKPF.js";
 import { bseg } from "../model/rpa/BSEG.js";
 import { fb03 } from "../model/rpa/FB03.js";
+import BankStatement from "../model/BankStatement.js"
 
 const printDetails = {
     printDetailsAP: async (req, res) => {
@@ -311,6 +312,31 @@ const printDetails = {
             return res.status(200).json({ message: "Success.", data: list });
         } catch (e) {
             console.log("Error." + e.message)
+            return res.status(500).json({ message: e.message })
+        }
+    },
+    printDetailsSAPBankStatement: async (req, res) => {
+        try{
+            const {cocd, date, gl, costctr, page, size } = req.query
+            const query = {}
+            if (cocd) query.cocd = cocd
+            if (date) query.valuedate = new Date(date + "T00:00:00.000Z")
+            if (gl) query.gl = gl
+            if (costctr) query.costctr = costctr
+
+            const pageNumber = parseInt(page, 10) || 1;
+            const pageSize = parseInt(size, 10) || 20;
+            const skip = (pageNumber - 1) * pageSize;
+            
+            let list
+            list = await BankStatement.find(query)
+            .skip(skip)
+            .limit(pageSize)
+            .lean()
+
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", length: list.length , data: list });
+        }catch(e) {
             return res.status(500).json({ message: e.message })
         }
     }

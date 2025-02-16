@@ -10,5 +10,6 @@ router.post('/sap/fb03', generateController.generateSAPFB03)
 router.get('/sap/bkpf', authenticateBearerToken, printDetails.printDetailsSAPBKPF)
 router.get('/sap/bseg', authenticateBearerToken, printDetails.printDetailsSAPBSEG)
 router.get('/sap/fb03', authenticateBearerToken, printDetails.printDetailsSAPFB03)
+router.get('/sap/bankstatement', authenticateBearerToken, printDetails.printDetailsSAPBankStatement)
 
 export default router

@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
+
 const BankStatementSchema = new Schema({
     companycode: {
         type:String
     },
     valuedate:{
-        type:String 
+        type: Date
     },
     glaccount:{
         type: String
@@ -19,7 +20,16 @@ const BankStatementSchema = new Schema({
     },
     costctr:{
         type: String
+    },
+    documentnumber:{
+        type: String
+    },
+    reference:{
+        type: String
+    },
+    text:{
+        type: String
     }
 })
 
-export const bankstatement = mongoose.model("bankstatements", BankStatementSchema);
+export default mongoose.model("bankstatements", BankStatementSchema);
