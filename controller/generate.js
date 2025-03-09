@@ -16,6 +16,7 @@ import { bkpf } from "../model/rpa/BKPF.js";
 import { bseg } from "../model/rpa/BSEG.js";
 import { fb03 } from "../model/rpa/FB03.js";
 import bankstatement from "../model/BankStatement.js";
+import clearing from "../model/Clearing.js";
 import { json } from "express";
 const generateController = {
     generateAP: async (req, res) => {
@@ -817,6 +818,53 @@ const generateController = {
             return res.status(500).json({messege: e.message});
         }
 
+    },
+
+
+    generateClearing: async (req,res) =>{ 
+        const inputDir = "./fileUploads/rpa/in/clearing";
+        const outputDir = "./fileUploads/rpa/out/clearing"; 
+        try{
+            const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true);
+            if (!data || data.length === 0) {
+                return res.status(400).json({ message: "No data found in the CSV folder." });
+            }
+            await bankstatement.deleteMany({})
+            data.forEach(async (item) => {
+                if(item["Pstng Date"] !== undefined){
+                    const postingdate = dateFormat(item["Pstng Date"], "mm/dd/yyyy");
+                    const documentdate = dateFormat(item["Doc"][" Date"], "mm/dd/yyyy");
+                    const clearingdate = dateFormat(item["Clearing"], "mm/dd/yyyy");
+                    const valuedate = dateFormat(item["Value Date"], "mm/dd/yyyy");
+
+                    
+                    const result = await clearing.create({
+                        
+                        "companycode" : item["CoCd"],
+                        "DocumentDate" :moment.tz(documentdate,'Asia/Taipei').utc().toDate(),
+                        "PostingDate" :moment.tz(postingdate,'Asia/Taipei').utc().toDate(),
+                        "ClearingDate" :moment.tz(clearingdate,'Asia/Taipei').utc().toDate(),
+                        "ValueDate" : moment.tz(valuedate,'Asia/Taipei').utc().toDate(),
+                        "DocumentNumber" :item["DocumentNo"],
+                        "ClearingDocument" : item["Clrng doc."],
+                        "DocumentType" : item["Doc"][" Type"],
+                        "Assignment" : item["Assignment"],
+                        "Reference" : item["Reference"],
+                        "Text" : item["Text"],
+                        "AmountinLC" : item["Amount in LC"],
+                        "Currency" : item["Curr."],
+                        "CostCenter" : item["Cost Ctr"],
+                        "ProfitCenter" : item["Profit Ctr"],
+                        "GLAccount" : item["G/L"]
+
+                    })
+                }
+            })
+            return res.status(200).json({message: "Successfully generated data."})
+        }catch (e) {
+            console.log(e);
+            return res.status(500).json({message: e.message});
+        }
     }
 
 }

@@ -16,6 +16,7 @@ import maintenanceValClRoutes from "./routes/maintenanceValCl.js"
 import glDocTypeRoutes from "./routes/glDocType.js"
 import ArchimedesRoutes from "./routes/archimedes.js"
 import rpaRoutes from "./routes/rpa.js"
+import moment from "moment-timezone";
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ connectToDb()
 app.use(express.urlencoded({ extended: "false" }))
 app.use(cookieParser())
 app.use(express.json())
+app.use(moment);
 // Schedule the triggerGenerateAPApi function to run every 8am and 8pm everyday
 // 0, 8, 20 * * * means, 0 = minutes  -  8,20 Hour Field means run 8am and 8pm
 //1st '*' is to set the day of the month 

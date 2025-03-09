@@ -16,6 +16,7 @@ router.post('/generateAPSAPRPA', generateController.generateAPSAPAuto)
 router.post('/archimedes', authenticateBearerToken, generateController.generateArchimedes)
 router.post('/archimedeshistory', authenticateBearerToken, generateController.generateArchimedesHistory)
 router.post('/generateBankStatement', authenticateBearerToken, generateController.generateBankStatement)
+router.post('/generateClearing', authenticateBearerToken, generateController.generateClearing)
 
 //generateArchimedesHistory
 

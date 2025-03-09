@@ -11,5 +11,6 @@ router.get('/sap/bkpf', authenticateBearerToken, printDetails.printDetailsSAPBKP
 router.get('/sap/bseg', authenticateBearerToken, printDetails.printDetailsSAPBSEG)
 router.get('/sap/fb03', authenticateBearerToken, printDetails.printDetailsSAPFB03)
 router.get('/sap/bankstatement', authenticateBearerToken, printDetails.printDetailsSAPBankStatement)
+router.get('/sap/clearing', authenticateBearerToken, printDetails.printDetailsSAPClearing)
 
 export default router

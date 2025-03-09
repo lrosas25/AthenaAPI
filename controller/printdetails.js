@@ -9,6 +9,7 @@ import { bkpf } from "../model/rpa/BKPF.js";
 import { bseg } from "../model/rpa/BSEG.js";
 import { fb03 } from "../model/rpa/FB03.js";
 import BankStatement from "../model/BankStatement.js"
+import Clearing from "../model/Clearing.js"
 
 const printDetails = {
     printDetailsAP: async (req, res) => {
@@ -339,7 +340,35 @@ const printDetails = {
         }catch(e) {
             return res.status(500).json({ message: e.message })
         }
+    },
+
+    printDetailsSAPClearing: async (req, res) => {
+        try{
+            const {cocd, postingdate, gl, costctr, page, size } = req.query
+            const query = {}
+            if (cocd) query.CompanyCode = cocd
+            if (postingdate) query.PostingDate = new Date(postingdate + "T00:00:00.000Z")
+            if (gl) query.GLAccount = gl
+            if (costctr) query.CostCenter = costctr
+
+            const pageNumber = parseInt(page, 10) || 1;
+            const pageSize = parseInt(size, 10) || 20;
+            const skip = (pageNumber - 1) * pageSize;
+            
+            let list
+            list = await Clearing.find(query)
+            .skip(skip)
+            .limit(pageSize)
+            .lean()
+
+            if (list.length === 0) return res.status(200).json({ message: "No Result Found." });
+            return res.status(200).json({ message: "Success.", length: list.length , data: list });
+        }catch(e) {
+            return res.status(500).json({ message: e.message })
+        }
     }
+
+
 }
 
 export default printDetails;
