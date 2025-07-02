@@ -16,7 +16,7 @@ import maintenanceValClRoutes from "./routes/maintenanceValCl.js"
 import glDocTypeRoutes from "./routes/glDocType.js"
 import ArchimedesRoutes from "./routes/archimedes.js"
 import rpaRoutes from "./routes/rpa.js"
-import moment from "moment-timezone";
+import smsroute from "./routes/sms.js"
 
 dotenv.config()
 
@@ -25,7 +25,7 @@ connectToDb()
 app.use(express.urlencoded({ extended: "false" }))
 app.use(cookieParser())
 app.use(express.json())
-app.use(moment);
+
 // Schedule the triggerGenerateAPApi function to run every 8am and 8pm everyday
 // 0, 8, 20 * * * means, 0 = minutes  -  8,20 Hour Field means run 8am and 8pm
 //1st '*' is to set the day of the month 
@@ -49,17 +49,18 @@ cron.schedule('0 0,12 * * *', () => {
 
 });
 //Routes
-app.use("/v1/auth", authRoutes)
-app.use("/v1/ap/generate", generateRoutes)
-app.use("/v1/ap/remove", removeRoutes)
+app.use("/auth", authRoutes)
+app.use("/ap/generate", generateRoutes)
+app.use("/ap/remove", removeRoutes)
 // app.use(verifyToken)
-app.use("/v1/ap/printDetails", printDetailRoutes)
-app.use("/v1/treasuryClearing/printDetails", treasuryClearingRoutes)
-app.use("/v1/apSap/printDetails", ApSapRoutes)
-app.use("/v1/archimedes/printDetails", ArchimedesRoutes)
+app.use("/ap/printDetails", printDetailRoutes)
+app.use("/treasuryClearing/printDetails", treasuryClearingRoutes)
+app.use("/apSap/printDetails", ApSapRoutes)
+app.use("/archimedes/printDetails", ArchimedesRoutes)
 app.use("/ValCl", maintenanceValClRoutes)
 app.use("/glDocType", glDocTypeRoutes)
-app.use('/v1/rpa', rpaRoutes)
+app.use('/rpa', rpaRoutes)
+app.use('/sms', smsroute)
 
 mongoose.connection.once("open", () => {
     console.log("Connected to MongoDB")

@@ -154,7 +154,7 @@ const generateController = {
                         "doctype": glDocuType
                     });
                 } catch (e) {
-                    console.log(e.message);
+                    //console.log(e.message);
                 }
             });
             POLineItemTotalData.forEach(async (item) => {
@@ -169,7 +169,7 @@ const generateController = {
                         "amountinlc": mongoose.Types.Decimal128.fromString(item.amountinlc.toString())
                     });
                 } catch (e) {
-                    console.log(e.message);
+                    //console.log(e.message);
                 }
             })
             POTotalData.forEach(async (item) => {
@@ -179,7 +179,7 @@ const generateController = {
                         "totalamount": mongoose.Types.Decimal128.fromString(item.totalamount.toString())
                     });
                 } catch (e) {
-                    console.log(e);
+                    //console.log(e);
                 }
             })
             return res.status(200).json({ message: "Data created successfully." });
@@ -205,11 +205,11 @@ const generateController = {
             await QASPOLineItemMatching.deleteMany({})
             await QASPOTotal.deleteMany({})
             data.forEach(async (item) => {
-                console.log(item)
+                //console.log(item)
                 if (item["Purch.Doc."] && item["Item"]) {
                     // Convert the amount to a number
                     const amount = parseFloat(item["Amount in LC"].replace(/[^\d.-]+/g, ''));
-                    console.log(amount);
+                    //console.log(amount);
                     //parseFloat(item["Amount in LC"].replace(/,/g, ''));
                     // Adjust amount based on MvT
                     let adjustedAmount;
@@ -329,7 +329,7 @@ const generateController = {
                         "doctype": glDocuType
                     });
                 } catch (e) {
-                    console.log(e.message);
+                    //console.log(e.message);
                 }
             });
             POLineItemTotalData.forEach(async (item) => {
@@ -344,7 +344,7 @@ const generateController = {
                         "amountinlc": mongoose.Types.Decimal128.fromString(item.amountinlc.toString())
                     });
                 } catch (e) {
-                    console.log(e.message);
+                    //console.log(e.message);
                 }
             })
             POTotalData.forEach(async (item) => {
@@ -354,7 +354,7 @@ const generateController = {
                         "totalamount": mongoose.Types.Decimal128.fromString(item.totalamount.toString())
                     });
                 } catch (e) {
-                    console.log(e);
+                    //console.log(e);
                 }
             })
             return res.status(200).json({ message: "Data created successfully." });
@@ -391,7 +391,7 @@ const generateController = {
                         housebk: record["House Bk"] ? record["House Bk"] : ""
                     });
                 } catch (e) {
-                    console.log(e);
+                    //console.log(e);
                 }
             }
             return res.status(200).json({ message: "Successfully Inserted the data" });
@@ -429,7 +429,7 @@ const generateController = {
                             housebk: record["House Bk"] ? record["House Bk"] : ""
                         });
                     } catch (e) {
-                        console.log(e);
+                        //console.log(e);
                     }
                 }
                 return res.status(200).json({ message: "Successfully Inserted the data" });
@@ -469,7 +469,7 @@ const generateController = {
                         "crcy": record["Crcy"] ? record["Crcy"] : ""
                     })
                 } catch (e) {
-                    console.log(e.message)
+                    //console.log(e.message)
                 }
             }
             return res.status(200).json({ message: "Successfully Generated" })
@@ -504,7 +504,7 @@ const generateController = {
                         "crcy": record["Crcy"] ? record["Crcy"] : ""
                     })
                 } catch (e) {
-                    console.log(e.message)
+                    //console.log(e.message)
                 }
             }
             return res.status(200).json({ message: "Successfully Generated" })
@@ -541,7 +541,7 @@ const generateController = {
                 try {
                     historyid = await ArchimedesHistory.findOne({imageid: record["Item No."]})
                 } catch (error) {
-                    console.log(error);
+                    //console.log(error);
                 } 
                 
                 if (historyid === null){
@@ -598,7 +598,7 @@ const generateController = {
             }
             return res.status(200).json({ message: "Successfully inserted the data." });
         } catch (e) {
-            console.log(e.message);
+            //console.log(e.message);
             return res.status(500).json({ message: e.message });
         }
     },
@@ -653,7 +653,7 @@ const generateController = {
             }
             return res.status(200).json({ message: "Successfully inserted the data."});
         } catch (e) {
-            console.log(e.message);
+            //console.log(e.message);
             return res.status(500).json({ message: e.message });
         }
     },
@@ -682,7 +682,7 @@ const generateController = {
             return res.status(200).json({ message: "Successfully generated data." })
         } catch (e) {
             console.error(e)
-            return res.status(500).json({ message: e.message });
+            return res.status(200).json({ message: e.message });
         }
     },
     genereateSAPBSEG: async (req, res) => {
@@ -693,6 +693,7 @@ const generateController = {
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
+            await bseg.deleteMany({})
             data.forEach(async (item) => {
                 const result = await bseg.create({
                     "companycode": item["Company Code"],
@@ -709,7 +710,7 @@ const generateController = {
             return res.status(200).json({ message: "Successfully generated data." })
         } catch (e) {
             console.error(e)
-            return res.status(500).json({ message: e.message });
+            return res.status(200).json({ message: e.message });
         }
     },
     generateSAPFB03: async (req, res) => {
@@ -720,8 +721,8 @@ const generateController = {
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
-            console.log("SAP SALES API COUNT: " + data.length)
-
+            //console.log("SAP SALES API COUNT: " + data.length)
+            await fb03.deleteMany({})
             data.forEach(async (item) => {
             //Find BSEGS
                 let BSEGS
@@ -732,11 +733,11 @@ const generateController = {
                     //console.log(BSEGS);
                     //console.log(BSEGS.map(BSEGS => BSEGS._id));
                 } catch (error) {
-                    console.log(error);
+                    //console.log(error);
                 }
 
                 if (BSEGS === null){
-                    const result = await fb03.create({
+                    /* const result = await fb03.create({
                         "companycode": item["Company Code"],
                         "documentnumber": item["Document Number"],
                         "fiscalyear": item["Fiscal Year"],
@@ -749,25 +750,29 @@ const generateController = {
                         "reversedwith": item["Reversed with"],
                         "entrydate": item["Entry Date"],
                         "timeofentry": item["Time of Entry"]
-                    })
+                    }); */
                 }else{
                     const objectIds = BSEGS.map(BSEGS => BSEGS._id); //BSEGS.map(bseg => BSEGS ? BSEGS._id : null);
                     //console.log(objectIds);
-                    const result = await fb03.create({
-                        "companycode": item["Company Code"],
-                        "documentnumber": item["Document Number"],
-                        "fiscalyear": item["Fiscal Year"],
-                        "documenttype": item["Document Type"],
-                        "documentdate": item["Document Date"],
-                        "postingdate": item["Posting Date"],
-                        "reference": item["Reference"],
-                        "parkedby": item["Parked by"],
-                        "doctype": item["Doc"]["Type"],
-                        "reversedwith": item["Reversed with"],
-                        "entrydate": item["Entry Date"],
-                        "timeofentry": item["Time of Entry"],
-                        "bseg" : objectIds
-                    })
+                    if (objectIds == null) {
+
+                    }else{ 
+                        const result = await fb03.create({
+                            "companycode": item["Company Code"],
+                            "documentnumber": item["Document Number"],
+                            "fiscalyear": item["Fiscal Year"],
+                            "documenttype": item["Document Type"],
+                            "documentdate": item["Document Date"],
+                            "postingdate": item["Posting Date"],
+                            "reference": item["Reference"],
+                            "parkedby": item["Parked by"],
+                            "doctype": item["Doc"]["Type"],
+                            "reversedwith": item["Reversed with"],
+                            "entrydate": item["Entry Date"],
+                            "timeofentry": item["Time of Entry"],
+                            "bseg" : objectIds
+                        })
+                    }
                 }
             })
             
@@ -777,7 +782,7 @@ const generateController = {
             return res.status(200).json({ message: "Successfully generated data." })
         } catch (e) {
             console.error(e)
-            return res.status(500).json({ message: e.message });
+            return res.status(200).json({ message: e.message });
         }
     },
 
@@ -815,7 +820,7 @@ const generateController = {
             return res.status(200).json({message: "Successfully generated data."})
         }catch (e) {
             console.error(e);
-            return res.status(500).json({messege: e.message});
+            return res.status(200).json({messege: e.message});
         }
 
     },
@@ -862,8 +867,8 @@ const generateController = {
             })
             return res.status(200).json({message: "Successfully generated data."})
         }catch (e) {
-            console.log(e);
-            return res.status(500).json({message: e.message});
+            //console.log(e);
+            return res.status(200).json({message: e.message});
         }
     }
 

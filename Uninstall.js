@@ -13,8 +13,8 @@ const svc = new Service({
 });
 
 svc.on('uninstall', function() {
-  svc.start();
+  //svc.start();
   console.log('Service uninstalled successfully!');
 });
 
-svc.install();
+svc.uninstall();
