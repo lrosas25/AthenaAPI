@@ -1,6 +1,6 @@
 # AthenaAPI
 
-AthenaAPI is the backend service for **Athenai**, the Epicureans Accounts Payable System. This API provides endpoints for managing accounts payable operations, document processing, RPA integrations, SMS notifications, and more. It is built with Node.js, Express, and MongoDB.
+AthenaAPI is the backend service for **Athenai**, the Epicurean's Accounts Payable System. This API provides endpoints for managing accounts payable operations, document processing, RPA integrations, SMS notifications, and more. It is built with Node.js, Express, and MongoDB.
 
 ## Features
 
