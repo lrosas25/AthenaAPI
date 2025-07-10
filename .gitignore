@@ -3,3 +3,6 @@ node_modules
 fileUploads
 daemon
 aspnet_client
+daemon/athenaapi.err.log
+daemon/athenaapi.err.log
+daemon/athenaapi.out.log

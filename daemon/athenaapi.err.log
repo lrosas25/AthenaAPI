@@ -7325,3 +7325,1232 @@ Error processing data: Empty directory.
 Error processing data: Empty directory.
 Error processing data: Empty directory.
 Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: EPERM: operation not permitted, rename 'C:\Code\AthenaAPI\fileUploads\rpa\In\treasury\extract.csv' -> 'C:\Code\AthenaAPI\fileUploads\rpa\out\treasury\extract.csv'
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.
+Arguments: 
+[0] _isAMomentObject: true, _isUTC: true, _useUTC: true, _l: undefined, _i: 06/09/2025, _f: undefined, _strict: undefined, _locale: [object Object]
+Error
+    at Function.createFromInputFallback (C:\Code\AthenaAPI\node_modules\moment\moment.js:324:25)
+    at configFromString (C:\Code\AthenaAPI\node_modules\moment\moment.js:2613:19)
+    at configFromInput (C:\Code\AthenaAPI\node_modules\moment\moment.js:3056:13)
+    at prepareConfig (C:\Code\AthenaAPI\node_modules\moment\moment.js:3039:13)
+    at createFromConfig (C:\Code\AthenaAPI\node_modules\moment\moment.js:3006:44)
+    at createLocalOrUTC (C:\Code\AthenaAPI\node_modules\moment\moment.js:3100:16)
+    at createUTC (C:\Code\AthenaAPI\node_modules\moment\moment.js:106:16)
+    at Function.tz (C:\Code\AthenaAPI\node_modules\moment-timezone\moment-timezone.js:594:22)
+    at file:///C:/Code/AthenaAPI/controller/generate.js:806:45
+    at Array.forEach (<anonymous>)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:798:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Parse Error: Invalid header token
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateBankStatement (file:///C:/Code/AthenaAPI/controller/generate.js:793:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:14:9
+    at C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:261:12
+    at getSecret (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:97:14)
+    at module.exports [as verify] (C:\Code\AthenaAPI\node_modules\jsonwebtoken\verify.js:101:10)
+    at authenticateBearerToken (file:///C:/Code/AthenaAPI/middleware/bearerTokenAuth.js:9:9)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at genereateSAPBSEG (file:///C:/Code/AthenaAPI/controller/generate.js:692:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error: Empty directory.
+    at processCSVFiles (file:///C:/Code/AthenaAPI/helpers/processCSVFiles.js:22:19)
+    at generateSAPFB03 (file:///C:/Code/AthenaAPI/controller/generate.js:720:32)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Code\AthenaAPI\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Code\AthenaAPI\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:328:13)
+    at C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Code\AthenaAPI\node_modules\express\lib\router\index.js:280:10)
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.
+Error processing data: Empty directory.

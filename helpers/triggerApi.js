@@ -22,3 +22,21 @@ export const triggerGenerateAPSAPApi = async () => {
         console.log(e.message)
     }
 }
+
+export const triggerGenerateBankStatement = async () => {
+    try {
+        const resData = await axios.post(`${process.env.API_URL}/v1/ap/generate/generateBankStatement`)
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+
+export const triggerGenerateClearing = async () => {
+    try {
+        const resData = await axios.post(`${process.env.API_URL}/v1/ap/generate/generateClearing`)
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+

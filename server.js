@@ -32,11 +32,14 @@ app.use(express.json())
 //2nd '*' is to set the month to run the schedule
 //3rd '*' is to set the week field
 // '*' '*' '*' means to run every day
+//cron.schedule('0 0,12 * * *', () => { 
+cron.schedule('* * 1 * *', () => {
+    const apDir = dirCheckFiles("./fileUploads/rpa/In/ap")
+    const treasuryDir = dirCheckFiles("./fileUploads/rpa/In/treasury")
+    const apSapDir = dirCheckFiles("./fileUploads/rpa/In/apSap")
+    const bankStatementDir = dirCheckFiles("./fileUploads/rpa/In/bankstatement")
+    const ClearingDir = dirCheckFiles("./fileUploads/rpa/In/clearing")
 
-cron.schedule('0 0,12 * * *', () => {
-    const apDir = dirCheckFiles("./fileUploads/In/ap")
-    const treasuryDir = dirCheckFiles("./fileUploads/In/treasury")
-    const apSapDir = dirCheckFiles("./fileUploads/In/apSap")
     if (apDir > 0) {
         triggerGenerateAPApi();
     }
@@ -46,6 +49,13 @@ cron.schedule('0 0,12 * * *', () => {
     if (apSapDir > 0) {
         triggerGenerateAPSAPApi()
     }
+    if (bankStatementDir > 0) {
+        triggerGenerateBankStatement()
+    }
+    if (ClearingDir > 0) {
+        triggerGenerateClearing()
+    }
+
 
 });
 //Routes
