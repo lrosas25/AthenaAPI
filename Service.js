@@ -14,7 +14,7 @@ const svc = new Service({
 
 svc.on('install', function() {
   svc.start();
-  console.log('Service installed successfully!');
+  // console.log('Service installed successfully!');
 });
 
 svc.install();
