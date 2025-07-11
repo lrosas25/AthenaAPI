@@ -36,7 +36,8 @@ const processCSVFiles = async (inputDir, outputDir, startLines, endLines, csv) =
                 const jsonArray = await csvtojson({
                     noheader: false,
                     trim: true,
-                    delimiter: csv ? "," : "\t"
+                    delimiter: csv ? "," : "\t",
+                    checkType: false
                 }).fromFile(tempFilePath);
                 dataToSave.push(...jsonArray);
 

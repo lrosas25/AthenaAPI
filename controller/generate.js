@@ -462,7 +462,7 @@ const generateController = {
                         "vendor": record["Vendor"],
                         "name1": record["Name 1"] + " " + record["Name 2"],
                         "name2": "",
-                        "reference": record["Reference"],
+                        "reference": String(record["Reference"]),
                         "documentno": record["DocumentNo"],
                         "pstngdate": record["Pstng Date"],
                         "amt": mongoose.Types.Decimal128.fromString(amt),
