@@ -686,37 +686,74 @@ const generateController = {
         }
     },
     genereateSAPBSEG: async (req, res) => {
+        console.log("Generating SAP BSEG Data");
         const inputDir = "./fileUploads/rpa/in/SAP/BSEG";
         const outputDir = "./fileUploads/rpa/out/SAP/BSEG";
         try {
+            // Check if input directory exists and contains CSV files
+            const fs = await import('fs');
+            const path = await import('path');
+            
+            if (!fs.existsSync(inputDir)) {
+                return res.status(400).json({ message: "Input directory not found." });
+            }
+            
+            const files = fs.readdirSync(inputDir);
+            const csvFiles = files.filter(file => path.extname(file).toLowerCase() === '.csv');
+            
+            if (csvFiles.length === 0) {
+                return res.status(400).json({ message: "File not supported. Only .csv files are acceptable." });
+            }
+            
             const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true)
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
+            console.log("SAP BSEG API COUNT: " + data.length);
             await bseg.deleteMany({})
-            data.forEach(async (item) => {
-                const result = await bseg.create({
-                    "companycode": item["Company Code"],
-                    "documentnumber": item["Document Number"],
-                    "lineitem": item["Line item"],
-                    "postingkey": item["Posting Key"],
-                    "taxcode": item["Tax code"],
-                    "withholdingtaxcode": item["Withholding Tax Code"],
-                    "amountinlc": item["Amount in LC"],
-                    "profitcenter": item["Profit Center"],
-                    "glaccount": item["G/L Account"]
-                })
-            })
+            for (const item of data) {
+                try {
+                    const result = await bseg.create({
+                        "companycode": item["Company Code"],
+                        "documentnumber": item["Document Number"],
+                        "lineitem": item["Line item"],
+                        "postingkey": item["Posting Key"],
+                        "taxcode": item["Tax code"],
+                        "withholdingtaxcode": item["Withholding Tax Code"],
+                        "amountinlc": item["Amount in LC"],
+                        "profitcenter": item["Profit Center"],
+                        "glaccount": item["G/L Account"]
+                    })
+                } catch (itemError) {
+                    // Log individual item errors but continue processing
+                    console.error("Error processing item:", itemError);
+                }
+            }
             return res.status(200).json({ message: "Successfully generated data." })
         } catch (e) {
             console.error(e)
-            return res.status(200).json({ message: e.message });
+            return res.status(500).json({ message: e.message });
         }
     },
     generateSAPFB03: async (req, res) => {
         const inputDir = "./fileUploads/rpa/in/SAP/FB03";
         const outputDir = "./fileUploads/rpa/out/SAP/FB03";
         try {
+            // Check if input directory exists and contains CSV files
+            const fs = await import('fs');
+            const path = await import('path');
+            
+            if (!fs.existsSync(inputDir)) {
+                return res.status(400).json({ message: "Input directory not found." });
+            }
+            
+            const files = fs.readdirSync(inputDir);
+            const csvFiles = files.filter(file => path.extname(file).toLowerCase() === '.csv');
+            
+            if (csvFiles.length === 0) {
+                return res.status(400).json({ message: "File not supported. Only .csv files are acceptable." });
+            }
+            
             const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true)
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
@@ -782,7 +819,7 @@ const generateController = {
             return res.status(200).json({ message: "Successfully generated data." })
         } catch (e) {
             console.error(e)
-            return res.status(200).json({ message: e.message });
+            return res.status(500).json({ message: e.message });
         }
     },
 
@@ -791,6 +828,7 @@ const generateController = {
         const outputDir = "./fileUploads/rpa/out/bankstatement";
         try{
             const data = await processAllCSVFiles(inputDir, outputDir, 0, 0, true);
+            
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
@@ -834,7 +872,7 @@ const generateController = {
             if (!data || data.length === 0) {
                 return res.status(400).json({ message: "No data found in the CSV folder." });
             }
-            await bankstatement.deleteMany({})
+            await clearing.deleteMany({})
             data.forEach(async (item) => {
                 if(item["Pstng Date"] !== undefined){
                     const postingdate = dateFormat(item["Pstng Date"], "mm/dd/yyyy");
