@@ -1,0 +1,144 @@
+import fs from "fs";
+import path from "path";
+import mongoose from "mongoose";
+import processAllCSVFiles from "../helpers/processCSVFiles.js";
+import OpenGR from "../model/OpenGR/OpenGR.js";
+
+const openGRController = {
+  generateOpenGR: async (req, res) => {
+    const inputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/IN"; // "in" folder for CSV/text files to be processed
+    const outputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/OUT"; // "out" folder for processed files
+
+    try {
+      // Step 1: Find the latest CSV or text file in the input directory
+      const files = fs.readdirSync(inputDir);
+      const validFiles = files.filter((file) => {
+        const ext = path.extname(file).toLowerCase();
+        return ext === ".csv" || ext === ".txt";
+      });
+
+      if (validFiles.length === 0) {
+        return res
+          .status(400)
+          .json({ message: "No CSV or text files found in the directory." });
+      }
+
+      // Get the latest file based on modification time
+      const latestFile = validFiles
+        .map((file) => ({
+          name: file,
+          path: path.join(inputDir, file),
+          mtime: fs.statSync(path.join(inputDir, file)).mtime,
+        }))
+        .sort((a, b) => b.mtime - a.mtime)[0];
+
+      console.log(`Processing latest file: ${latestFile.name}`);
+
+      // Create a temporary directory with only the latest file to use with existing helper
+      const tempInputDir = path.join(inputDir, "../temp_input");
+      if (!fs.existsSync(tempInputDir)) {
+        fs.mkdirSync(tempInputDir, { recursive: true });
+      }
+
+      // Copy the latest file to temp directory
+      // If it's a .txt file, rename it to .csv so the helper can process it
+      const fileExt = path.extname(latestFile.name).toLowerCase();
+      const fileName =
+        fileExt === ".txt"
+          ? latestFile.name.replace(/\.txt$/i, ".csv")
+          : latestFile.name;
+
+      const tempFilePath = path.join(tempInputDir, fileName);
+      fs.copyFileSync(latestFile.path, tempFilePath);
+
+      // Step 2: Process the latest file using the existing helper
+      const data = await processAllCSVFiles(
+        tempInputDir,
+        outputDir,
+        0,
+        0,
+        true
+      );
+
+      // Clean up temp directory
+      fs.rmSync(tempInputDir, { recursive: true, force: true });
+
+      if (!data || data.length === 0) {
+        return res
+          .status(400)
+          .json({ message: "No data found in the CSV folder." });
+      }
+
+      // Step 2: Clear existing data from database (following same pattern as other endpoints)
+      await OpenGR.deleteMany({});
+
+      // Step 3: Convert CSV to JSON format and save to MongoDB database
+      const processedData = [];
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        try {
+          // Clean numeric fields before converting
+          const cleanedQuantity = item["Quantity"]
+            ? item["Quantity"].replace(/,/g, "")
+            : "0";
+          const cleanedNetValue = item["Net Value"]
+            ? item["Net Value"].replace(/,/g, "")
+            : "0";
+          const cleanedAmountInLC = item["Amount in LC"]
+            ? item["Amount in LC"].replace(/,/g, "")
+            : "0";
+
+          const mappedData = {
+            companyCode: item["Company Code"] || "",
+            vendorNumber: item["Vendor Number"] || "",
+            vendorName: item["Vendor Name"] || "",
+            purchaseOrderNumber: item["Purchare Order Number"] || "", // Note: typo in original CSV header
+            poItemNumber: item["PO Item Number"] || "",
+            documentType: item["Document Type"] || "",
+            poLineDescription: item["PO Line Description"] || "",
+            poDate: item["PO Date"] || "",
+            plant: item["Plant"] || "",
+            sesNumber: item["SES Number"] || "",
+            sesItemNumber: item["SES Item Number"] || "",
+            sesShortText: item["SES Short Text"] || "",
+            quantity: cleanedQuantity,
+            uom: item["UoM"] || "",
+            netValue: cleanedNetValue,
+            amountInLC: cleanedAmountInLC,
+            taxCode: item["Tax Code"] || "",
+            goodReceipt: item["Good Receipt"] || "",
+            costCenter: item["Cost Center"] || "",
+            profitCenter: item["Profit Center"] || "",
+            createdBy: item["Created By"] || "",
+            creationDate: item["Creation date"] || "",
+            sourceFile: latestFile.name,
+          };
+
+          // Save to MongoDB database
+          const result = await OpenGR.create({
+            ...mappedData,
+            quantity: mongoose.Types.Decimal128.fromString(cleanedQuantity),
+            netValue: mongoose.Types.Decimal128.fromString(cleanedNetValue),
+            amountInLC: mongoose.Types.Decimal128.fromString(cleanedAmountInLC),
+          });
+
+          // Add to response data (keeping numeric values as strings for JSON response)
+          processedData.push(mappedData);
+        } catch (e) {
+          // console.log("Error saving OpenGR record:", e.message);
+        }
+      }
+
+      return res.status(200).json({
+        message: "Data created successfully.",
+        totalRecords: processedData.length,
+        data: processedData,
+      });
+    } catch (err) {
+      console.error("Error processing data:", err.message);
+      return res.status(500).json({ message: err.message });
+    }
+  },
+};
+
+export default openGRController;
