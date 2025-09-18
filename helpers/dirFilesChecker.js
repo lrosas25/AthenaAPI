@@ -1,4 +1,6 @@
+import fs from "fs";
+
 export function dirCheckFiles(inputDir) {
-    const files = fs.readdirSync(inputDir);
-    return parseInt(files.length)
+  const files = fs.readdirSync(inputDir);
+  return parseInt(files.length);
 }
