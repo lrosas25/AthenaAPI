@@ -10,7 +10,13 @@ const openGRController = {
     const outputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/OUT"; // "out" folder for processed files
 
     try {
-      // Step 1: Find the latest CSV or text file in the input directory
+      // Step 1: Check if input directory exists and find the latest CSV or text file
+      if (!fs.existsSync(inputDir)) {
+        return res
+          .status(400)
+          .json({ message: "Input directory does not exist." });
+      }
+
       const files = fs.readdirSync(inputDir);
       const validFiles = files.filter((file) => {
         const ext = path.extname(file).toLowerCase();
@@ -24,20 +30,38 @@ const openGRController = {
       }
 
       // Get the latest file based on modification time
-      const latestFile = validFiles
-        .map((file) => ({
-          name: file,
-          path: path.join(inputDir, file),
-          mtime: fs.statSync(path.join(inputDir, file)).mtime,
-        }))
-        .sort((a, b) => b.mtime - a.mtime)[0];
+      let latestFile;
+      try {
+        latestFile = validFiles
+          .map((file) => ({
+            name: file,
+            path: path.join(inputDir, file),
+            mtime: fs.statSync(path.join(inputDir, file)).mtime,
+          }))
+          .sort((a, b) => b.mtime - a.mtime)[0];
+      } catch (statError) {
+        return res
+          .status(500)
+          .json({
+            message: "Error accessing file information: " + statError.message,
+          });
+      }
 
       console.log(`Processing latest file: ${latestFile.name}`);
 
       // Create a temporary directory with only the latest file to use with existing helper
       const tempInputDir = path.join(inputDir, "../temp_input");
-      if (!fs.existsSync(tempInputDir)) {
-        fs.mkdirSync(tempInputDir, { recursive: true });
+      try {
+        if (!fs.existsSync(tempInputDir)) {
+          fs.mkdirSync(tempInputDir, { recursive: true });
+        }
+      } catch (mkdirError) {
+        return res
+          .status(500)
+          .json({
+            message:
+              "Error creating temporary directory: " + mkdirError.message,
+          });
       }
 
       // Copy the latest file to temp directory
@@ -49,19 +73,51 @@ const openGRController = {
           : latestFile.name;
 
       const tempFilePath = path.join(tempInputDir, fileName);
-      fs.copyFileSync(latestFile.path, tempFilePath);
+      try {
+        fs.copyFileSync(latestFile.path, tempFilePath);
+      } catch (copyError) {
+        // Clean up temp directory before returning error
+        try {
+          fs.rmSync(tempInputDir, { recursive: true, force: true });
+        } catch (cleanupError) {
+          // Ignore cleanup errors
+        }
+        return res
+          .status(500)
+          .json({
+            message:
+              "Error copying file to temporary directory: " + copyError.message,
+          });
+      }
 
       // Step 2: Process the latest file using the existing helper
-      const data = await processAllCSVFiles(
-        tempInputDir,
-        outputDir,
-        0,
-        0,
-        true
-      );
+      let data;
+      try {
+        data = await processAllCSVFiles(tempInputDir, outputDir, 0, 0, true);
+      } catch (processError) {
+        // Clean up temp directory before returning error
+        try {
+          fs.rmSync(tempInputDir, { recursive: true, force: true });
+        } catch (cleanupError) {
+          // Ignore cleanup errors
+        }
+        return res
+          .status(400)
+          .json({
+            message: "Error processing CSV file: " + processError.message,
+          });
+      }
 
       // Clean up temp directory
-      fs.rmSync(tempInputDir, { recursive: true, force: true });
+      try {
+        fs.rmSync(tempInputDir, { recursive: true, force: true });
+      } catch (cleanupError) {
+        console.warn(
+          "Warning: Could not clean up temp directory:",
+          cleanupError.message
+        );
+        // Don't fail the request for cleanup errors, just log it
+      }
 
       if (!data || data.length === 0) {
         return res
@@ -71,12 +127,30 @@ const openGRController = {
 
       // Step 3: Clean up output folder to keep only the latest processed file
       // Ensure output directory exists
-      if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
+      try {
+        if (!fs.existsSync(outputDir)) {
+          fs.mkdirSync(outputDir, { recursive: true });
+        }
+      } catch (outputDirError) {
+        return res
+          .status(500)
+          .json({
+            message:
+              "Error creating output directory: " + outputDirError.message,
+          });
       }
 
       // Get all files currently in output folder
-      const outputFiles = fs.readdirSync(outputDir);
+      let outputFiles;
+      try {
+        outputFiles = fs.readdirSync(outputDir);
+      } catch (readOutputError) {
+        console.warn(
+          "Warning: Could not read output directory:",
+          readOutputError.message
+        );
+        outputFiles = []; // Continue with empty array
+      }
 
       // Find the processed file that was just moved by the helper (should match the original filename)
       const processedFileName =
@@ -88,28 +162,60 @@ const openGRController = {
       outputFiles.forEach((file) => {
         if (file !== processedFileName) {
           const filePath = path.join(outputDir, file);
-          if (fs.statSync(filePath).isFile()) {
-            fs.unlinkSync(filePath);
+          try {
+            if (fs.statSync(filePath).isFile()) {
+              fs.unlinkSync(filePath);
+            }
+          } catch (deleteError) {
+            console.warn(
+              `Warning: Could not delete file ${file}:`,
+              deleteError.message
+            );
+            // Continue processing even if file deletion fails
           }
         }
       });
 
       // If for some reason the processed file is not in output folder, copy it there
       const processedFilePath = path.join(outputDir, processedFileName);
-      if (!fs.existsSync(processedFilePath)) {
-        // Copy the original file to output folder
-        fs.copyFileSync(latestFile.path, processedFilePath);
+      try {
+        if (!fs.existsSync(processedFilePath)) {
+          // Copy the original file to output folder
+          fs.copyFileSync(latestFile.path, processedFilePath);
+        }
+      } catch (copyOutputError) {
+        console.warn(
+          "Warning: Could not copy processed file to output:",
+          copyOutputError.message
+        );
+        // Continue processing even if copy fails
       }
 
       // Step 4: Clean up the input folder - delete all files after successful processing
-      const allInputFiles = fs.readdirSync(inputDir);
-      allInputFiles.forEach((file) => {
-        const filePath = path.join(inputDir, file);
-        // Only delete files, not directories
-        if (fs.statSync(filePath).isFile()) {
-          fs.unlinkSync(filePath);
-        }
-      });
+      try {
+        const allInputFiles = fs.readdirSync(inputDir);
+        allInputFiles.forEach((file) => {
+          const filePath = path.join(inputDir, file);
+          try {
+            // Only delete files, not directories
+            if (fs.statSync(filePath).isFile()) {
+              fs.unlinkSync(filePath);
+            }
+          } catch (deleteInputError) {
+            console.warn(
+              `Warning: Could not delete input file ${file}:`,
+              deleteInputError.message
+            );
+            // Continue processing even if file deletion fails
+          }
+        });
+      } catch (readInputError) {
+        console.warn(
+          "Warning: Could not clean up input directory:",
+          readInputError.message
+        );
+        // Continue processing even if cleanup fails
+      }
 
       // Step 5: Convert CSV to JSON format and prepare data for MongoDB database
       const processedData = [];
