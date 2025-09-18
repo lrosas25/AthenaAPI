@@ -69,10 +69,52 @@ const openGRController = {
           .json({ message: "No data found in the CSV folder." });
       }
 
-      // Step 2: Clear existing data from database (following same pattern as other endpoints)
+      // Step 3: Clean up output folder to keep only the latest processed file
+      // Ensure output directory exists
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+
+      // Get all files currently in output folder
+      const outputFiles = fs.readdirSync(outputDir);
+
+      // Find the processed file that was just moved by the helper (should match the original filename)
+      const processedFileName =
+        fileExt === ".txt"
+          ? latestFile.name.replace(/\.txt$/i, ".csv")
+          : latestFile.name;
+
+      // Remove all files except the one we just processed
+      outputFiles.forEach((file) => {
+        if (file !== processedFileName) {
+          const filePath = path.join(outputDir, file);
+          if (fs.statSync(filePath).isFile()) {
+            fs.unlinkSync(filePath);
+          }
+        }
+      });
+
+      // If for some reason the processed file is not in output folder, copy it there
+      const processedFilePath = path.join(outputDir, processedFileName);
+      if (!fs.existsSync(processedFilePath)) {
+        // Copy the original file to output folder
+        fs.copyFileSync(latestFile.path, processedFilePath);
+      }
+
+      // Step 4: Clean up the input folder - delete all files after successful processing
+      const allInputFiles = fs.readdirSync(inputDir);
+      allInputFiles.forEach((file) => {
+        const filePath = path.join(inputDir, file);
+        // Only delete files, not directories
+        if (fs.statSync(filePath).isFile()) {
+          fs.unlinkSync(filePath);
+        }
+      });
+
+      // Step 5: Clear existing data from database (following same pattern as other endpoints)
       await OpenGR.deleteMany({});
 
-      // Step 3: Convert CSV to JSON format and save to MongoDB database
+      // Step 6: Convert CSV to JSON format and save to MongoDB database
       const processedData = [];
       for (let i = 0; i < data.length; i++) {
         const item = data[i];
