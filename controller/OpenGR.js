@@ -40,11 +40,16 @@ const openGRController = {
           }))
           .sort((a, b) => b.mtime - a.mtime)[0];
       } catch (statError) {
+        return res.status(500).json({
+          message: "Error accessing file information: " + statError.message,
+        });
+      }
+
+      // Additional safety check to ensure latestFile is defined
+      if (!latestFile) {
         return res
-          .status(500)
-          .json({
-            message: "Error accessing file information: " + statError.message,
-          });
+          .status(400)
+          .json({ message: "No valid files could be processed." });
       }
 
       console.log(`Processing latest file: ${latestFile.name}`);
@@ -56,12 +61,9 @@ const openGRController = {
           fs.mkdirSync(tempInputDir, { recursive: true });
         }
       } catch (mkdirError) {
-        return res
-          .status(500)
-          .json({
-            message:
-              "Error creating temporary directory: " + mkdirError.message,
-          });
+        return res.status(500).json({
+          message: "Error creating temporary directory: " + mkdirError.message,
+        });
       }
 
       // Copy the latest file to temp directory
@@ -82,12 +84,10 @@ const openGRController = {
         } catch (cleanupError) {
           // Ignore cleanup errors
         }
-        return res
-          .status(500)
-          .json({
-            message:
-              "Error copying file to temporary directory: " + copyError.message,
-          });
+        return res.status(500).json({
+          message:
+            "Error copying file to temporary directory: " + copyError.message,
+        });
       }
 
       // Step 2: Process the latest file using the existing helper
@@ -101,11 +101,9 @@ const openGRController = {
         } catch (cleanupError) {
           // Ignore cleanup errors
         }
-        return res
-          .status(400)
-          .json({
-            message: "Error processing CSV file: " + processError.message,
-          });
+        return res.status(400).json({
+          message: "Error processing CSV file: " + processError.message,
+        });
       }
 
       // Clean up temp directory
@@ -132,12 +130,9 @@ const openGRController = {
           fs.mkdirSync(outputDir, { recursive: true });
         }
       } catch (outputDirError) {
-        return res
-          .status(500)
-          .json({
-            message:
-              "Error creating output directory: " + outputDirError.message,
-          });
+        return res.status(500).json({
+          message: "Error creating output directory: " + outputDirError.message,
+        });
       }
 
       // Get all files currently in output folder
