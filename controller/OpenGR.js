@@ -39,17 +39,17 @@ const openGRController = {
             mtime: fs.statSync(path.join(inputDir, file)).mtime,
           }))
           .sort((a, b) => b.mtime - a.mtime)[0];
+
+        // Immediate check after assignment
+        if (!latestFile) {
+          return res
+            .status(400)
+            .json({ message: "No valid files could be processed." });
+        }
       } catch (statError) {
         return res.status(500).json({
           message: "Error accessing file information: " + statError.message,
         });
-      }
-
-      // Additional safety check to ensure latestFile is defined
-      if (!latestFile) {
-        return res
-          .status(400)
-          .json({ message: "No valid files could be processed." });
       }
 
       console.log(`Processing latest file: ${latestFile.name}`);
