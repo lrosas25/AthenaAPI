@@ -111,11 +111,10 @@ const openGRController = {
         }
       });
 
-      // Step 5: Clear existing data from database (following same pattern as other endpoints)
-      await OpenGR.deleteMany({});
-
-      // Step 6: Convert CSV to JSON format and save to MongoDB database
+      // Step 5: Convert CSV to JSON format and prepare data for MongoDB database
       const processedData = [];
+      const dataToSave = [];
+
       for (let i = 0; i < data.length; i++) {
         const item = data[i];
         try {
@@ -156,19 +155,31 @@ const openGRController = {
             sourceFile: latestFile.name,
           };
 
-          // Save to MongoDB database
-          const result = await OpenGR.create({
+          // Prepare data for database insertion
+          const dbData = {
             ...mappedData,
             quantity: mongoose.Types.Decimal128.fromString(cleanedQuantity),
             netValue: mongoose.Types.Decimal128.fromString(cleanedNetValue),
             amountInLC: mongoose.Types.Decimal128.fromString(cleanedAmountInLC),
-          });
+          };
 
-          // Add to response data (keeping numeric values as strings for JSON response)
+          // Add to arrays (keeping numeric values as strings for JSON response)
           processedData.push(mappedData);
+          dataToSave.push(dbData);
         } catch (e) {
-          // console.log("Error saving OpenGR record:", e.message);
+          // console.log("Error preparing OpenGR record:", e.message);
         }
+      }
+
+      // Step 6: Only clear existing data and save if we have valid data to insert
+      if (dataToSave.length > 0) {
+        await OpenGR.deleteMany({});
+        await OpenGR.insertMany(dataToSave);
+      } else {
+        // If no valid data was processed, don't clear the existing collection
+        return res.status(400).json({
+          message: "No valid data could be processed from the CSV file.",
+        });
       }
 
       return res.status(200).json({
