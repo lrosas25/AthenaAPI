@@ -5,7 +5,8 @@ import processAllCSVFiles from "../helpers/processCSVFiles.js";
 import OpenGR from "../model/OpenGR/OpenGR.js";
 
 const openGRController = {
-  generateOpenGR: async (req, res) => {
+  // POST method - Process CSV/text files and save to database
+  processOpenGR: async (req, res) => {
     const inputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/IN"; // "in" folder for CSV/text files to be processed
     const outputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/OUT"; // "out" folder for processed files
 
@@ -92,12 +93,25 @@ const openGRController = {
 
       // Step 2: Process the latest file using the existing helper
       let data;
+      const tempOutputDir = path.join(outputDir, "../temp_output");
       try {
-        data = await processAllCSVFiles(tempInputDir, outputDir, 0, 0, true);
+        // Create temp output directory for processing
+        if (!fs.existsSync(tempOutputDir)) {
+          fs.mkdirSync(tempOutputDir, { recursive: true });
+        }
+
+        data = await processAllCSVFiles(
+          tempInputDir,
+          tempOutputDir,
+          0,
+          0,
+          true
+        );
       } catch (processError) {
-        // Clean up temp directory before returning error
+        // Clean up temp directories before returning error
         try {
           fs.rmSync(tempInputDir, { recursive: true, force: true });
+          fs.rmSync(tempOutputDir, { recursive: true, force: true });
         } catch (cleanupError) {
           // Ignore cleanup errors
         }
@@ -106,113 +120,20 @@ const openGRController = {
         });
       }
 
-      // Clean up temp directory
-      try {
-        fs.rmSync(tempInputDir, { recursive: true, force: true });
-      } catch (cleanupError) {
-        console.warn(
-          "Warning: Could not clean up temp directory:",
-          cleanupError.message
-        );
-        // Don't fail the request for cleanup errors, just log it
-      }
-
       if (!data || data.length === 0) {
+        // Clean up temp directories
+        try {
+          fs.rmSync(tempInputDir, { recursive: true, force: true });
+          fs.rmSync(tempOutputDir, { recursive: true, force: true });
+        } catch (cleanupError) {
+          // Ignore cleanup errors
+        }
         return res
           .status(400)
           .json({ message: "No data found in the CSV folder." });
       }
 
-      // Step 3: Clean up output folder to keep only the latest processed file
-      // Ensure output directory exists
-      try {
-        if (!fs.existsSync(outputDir)) {
-          fs.mkdirSync(outputDir, { recursive: true });
-        }
-      } catch (outputDirError) {
-        return res.status(500).json({
-          message: "Error creating output directory: " + outputDirError.message,
-        });
-      }
-
-      // Get all files currently in output folder
-      let outputFiles;
-      try {
-        outputFiles = fs.readdirSync(outputDir);
-      } catch (readOutputError) {
-        console.warn(
-          "Warning: Could not read output directory:",
-          readOutputError.message
-        );
-        outputFiles = []; // Continue with empty array
-      }
-
-      // Find the processed file that was just moved by the helper (should match the original filename)
-      const processedFileName =
-        fileExt === ".txt"
-          ? latestFile.name.replace(/\.txt$/i, ".csv")
-          : latestFile.name;
-
-      // Remove all files except the one we just processed
-      outputFiles.forEach((file) => {
-        if (file !== processedFileName) {
-          const filePath = path.join(outputDir, file);
-          try {
-            if (fs.statSync(filePath).isFile()) {
-              fs.unlinkSync(filePath);
-            }
-          } catch (deleteError) {
-            console.warn(
-              `Warning: Could not delete file ${file}:`,
-              deleteError.message
-            );
-            // Continue processing even if file deletion fails
-          }
-        }
-      });
-
-      // If for some reason the processed file is not in output folder, copy it there
-      const processedFilePath = path.join(outputDir, processedFileName);
-      try {
-        if (!fs.existsSync(processedFilePath)) {
-          // Copy the original file to output folder
-          fs.copyFileSync(latestFile.path, processedFilePath);
-        }
-      } catch (copyOutputError) {
-        console.warn(
-          "Warning: Could not copy processed file to output:",
-          copyOutputError.message
-        );
-        // Continue processing even if copy fails
-      }
-
-      // Step 4: Clean up the input folder - delete all files after successful processing
-      try {
-        const allInputFiles = fs.readdirSync(inputDir);
-        allInputFiles.forEach((file) => {
-          const filePath = path.join(inputDir, file);
-          try {
-            // Only delete files, not directories
-            if (fs.statSync(filePath).isFile()) {
-              fs.unlinkSync(filePath);
-            }
-          } catch (deleteInputError) {
-            console.warn(
-              `Warning: Could not delete input file ${file}:`,
-              deleteInputError.message
-            );
-            // Continue processing even if file deletion fails
-          }
-        });
-      } catch (readInputError) {
-        console.warn(
-          "Warning: Could not clean up input directory:",
-          readInputError.message
-        );
-        // Continue processing even if cleanup fails
-      }
-
-      // Step 5: Convert CSV to JSON format and prepare data for MongoDB database
+      // Step 3: Convert CSV to JSON format and prepare data for MongoDB database
       const processedData = [];
       const dataToSave = [];
 
@@ -272,24 +193,152 @@ const openGRController = {
         }
       }
 
-      // Step 6: Only clear existing data and save if we have valid data to insert
-      if (dataToSave.length > 0) {
-        await OpenGR.deleteMany({});
-        await OpenGR.insertMany(dataToSave);
-      } else {
-        // If no valid data was processed, don't clear the existing collection
+      // Step 4: Only proceed with file transfer and database operations if we have valid data
+      if (dataToSave.length === 0) {
+        // Clean up temp directories
+        try {
+          fs.rmSync(tempInputDir, { recursive: true, force: true });
+          fs.rmSync(tempOutputDir, { recursive: true, force: true });
+        } catch (cleanupError) {
+          // Ignore cleanup errors
+        }
         return res.status(400).json({
           message: "No valid data could be processed from the CSV file.",
         });
       }
 
+      // Step 5: Clear existing data and save new data to MongoDB
+      await OpenGR.deleteMany({});
+      await OpenGR.insertMany(dataToSave);
+
+      // Step 6: Transfer processed file to output folder (overwrite if exists)
+      // Ensure output directory exists
+      try {
+        if (!fs.existsSync(outputDir)) {
+          fs.mkdirSync(outputDir, { recursive: true });
+        }
+      } catch (outputDirError) {
+        return res.status(500).json({
+          message: "Error creating output directory: " + outputDirError.message,
+        });
+      }
+
+      // Move processed file from temp output to actual output folder
+      const processedFileName =
+        fileExt === ".txt"
+          ? latestFile.name.replace(/\.txt$/i, ".csv")
+          : latestFile.name;
+
+      const processedFilePath = path.join(outputDir, processedFileName);
+      const tempProcessedFilePath = path.join(tempOutputDir, processedFileName);
+
+      try {
+        // Copy processed file to output directory (will overwrite if exists)
+        fs.copyFileSync(tempProcessedFilePath, processedFilePath);
+      } catch (copyOutputError) {
+        console.warn(
+          "Warning: Could not copy processed file to output:",
+          copyOutputError.message
+        );
+      }
+
+      // Step 7: Clean up the input folder - delete the consumed file only after successful processing
+      try {
+        fs.unlinkSync(latestFile.path);
+      } catch (deleteInputError) {
+        console.warn(
+          `Warning: Could not delete input file ${latestFile.name}:`,
+          deleteInputError.message
+        );
+      }
+
+      // Clean up temp directories
+      try {
+        fs.rmSync(tempInputDir, { recursive: true, force: true });
+        fs.rmSync(tempOutputDir, { recursive: true, force: true });
+      } catch (cleanupError) {
+        console.warn(
+          "Warning: Could not clean up temp directories:",
+          cleanupError.message
+        );
+      }
+
       return res.status(200).json({
-        message: "Data created successfully.",
+        message: "Data processed and saved successfully.",
         totalRecords: processedData.length,
-        data: processedData,
+        processedFile: latestFile.name,
       });
     } catch (err) {
       console.error("Error processing data:", err.message);
+      return res.status(500).json({ message: err.message });
+    }
+  },
+
+  // GET method - Retrieve OpenGR data with optional filters
+  getOpenGR: async (req, res) => {
+    try {
+      const { poDate, costCenter, page = 1, limit = 100 } = req.query;
+
+      // Build filter object
+      const filter = {};
+
+      // Handle poDate parameter - convert yyyy-MM-dd to yyyyMMdd format
+      if (poDate) {
+        // Validate date format yyyy-MM-dd
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!dateRegex.test(poDate)) {
+          return res.status(400).json({
+            message: "Invalid poDate format. Please use yyyy-MM-dd format.",
+          });
+        }
+
+        // Convert yyyy-MM-dd to yyyyMMdd
+        const formattedDate = poDate.replace(/-/g, "");
+        filter.poDate = formattedDate;
+      }
+
+      // Handle costCenter parameter
+      if (costCenter) {
+        filter.costCenter = costCenter;
+      }
+
+      // Calculate pagination
+      const pageNum = parseInt(page, 10);
+      const limitNum = parseInt(limit, 10);
+      const skip = (pageNum - 1) * limitNum;
+
+      // Get total count for pagination info
+      const totalRecords = await OpenGR.countDocuments(filter);
+
+      // Get filtered data with pagination
+      const data = await OpenGR.find(filter)
+        .skip(skip)
+        .limit(limitNum)
+        .sort({ processedDate: -1 }) // Sort by most recent processed date
+        .lean();
+
+      // Convert Decimal128 values to strings for JSON response
+      const processedData = data.map((item) => ({
+        ...item,
+        quantity: item.quantity ? item.quantity.toString() : "0",
+        netValue: item.netValue ? item.netValue.toString() : "0",
+        amountInLC: item.amountInLC ? item.amountInLC.toString() : "0",
+      }));
+
+      return res.status(200).json({
+        message: "Data retrieved successfully.",
+        totalRecords,
+        currentPage: pageNum,
+        totalPages: Math.ceil(totalRecords / limitNum),
+        recordsPerPage: limitNum,
+        filters: {
+          poDate: poDate || null,
+          costCenter: costCenter || null,
+        },
+        data: processedData,
+      });
+    } catch (err) {
+      console.error("Error retrieving data:", err.message);
       return res.status(500).json({ message: err.message });
     }
   },

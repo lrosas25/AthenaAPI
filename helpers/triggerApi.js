@@ -49,7 +49,7 @@ export const triggerGenerateClearing = async () => {
 
 export const triggerGenerateOpenGRApi = async () => {
   try {
-    const resData = await axios.get(
+    const resData = await axios.post(
       `${process.env.API_URL}/v1/openGR/generate/sap/opengr`
     );
   } catch (e) {
