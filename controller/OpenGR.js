@@ -6,102 +6,118 @@ import OpenGR from "../model/OpenGR/OpenGR.js";
 
 /**
  * Preprocessing function to handle comma issues in SES Short Text field.
- * 
+ *
  * Problem: When the "SES Short Text" field contains commas, the CSV parser
  * treats them as column separators, causing the total column count to exceed
  * the expected number and resulting in parsing errors.
- * 
+ *
  * Solution: This function identifies lines with excessive columns, locates
  * the SES Short Text field, merges any comma-separated parts back together,
  * removes commas from the text, and wraps it in quotes for proper CSV formatting.
- * 
+ *
  * @param {string} filePath - Path to the CSV file to preprocess
  */
 const preprocessCSVFile = (filePath) => {
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const lines = fileContent.split('\n').filter(line => line.trim()); // Remove empty lines
-  
+  const fileContent = fs.readFileSync(filePath, "utf8");
+  const lines = fileContent.split("\n").filter((line) => line.trim()); // Remove empty lines
+
   if (lines.length < 2) {
     return; // Not enough lines to process
   }
-  
+
   // Get the header line to determine expected column count
   const headerLine = lines[0].trim();
-  const expectedColumnCount = headerLine.split(',').length;
-  
+  const expectedColumnCount = headerLine.split(",").length;
+
   // Find the index of "SES Short Text" column in the header
-  const headers = headerLine.split(',').map(h => h.trim().replace(/^"|"$/g, '')); // Remove surrounding quotes
-  const sesShortTextIndex = headers.findIndex(h => 
-    h.toLowerCase() === 'ses short text' || h === 'SES Short Text'
+  const headers = headerLine
+    .split(",")
+    .map((h) => h.trim().replace(/^"|"$/g, "")); // Remove surrounding quotes
+  const sesShortTextIndex = headers.findIndex(
+    (h) => h.toLowerCase() === "ses short text" || h === "SES Short Text"
   );
-  
+
   if (sesShortTextIndex === -1) {
-    console.log('SES Short Text column not found, available headers:', headers);
+    console.log("SES Short Text column not found, available headers:", headers);
     return; // SES Short Text column not found, no preprocessing needed
   }
-  
-  console.log(`Found SES Short Text at column index ${sesShortTextIndex}, expected ${expectedColumnCount} columns`);
-  
+
+  console.log(
+    `Found SES Short Text at column index ${sesShortTextIndex}, expected ${expectedColumnCount} columns`
+  );
+
   const processedLines = [headerLine]; // Keep header as is
   let processedCount = 0;
   let fixedCount = 0;
-  
+
   // Process each data line
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i].trim();
     if (!line) continue; // Skip empty lines
-    
-    const columns = line.split(',');
+
+    const columns = line.split(",");
     processedCount++;
-    
+
     // Check if column count exceeds expected count
     if (columns.length > expectedColumnCount) {
       fixedCount++;
       // The issue is likely in SES Short Text field containing commas
       // Calculate how many extra columns we have
       const extraColumns = columns.length - expectedColumnCount;
-      
+
       const beforeSesText = columns.slice(0, sesShortTextIndex);
       const afterSesTextStartIndex = sesShortTextIndex + extraColumns + 1;
       const afterSesText = columns.slice(afterSesTextStartIndex);
-      
+
       // Merge the SES Short Text parts and remove commas
-      const sesTextParts = columns.slice(sesShortTextIndex, afterSesTextStartIndex);
-      const cleanedSesText = sesTextParts.join(' ').replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
-      
+      const sesTextParts = columns.slice(
+        sesShortTextIndex,
+        afterSesTextStartIndex
+      );
+      const cleanedSesText = sesTextParts
+        .join(" ")
+        .replace(/,/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
       // Reconstruct the line with cleaned SES Short Text
       const reconstructedLine = [
         ...beforeSesText,
         `"${cleanedSesText}"`, // Wrap in quotes to handle any remaining special characters
-        ...afterSesText
-      ].join(',');
-      
+        ...afterSesText,
+      ].join(",");
+
       processedLines.push(reconstructedLine);
     } else {
       // Line has correct column count, but still clean SES Short Text if it contains commas
       if (sesShortTextIndex < columns.length && columns[sesShortTextIndex]) {
-        const originalText = columns[sesShortTextIndex].replace(/^"|"$/g, ''); // Remove quotes
-        if (originalText.includes(',')) {
-          const cleanedText = originalText.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+        const originalText = columns[sesShortTextIndex].replace(/^"|"$/g, ""); // Remove quotes
+        if (originalText.includes(",")) {
+          const cleanedText = originalText
+            .replace(/,/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
           columns[sesShortTextIndex] = `"${cleanedText}"`; // Wrap in quotes
           fixedCount++;
         }
       }
-      processedLines.push(columns.join(','));
+      processedLines.push(columns.join(","));
     }
   }
-  
-  console.log(`Preprocessing stats: ${processedCount} lines processed, ${fixedCount} lines fixed`);
-  
+
+  console.log(
+    `Preprocessing stats: ${processedCount} lines processed, ${fixedCount} lines fixed`
+  );
+
   // Write the processed content back to the file
-  fs.writeFileSync(filePath, processedLines.join('\n') + '\n', 'utf8');
+  fs.writeFileSync(filePath, processedLines.join("\n") + "\n", "utf8");
 };
 
 const openGRController = {
   // POST method - Process CSV/text files and save to database
   processOpenGR: async (req, res) => {
-    const inputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/IN"; // "in" folder for CSV/text files to be processed
-    const outputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/OUT"; // "out" folder for processed files
+    const inputDir = "./fileUploads/SAP/PRD_GRIR/DOWNLOAD/IN"; // "in" folder for CSV/text files to be processed
+    const outputDir = "./fileUploads/SAP/PRD_GRIR/DOWNLOAD/OUT"; // "out" folder for processed files
 
     try {
       // Step 1: Check if input directory exists and find the latest CSV or text file
@@ -171,18 +187,22 @@ const openGRController = {
       const tempFilePath = path.join(tempInputDir, fileName);
       try {
         fs.copyFileSync(latestFile.path, tempFilePath);
-        
+
         // Step 2a: Preprocess the CSV file to handle comma issues in SES Short Text
         console.log(`Starting preprocessing for: ${fileName}`);
         try {
           preprocessCSVFile(tempFilePath);
           console.log(`Preprocessing completed successfully for: ${fileName}`);
         } catch (preprocessError) {
-          console.warn(`Warning: Preprocessing failed for ${fileName}:`, preprocessError.message);
-          console.warn('Continuing with original file - may cause parsing issues if SES Short Text contains commas');
+          console.warn(
+            `Warning: Preprocessing failed for ${fileName}:`,
+            preprocessError.message
+          );
+          console.warn(
+            "Continuing with original file - may cause parsing issues if SES Short Text contains commas"
+          );
           // Continue processing even if preprocessing fails
         }
-        
       } catch (copyError) {
         // Clean up temp directory before returning error
         try {
@@ -191,8 +211,7 @@ const openGRController = {
           // Ignore cleanup errors
         }
         return res.status(500).json({
-          message:
-            "Error copying or preprocessing file: " + copyError.message,
+          message: "Error copying or preprocessing file: " + copyError.message,
         });
       }
 
