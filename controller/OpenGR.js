@@ -294,6 +294,7 @@ const openGRController = {
             amountInLC: cleanedAmountInLC,
             taxCode: item["Tax Code"] || "",
             goodReceipt: item["Good Receipt"] || "",
+            grAccountingDoc: item["GR Accounting Doc"] || "",
             costCenter: item["Cost Center"] || "",
             profitCenter: item["Profit Center"] || "",
             createdBy: item["Created By"] || "",
@@ -367,13 +368,59 @@ const openGRController = {
       }
 
       // Step 7: Clean up the input folder - delete the consumed file only after successful processing
+      console.log(`Attempting to delete input file: ${latestFile.path}`);
       try {
-        fs.unlinkSync(latestFile.path);
+        // Add small delay to ensure all file operations are complete
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        // Check if file exists before attempting deletion
+        if (fs.existsSync(latestFile.path)) {
+          // Check file permissions and status
+          const stats = fs.statSync(latestFile.path);
+          console.log(
+            `File size: ${stats.size} bytes, Last modified: ${stats.mtime}`
+          );
+
+          fs.unlinkSync(latestFile.path);
+          console.log(`Successfully deleted input file: ${latestFile.name}`);
+
+          // Verify deletion
+          if (fs.existsSync(latestFile.path)) {
+            console.error(
+              `Error: File still exists after deletion attempt: ${latestFile.path}`
+            );
+            // Try alternative deletion method
+            try {
+              fs.rmSync(latestFile.path, { force: true });
+              console.log(
+                `File deleted using alternative method: ${latestFile.name}`
+              );
+            } catch (altDeleteError) {
+              console.error(
+                `Alternative deletion also failed: ${altDeleteError.message}`
+              );
+            }
+          }
+        } else {
+          console.log(`Input file not found for deletion: ${latestFile.path}`);
+        }
       } catch (deleteInputError) {
-        console.warn(
-          `Warning: Could not delete input file ${latestFile.name}:`,
+        console.error(
+          `Error: Could not delete input file ${latestFile.name}:`,
           deleteInputError.message
         );
+        console.error(`File path: ${latestFile.path}`);
+        console.error(`Error code: ${deleteInputError.code}`);
+
+        // If deletion fails, try alternative methods
+        try {
+          if (fs.existsSync(latestFile.path)) {
+            fs.rmSync(latestFile.path, { force: true });
+            console.log(`File deleted using rmSync: ${latestFile.name}`);
+          }
+        } catch (altError) {
+          console.error(`All deletion methods failed: ${altError.message}`);
+        }
       }
 
       // Clean up temp directories
