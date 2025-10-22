@@ -57,7 +57,7 @@ const processAllCSVFiles = async () => {
     try {
         const files = fs.readdirSync(inputDir);
         if (files.length === 0) {
-            console.log('No CSV files found in the input directory.');
+            // console.log('No CSV files found in the input directory.');
             return;
         }
         for (const file of files) {
@@ -70,10 +70,10 @@ const processAllCSVFiles = async () => {
                 const outputFilePath = path.join(outputDir, file);
                 fs.renameSync(filePath, outputFilePath);
             } else {
-                console.log(`Ignoring non-CSV file: ${file}`);
+                // console.log(`Ignoring non-CSV file: ${file}`);
             }
         }
-        console.log('All CSV files processed successfully.');
+        // console.log('All CSV files processed successfully.');
     } catch (error) {
         console.error('Error processing all CSV files:', error);
     }
