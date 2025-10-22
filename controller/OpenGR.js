@@ -100,8 +100,8 @@ const preprocessCSVFile = (filePath) => {
 const openGRController = {
   // POST method - Process CSV/text files and save to database
   processOpenGR: async (req, res) => {
-    const inputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/IN"; // "in" folder for CSV/text files to be processed
-    const outputDir = "./fileUploads/SAP/DEVQAS_GRIR/DOWNLOAD/OUT"; // "out" folder for processed files
+    const inputDir = "./fileUploads/SAP/PRD_GRIR/DOWNLOAD/IN"; // "in" folder for CSV/text files to be processed
+    const outputDir = "./fileUploads/SAP/PRD_GRIR/DOWNLOAD/OUT"; // "out" folder for processed files
 
     try {
       // Step 1: Check if input directory exists and find the latest CSV or text file
