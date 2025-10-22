@@ -59,6 +59,9 @@ const OpenGRSchema = new Schema(
     goodReceipt: {
       type: String,
     },
+    grAccountingDoc: {
+      type: String,
+    },
     costCenter: {
       type: String,
     },
