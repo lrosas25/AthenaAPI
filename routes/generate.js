@@ -1,10 +1,19 @@
+// Default GET route
 import express from 'express';
+const router = express.Router();
 import generateController from '../controller/generate.js';
 import authenticateBearerToken from '../middleware/bearerTokenAuth.js';
 
+router.get('/', (req, res) => {
+  res.status(200).json({ message: 'AthenaAPI generate route is working.' });
+});
+
+// ...existing code...
 
 
-const router = express.Router();
+
+
+
 
 router.post('/', generateController.generateAP)
 router.post('/rpaap', generateController.generateAPAuto)

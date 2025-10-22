@@ -33,10 +33,12 @@ const processCSVFiles = async (inputDir, outputDir, startLines, endLines, csv) =
                 // Convert trimmed CSV data to JSON
                 const tempFilePath = path.join(outputDir, 'temp.csv');
                 fs.writeFileSync(tempFilePath, trimmedData);
+                // Use checkType: false to prevent auto type conversion (e.g., numbers, booleans) and preserve leading zeros in fields like Reference
                 const jsonArray = await csvtojson({
                     noheader: false,
                     trim: true,
-                    delimiter: csv ? "," : "\t"
+                    delimiter: csv ? "," : "\t",
+                    checkType: false
                 }).fromFile(tempFilePath);
                 dataToSave.push(...jsonArray);
 
@@ -47,10 +49,10 @@ const processCSVFiles = async (inputDir, outputDir, startLines, endLines, csv) =
                 const outputFilePath = path.join(outputDir, file);
                 fs.renameSync(filePath, outputFilePath);
             } else {
-                console.log(`Ignoring non-CSV file: ${file}`);
+                // console.log(`Ignoring non-CSV file: ${file}`);
             }
         }
-        console.log('All CSV files processed successfully.');
+        // console.log('All CSV files processed successfully.');
     } catch (error) {
         throw error
     }
