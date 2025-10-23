@@ -25,9 +25,21 @@ const preprocessCSVFile = (filePath) => {
     return; // Not enough lines to process
   }
 
-  // Get the header line to determine expected column count
-  const headerLine = lines[0].trim();
+  // Get the header line and clean it up
+  let headerLine = lines[0].trim();
+
+  // Remove trailing empty columns from header (the ,, at the end)
+  while (headerLine.endsWith(",,")) {
+    headerLine = headerLine.slice(0, -1); // Remove one trailing comma
+  }
+  if (headerLine.endsWith(",")) {
+    headerLine = headerLine.slice(0, -1); // Remove final trailing comma if it's empty
+  }
+
+  // Update the header in the processed lines
   const expectedColumnCount = headerLine.split(",").length;
+  console.log(`Cleaned header: ${headerLine}`);
+  console.log(`Expected column count: ${expectedColumnCount}`);
 
   // Find the index of "SES Short Text" column in the header
   const headers = headerLine
@@ -46,7 +58,7 @@ const preprocessCSVFile = (filePath) => {
     `Found SES Short Text at column index ${sesShortTextIndex}, expected ${expectedColumnCount} columns`
   );
 
-  const processedLines = [headerLine]; // Keep header as is
+  const processedLines = [headerLine]; // Use cleaned header
   let processedCount = 0;
   let fixedCount = 0;
 
@@ -58,8 +70,24 @@ const preprocessCSVFile = (filePath) => {
     const columns = line.split(",");
     processedCount++;
 
-    // Check if column count exceeds expected count
-    if (columns.length > expectedColumnCount) {
+    // Remove trailing empty columns from data rows to match cleaned header
+    while (
+      columns.length > expectedColumnCount &&
+      columns[columns.length - 1] === ""
+    ) {
+      columns.pop();
+      fixedCount++;
+    }
+
+    // Normalize column count - ensure all rows have the same number of columns as header
+    if (columns.length < expectedColumnCount) {
+      // Add missing empty columns
+      while (columns.length < expectedColumnCount) {
+        columns.push("");
+      }
+      fixedCount++;
+      processedLines.push(columns.join(","));
+    } else if (columns.length > expectedColumnCount) {
       fixedCount++;
       // The issue is likely in SES Short Text field containing commas
       // Calculate how many extra columns we have
@@ -101,6 +129,18 @@ const preprocessCSVFile = (filePath) => {
           fixedCount++;
         }
       }
+
+      // Remove trailing empty columns and ensure correct column count
+      while (
+        columns.length > expectedColumnCount &&
+        columns[columns.length - 1] === ""
+      ) {
+        columns.pop();
+      }
+      while (columns.length < expectedColumnCount) {
+        columns.push("");
+      }
+
       processedLines.push(columns.join(","));
     }
   }
@@ -108,6 +148,13 @@ const preprocessCSVFile = (filePath) => {
   console.log(
     `Preprocessing stats: ${processedCount} lines processed, ${fixedCount} lines fixed`
   );
+
+  // Validate that we haven't lost lines during preprocessing
+  if (processedLines.length !== lines.length) {
+    console.warn(
+      `Warning: Line count changed during preprocessing. Original: ${lines.length}, Processed: ${processedLines.length}`
+    );
+  }
 
   // Write the processed content back to the file
   fs.writeFileSync(filePath, processedLines.join("\n") + "\n", "utf8");
@@ -260,62 +307,177 @@ const openGRController = {
       // Step 3: Convert CSV to JSON format and prepare data for MongoDB database
       const processedData = [];
       const dataToSave = [];
+      let errorCount = 0;
+      const errors = [];
+      const errorCategories = {
+        numericConversion: 0,
+        emptyFields: 0,
+        decimal128Error: 0,
+        dataMapping: 0,
+        other: 0,
+      };
+
+      console.log(`Starting to process ${data.length} records from CSV...`);
 
       for (let i = 0; i < data.length; i++) {
         const item = data[i];
         try {
-          // Clean numeric fields before converting
-          const cleanedQuantity = item["Quantity"]
-            ? item["Quantity"].replace(/,/g, "")
+          // Debug: Log the first row to understand the field mapping
+          if (i === 0) {
+            console.log(`Available fields:`, Object.keys(item));
+            console.log(`Net Value field content:`, item["Net Value"]);
+            console.log(`UoM field content:`, item["UoM"]);
+            console.log(`Quantity field content:`, item["Quantity"]);
+          }
+
+          // Skip completely empty rows
+          const hasData = Object.values(item).some(
+            (value) => value && String(value).trim() !== ""
+          );
+          if (!hasData) {
+            errorCategories.emptyFields++;
+            throw new Error(`Empty row at ${i + 1}`);
+          }
+
+          // Clean numeric fields before converting - handle edge cases
+          const rawQuantity = item["Quantity"];
+          const rawNetValue = item["Net Value"];
+          const rawAmountInLC = item["Amount in LC"];
+
+          const cleanedQuantity = rawQuantity
+            ? String(rawQuantity).replace(/,/g, "").replace(/^\s*$/, "0").trim()
             : "0";
-          const cleanedNetValue = item["Net Value"]
-            ? item["Net Value"].replace(/,/g, "")
+          const cleanedNetValue = rawNetValue
+            ? String(rawNetValue).replace(/,/g, "").replace(/^\s*$/, "0").trim()
             : "0";
-          const cleanedAmountInLC = item["Amount in LC"]
-            ? item["Amount in LC"].replace(/,/g, "")
+          const cleanedAmountInLC = rawAmountInLC
+            ? String(rawAmountInLC)
+                .replace(/,/g, "")
+                .replace(/^\s*$/, "0")
+                .trim()
             : "0";
 
+          // More robust numeric validation
+          const quantityNum = parseFloat(cleanedQuantity);
+          const netValueNum = parseFloat(cleanedNetValue);
+          const amountInLCNum = parseFloat(cleanedAmountInLC);
+
+          if (isNaN(quantityNum)) {
+            errorCategories.numericConversion++;
+            throw new Error(
+              `Invalid quantity: "${rawQuantity}" -> "${cleanedQuantity}"`
+            );
+          }
+          if (isNaN(netValueNum)) {
+            errorCategories.numericConversion++;
+            throw new Error(
+              `Invalid net value: "${rawNetValue}" -> "${cleanedNetValue}"`
+            );
+          }
+          if (isNaN(amountInLCNum)) {
+            errorCategories.numericConversion++;
+            throw new Error(
+              `Invalid amount in LC: "${rawAmountInLC}" -> "${cleanedAmountInLC}"`
+            );
+          }
+
+          // Clean text fields to handle potential encoding issues
+          const cleanTextField = (value) => {
+            if (!value) return "";
+            return String(value)
+              .trim()
+              .replace(/[\x00-\x1F\x7F]/g, ""); // Remove control characters
+          };
+
           const mappedData = {
-            companyCode: item["Company Code"] || "",
-            vendorNumber: item["Vendor Number"] || "",
-            vendorName: item["Vendor Name"] || "",
-            purchaseOrderNumber: item["Purchare Order Number"] || "", // Note: typo in original CSV header
-            poItemNumber: item["PO Item Number"] || "",
-            documentType: item["Document Type"] || "",
-            poLineDescription: item["PO Line Description"] || "",
-            poDate: item["PO Date"] || "",
-            plant: item["Plant"] || "",
-            sesNumber: item["SES Number"] || "",
-            sesItemNumber: item["SES Item Number"] || "",
-            sesShortText: item["SES Short Text"] || "",
+            companyCode: cleanTextField(item["Company Code"]),
+            vendorNumber: cleanTextField(item["Vendor Number"]),
+            vendorName: cleanTextField(item["Vendor Name"]),
+            purchaseOrderNumber: cleanTextField(item["Purchare Order Number"]), // Note: typo in original CSV header
+            poItemNumber: cleanTextField(item["PO Item Number"]),
+            documentType: cleanTextField(item["Document Type"]),
+            poLineDescription: cleanTextField(item["PO Line Description"]),
+            poDate: cleanTextField(item["PO Date"]),
+            plant: cleanTextField(item["Plant"]),
+            sesNumber: cleanTextField(item["SES Number"]),
+            sesItemNumber: cleanTextField(item["SES Item Number"]),
+            sesShortText: cleanTextField(item["SES Short Text"]),
             quantity: cleanedQuantity,
-            uom: item["UoM"] || "",
+            uom: cleanTextField(item["UoM"]),
             netValue: cleanedNetValue,
             amountInLC: cleanedAmountInLC,
-            taxCode: item["Tax Code"] || "",
-            goodReceipt: item["Good Receipt"] || "",
-            grAccountingDoc: item["GR Accounting Doc"] || "",
-            costCenter: item["Cost Center"] || "",
-            profitCenter: item["Profit Center"] || "",
-            createdBy: item["Created By"] || "",
-            creationDate: item["Creation date"] || "",
+            taxCode: cleanTextField(item["Tax Code"]),
+            goodReceipt: cleanTextField(item["Good Receipt"]),
+            grAccountingDoc: cleanTextField(item["GR Accounting Doc"]),
+            costCenter: cleanTextField(item["Cost Center"]),
+            profitCenter: cleanTextField(item["Profit Center"]),
+            createdBy: cleanTextField(item["Created By"]),
+            creationDate: cleanTextField(item["Creation date"]),
             sourceFile: latestFile.name,
           };
 
-          // Prepare data for database insertion
-          const dbData = {
-            ...mappedData,
-            quantity: mongoose.Types.Decimal128.fromString(cleanedQuantity),
-            netValue: mongoose.Types.Decimal128.fromString(cleanedNetValue),
-            amountInLC: mongoose.Types.Decimal128.fromString(cleanedAmountInLC),
-          };
+          // Prepare data for database insertion with safer Decimal128 conversion
+          let dbData;
+          try {
+            dbData = {
+              ...mappedData,
+              quantity: mongoose.Types.Decimal128.fromString(cleanedQuantity),
+              netValue: mongoose.Types.Decimal128.fromString(cleanedNetValue),
+              amountInLC:
+                mongoose.Types.Decimal128.fromString(cleanedAmountInLC),
+            };
+          } catch (decimal128Error) {
+            errorCategories.decimal128Error++;
+            throw new Error(
+              `Decimal128 conversion failed: ${decimal128Error.message}`
+            );
+          }
 
           // Add to arrays (keeping numeric values as strings for JSON response)
           processedData.push(mappedData);
           dataToSave.push(dbData);
         } catch (e) {
-          // console.log("Error preparing OpenGR record:", e.message);
+          errorCount++;
+
+          // Categorize the error
+          if (
+            !e.message.includes("Invalid quantity") &&
+            !e.message.includes("Invalid net value") &&
+            !e.message.includes("Invalid amount") &&
+            !e.message.includes("Empty row") &&
+            !e.message.includes("Decimal128")
+          ) {
+            if (e.message.includes("mapping") || e.message.includes("field")) {
+              errorCategories.dataMapping++;
+            } else {
+              errorCategories.other++;
+            }
+          }
+
+          const errorInfo = `Row ${i + 1}: ${e.message}`;
+          errors.push(errorInfo);
+
+          // Log first few errors in detail
+          if (errorCount <= 5) {
+            console.error(
+              `Error preparing OpenGR record at row ${i + 1}:`,
+              e.message
+            );
+            console.error(
+              `Raw data for row ${i + 1}:`,
+              JSON.stringify(item, null, 2)
+            );
+          }
         }
+      }
+
+      console.log(
+        `Processing completed: ${processedData.length} successful, ${errorCount} errors`
+      );
+      console.log(`Error breakdown:`, errorCategories);
+
+      if (errorCount > 0) {
+        console.error(`Sample errors (first 10):`, errors.slice(0, 10));
       }
 
       // Step 4: Only proceed with file transfer and database operations if we have valid data
@@ -333,8 +495,13 @@ const openGRController = {
       }
 
       // Step 5: Clear existing data and save new data to MongoDB
-      await OpenGR.deleteMany({});
-      await OpenGR.insertMany(dataToSave);
+      console.log(`Clearing existing OpenGR data...`);
+      const deleteResult = await OpenGR.deleteMany({});
+      console.log(`Deleted ${deleteResult.deletedCount} existing records`);
+
+      console.log(`Inserting ${dataToSave.length} new records...`);
+      const insertResult = await OpenGR.insertMany(dataToSave);
+      console.log(`Successfully inserted ${insertResult.length} records`);
 
       // Step 6: Transfer processed file to output folder (overwrite if exists)
       // Ensure output directory exists
@@ -438,6 +605,19 @@ const openGRController = {
         message: "Data processed and saved successfully.",
         totalRecords: processedData.length,
         processedFile: latestFile.name,
+        csvRowsRead: data.length,
+        successfulRecords: processedData.length,
+        errorCount: errorCount,
+        processingStats: {
+          csvTotalRows: data.length,
+          successfullyProcessed: processedData.length,
+          errorsEncountered: errorCount,
+          successRate: `${((processedData.length / data.length) * 100).toFixed(
+            2
+          )}%`,
+        },
+        errorBreakdown: errorCategories,
+        sampleErrors: errors.slice(0, 5), // Include first 5 errors in response
       });
     } catch (err) {
       console.error("Error processing data:", err.message);
